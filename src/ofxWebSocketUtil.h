@@ -11,8 +11,12 @@
 #include <libwebsockets.h>
 #include "ofxWebSocketConnection.h"
 #include "ofxWebSocketReactor.h"
+#include "ofxWebSocketClient.h"
+
+class ofxWebSocketClient;
 
 static int lws_client_callback(struct libwebsocket_context* context, struct libwebsocket *ws, enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len){
+        
     const struct libwebsocket_protocols* lws_protocol = libwebsockets_get_protocol(ws);
     int idx = lws_protocol? lws_protocol->protocol_index : 0;
     
@@ -22,23 +26,21 @@ static int lws_client_callback(struct libwebsocket_context* context, struct libw
     ofxWebSocketReactor* reactor = NULL;
     ofxWebSocketProtocol* protocol;
     
-    cout<<"hey "<<reason<<":"<<reactors.size()<<endl;
+    //cout<<"hey "<<reason<<":"<<reactors.size()<<endl;
     
     for (int i=0; i<reactors.size(); i++){
         if (reactors[i]->getContext() == context){
             reactor =  reactors[i];
             protocol = reactor->protocol(idx-1);
+            conn = ((ofxWebSocketClient*) reactor)->getConnection();
             break;
         } else {
         }
     }
     
     if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
-        if ( reactor != NULL ) *conn_ptr = new ofxWebSocketConnection(reactor, protocol);
-        cout<<"cooool"<<endl;
-    } else if (reason == LWS_CALLBACK_CLOSED)
-        if (*conn_ptr != NULL)
-            delete *conn_ptr;
+    } else if (reason == LWS_CALLBACK_CLOSED){
+    }
     
     switch (reason)
     {
@@ -78,7 +80,7 @@ static int lws_client_callback(struct libwebsocket_context* context, struct libw
         case LWS_CALLBACK_CLOSED:
         case LWS_CALLBACK_CLIENT_RECEIVE:
             if (reactor != NULL){
-                conn = *(ofxWebSocketConnection**)user;
+                //conn = *(ofxWebSocketConnection**)user;
                 if (conn && conn->ws != ws) conn->ws = ws;
                 return reactor->_notify(conn, reason, (char*)data, len);
             } else {

@@ -9,16 +9,17 @@
 #pragma once
 
 #include <libwebsockets.h>
-#include "ofxWebSocketUtil.h"
 #include "ofxWebSocketReactor.h"
 
+class ofxWebSocketClient;
 class ofxWebSocketClient : public ofxWebSocketReactor {
     friend class ofxWebSocketProtocol;
 public:  
     
     ofxWebSocketClient();
     
-    bool connect ( string _address = "localhost", int _port=7681, string _channel = "/",  bool bUseSSL = false);
+    bool connect ( string _address = "localhost", int _port=7681 );
+    bool connect ( string _address, int _port, string _channel );
     
     void send( string message );
     
@@ -30,6 +31,10 @@ public:
         ofAddListener( clientProtocol.onidleEvent, app, &T::onIdle);
         ofAddListener( clientProtocol.onmessageEvent, app, &T::onMessage);
         ofAddListener( clientProtocol.onbroadcastEvent, app, &T::onBroadcast);
+    }
+    
+    ofxWebSocketConnection * getConnection(){
+        return connection;
     }
     
 private:
