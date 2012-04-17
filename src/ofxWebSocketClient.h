@@ -20,6 +20,8 @@ public:
     
     bool connect ( string _address = "localhost", int _port=7681 );
     bool connect ( string _address, int _port, string _channel );
+    
+    // this is ugly for now, should be a smarter way?
     bool connect ( string _address, int _port, string _channel, string protocol );
     
     void close();

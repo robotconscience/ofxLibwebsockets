@@ -5,7 +5,7 @@ void testApp::setup(){
     //http://localhost:9091/
     
     client.addListener(this);
-    bool connected = client.connect( "localhost", 9092, "http" );
+    bool connected = client.connect( "localhost", 9092 );
 }
 
 //--------------------------------------------------------------
