@@ -4,8 +4,8 @@
 void testApp::setup(){
     //http://localhost:9091/
     
-    bool connected = client.connect( "localhost", 9091, "/websocket" );
     client.addListener(this);
+    bool connected = client.connect( "localhost", 9098 );
 }
 
 //--------------------------------------------------------------
@@ -14,7 +14,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
+    client.send("{\"hey\":\"0\"}");
 }
 
 //--------------------------------------------------------------

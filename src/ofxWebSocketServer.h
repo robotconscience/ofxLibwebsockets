@@ -5,7 +5,6 @@
 
 #include <libwebsockets.h>
 
-#include "ofxWebSocketUtil.h"
 #include "ofxWebSocketReactor.h"
 
 class ofxWebSocketConnection;

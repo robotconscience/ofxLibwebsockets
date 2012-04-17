@@ -78,7 +78,6 @@ unsigned int ofxWebSocketReactor::_notify(ofxWebSocketConnection* const conn,
                             const char* const _message,
                             const unsigned int len)
 {
-    cout<<"notify "<<reason<<endl;
     if (conn == NULL || conn->protocol == NULL)
         return 1;
     
@@ -89,7 +88,7 @@ unsigned int ofxWebSocketReactor::_notify(ofxWebSocketConnection* const conn,
     ofEvent<ofxWebSocketEvent> evt;
     ofxWebSocketEvent args(*conn, message);
     
-    if (reason==LWS_CALLBACK_ESTABLISHED){
+    if (reason==LWS_CALLBACK_ESTABLISHED || reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
         ofNotifyEvent(conn->protocol->onopenEvent, args);
     } else if (reason==LWS_CALLBACK_CLOSED){
         ofNotifyEvent(conn->protocol->oncloseEvent, args);

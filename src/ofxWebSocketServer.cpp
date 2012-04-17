@@ -1,4 +1,5 @@
 #include "ofxWebSocket.h"
+#include "ofxWebSocketUtil.h"
 
 #include "ofEvents.h"
 #include "ofUtils.h"
