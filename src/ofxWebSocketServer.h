@@ -31,8 +31,6 @@ public:
         ofAddListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
     }
     
-    void exit();
-    
     ofxWebSocketProtocol* const protocol(const unsigned int idx);
     
 protected:

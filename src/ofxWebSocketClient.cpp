@@ -100,11 +100,12 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel, 
     lws_protocols.push_back(http_protocol);
     lws_protocols.push_back(null_protocol);
     
-    //libwebsocket_extension webkit_extension = { "x-webkit-deflate-frame", NULL, NULL, NULL };
+    if ( context == NULL ){
+        context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
+                                              &lws_protocols[0], libwebsocket_internal_extensions,
+                                              NULL, NULL, -1, -1, 0);
+    }
     
-    context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
-                                          &lws_protocols[0], libwebsocket_internal_extensions,
-                                          NULL, NULL, -1, -1, 0);
     if (context == NULL){
         std::cerr << "libwebsocket init failed" << std::endl;
         return false;
@@ -134,6 +135,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel, 
 void ofxWebSocketClient::close(){
     stopThread();
     libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+    libwebsocket_context_destroy( context );
 }
 
 //--------------------------------------------------------------
