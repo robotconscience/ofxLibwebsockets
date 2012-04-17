@@ -19,9 +19,18 @@ class ofxWebSocketServer : public ofxWebSocketReactor {
 public:
     ofxWebSocketServer();
     
-    bool setup(const short _port=7681,
-               const std::string sslCertFilename="libwebsockets-test-server.pem",
-               const std::string sslKeyFilename="libwebsockets-test-server.key.pem");
+    bool setup( const short _port=7681 );
+    bool setup( const short _port, string protocol );
+    
+    template<class T>
+    void addListener(T * app){
+        ofAddListener( serverProtocol.onconnectEvent, app, &T::onConnect); 
+        ofAddListener( serverProtocol.onopenEvent, app, &T::onOpen);
+        ofAddListener( serverProtocol.oncloseEvent, app, &T::onClose);
+        ofAddListener( serverProtocol.onidleEvent, app, &T::onIdle);
+        ofAddListener( serverProtocol.onmessageEvent, app, &T::onMessage);
+        ofAddListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
+    }
     
     void exit();
     
@@ -31,5 +40,6 @@ protected:
     std::string interface;
     
 private:
+    ofxWebSocketProtocol serverProtocol;
     void threadedFunction();  
 };
