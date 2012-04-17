@@ -24,6 +24,7 @@ public:
     // this is ugly for now, should be a smarter way?
     bool connect ( string _address, int _port, string _channel, string protocol );
     
+    void onClose( ofxWebSocketEvent& args );
     void close();
     
     void send( string message );

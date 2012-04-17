@@ -14,12 +14,15 @@ ofxWebSocketClient::ofxWebSocketClient(){
     waitMillis = 1000;
     count_pollfds = 0;
     reactors.push_back(this);
+    ofAddListener( clientProtocol.oncloseEvent, this, &ofxWebSocketClient::onClose);
 }
 
+//--------------------------------------------------------------
 bool ofxWebSocketClient::connect ( string _address, int _port){
     connect( _address, _port, "http" );
 }
 
+//--------------------------------------------------------------
 bool ofxWebSocketClient::connect ( string _address, int _port, string _channel ){
     address = _address;
     port    = _port;  
@@ -133,9 +136,20 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel, 
 
 //--------------------------------------------------------------
 void ofxWebSocketClient::close(){
-    stopThread();
-    libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
-    libwebsocket_context_destroy( context );
+    if (isThreadRunning()){
+        stopThread();
+    }
+    if ( context != NULL){
+        libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+        libwebsocket_context_destroy( context );
+        context = NULL;        
+    }
+}
+
+
+//--------------------------------------------------------------
+void ofxWebSocketClient::onClose( ofxWebSocketEvent& args ){
+    close();
 }
 
 //--------------------------------------------------------------
@@ -157,19 +171,6 @@ void ofxWebSocketClient::threadedFunction(){
         }
         libwebsocket_callback_on_writable(context, lwsconnection);
         libwebsocket_service(context, waitMillis);
-        /*int n = poll(pollfds, count_pollfds, 25);
-        if (n < 0){
-            cout<<"stop thread"<<endl;
-            stopThread();
-        }
-        if (n){
-            for (n = 0; n < count_pollfds; n++){
-                if (pollfds[n].revents){
-                    cout<<"service"<<endl;
-                    libwebsocket_service_fd(context, &pollfds[n]);
-                }
-            }
-        }*/
     }
     
 }
