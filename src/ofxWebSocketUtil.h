@@ -103,8 +103,6 @@ static int lws_callback(struct libwebsocket_context* context, struct libwebsocke
     ofxWebSocketReactor* reactor = NULL;
     ofxWebSocketProtocol* protocol;
     
-    cout<<"hey "<<reason<<endl;
-    
     if (reason == LWS_CALLBACK_ESTABLISHED){
         
         for (int i=0; i<reactors.size(); i++){

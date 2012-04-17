@@ -19,7 +19,7 @@ public:
     ofxWebSocketServer();
     
     bool setup( const short _port=7681 );
-    bool setup( const short _port, string protocol );
+    bool setup( const short _port, string protocol, bool bAllowAllProtocols = true );
     
     template<class T>
     void addListener(T * app){

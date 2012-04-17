@@ -15,11 +15,12 @@ ofxWebSocketServer::ofxWebSocketServer(){
 //--------------------------------------------------------------
 bool ofxWebSocketServer::setup( const short _port )
 {
-    setup( _port, "http" );
+    // setup with default protocol (http) and allow ALL other protocols
+    setup( _port, "http", true );
 }
 
 //--------------------------------------------------------------
-bool ofxWebSocketServer::setup( const short _port, string protocol ){
+bool ofxWebSocketServer::setup( const short _port, string protocol, bool bAllowAllProtocols ){
     port = _port;  
     // libwebsockets isn't compiled with SSL support right now!
     bool useSSL = false;//(!_sslCertFilename.empty() && !_sslKeyFilename.empty());
@@ -52,6 +53,7 @@ bool ofxWebSocketServer::setup( const short _port, string protocol ){
     // register main protocol 
     registerProtocol( protocol, serverProtocol );
     
+    struct libwebsocket_protocols null_name_protocol = { NULL, lws_callback, sizeof(ofxWebSocketConnection) };
     struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
     
     lws_protocols.clear();
@@ -64,6 +66,7 @@ bool ofxWebSocketServer::setup( const short _port, string protocol ){
         };
         lws_protocols.push_back(lws_protocol);
     }
+    if (bAllowAllProtocols) lws_protocols.push_back(null_name_protocol);
     lws_protocols.push_back(null_protocol);
     
     int opts = 0;

@@ -81,7 +81,6 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel )
     registerProtocol( _channel, clientProtocol );  
     
     lws_protocols.clear();
-    lws_protocols.push_back(http_protocol);
     for (int i=0; i<protocols.size(); ++i)
     {
         struct libwebsocket_protocols lws_protocol = {
@@ -91,7 +90,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel )
         };
         lws_protocols.push_back(lws_protocol);
     }
-    //lws_protocols.push_back(http_protocol);
+    lws_protocols.push_back(http_protocol);
     lws_protocols.push_back(null_protocol);
     
     //libwebsocket_extension webkit_extension = { "x-webkit-deflate-frame", NULL, NULL, NULL };
@@ -108,7 +107,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel )
         string host = address +":"+ ofToString( port );
         
         // where it says NULL should maybe be a channel?
-        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, 0, channel.c_str(), host.c_str(), host.c_str(), NULL, -1);
+        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, 0, channel.c_str(), host.c_str(), host.c_str(), lws_protocols[0].name, -1);
         
         if ( lwsconnection == NULL ){
             std::cerr << "client connection failed" << std::endl;
@@ -125,6 +124,11 @@ bool ofxWebSocketClient::connect ( string _address, int _port, string _channel )
     }
 }
 
+//--------------------------------------------------------------
+void ofxWebSocketClient::close(){
+    stopThread();
+    libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+}
 
 //--------------------------------------------------------------
 void ofxWebSocketClient::send( string message ){
