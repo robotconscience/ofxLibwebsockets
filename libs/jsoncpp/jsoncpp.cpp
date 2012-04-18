@@ -69,11 +69,7 @@ license you like.
 // //////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-#include <json/json.h>
+#include <json.h>
 
 
 // //////////////////////////////////////////////////////////////////////
@@ -192,11 +188,11 @@ uintToString( LargestUInt value,
 // recognized in your jurisdiction.
 // See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
 
-#if !defined(JSON_IS_AMALGAMATION)
+#if !defined(JSON_IS_AMALGATED)
 # include <json/reader.h>
 # include <json/value.h>
 # include "json_tool.h"
-#endif // if !defined(JSON_IS_AMALGAMATION)
+#endif // if !defined(JSON_IS_AMALGATED)
 #include <utility>
 #include <cstdio>
 #include <cassert>
@@ -1543,13 +1539,13 @@ ValueIterator::operator =( const SelfType &other )
 // recognized in your jurisdiction.
 // See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
 
-#if !defined(JSON_IS_AMALGAMATION)
+#if !defined(JSON_IS_AMALGATED)
 # include <json/value.h>
 # include <json/writer.h>
 # ifndef JSON_USE_SIMPLE_INTERNAL_ALLOCATOR
 #  include "json_batchallocator.h"
 # endif // #ifndef JSON_USE_SIMPLE_INTERNAL_ALLOCATOR
-#endif // if !defined(JSON_IS_AMALGAMATION)
+#endif // if !defined(JSON_IS_AMALGATED)
 #include <iostream>
 #include <utility>
 #include <stdexcept>
@@ -1623,14 +1619,14 @@ releaseStringValue( char *value )
 // //////////////////////////////////////////////////////////////////
 // //////////////////////////////////////////////////////////////////
 // //////////////////////////////////////////////////////////////////
-#if !defined(JSON_IS_AMALGAMATION)
+#if !defined(JSON_IS_AMALGATED)
 # ifdef JSON_VALUE_USE_INTERNAL_MAP
 #  include "json_internalarray.inl"
 #  include "json_internalmap.inl"
 # endif // JSON_VALUE_USE_INTERNAL_MAP
 
 # include "json_valueiterator.inl"
-#endif // if !defined(JSON_IS_AMALGAMATION)
+#endif // if !defined(JSON_IS_AMALGATED)
 
 namespace Json {
 
@@ -3386,10 +3382,10 @@ Path::make( Value &root ) const
 // recognized in your jurisdiction.
 // See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
 
-#if !defined(JSON_IS_AMALGAMATION)
+#if !defined(JSON_IS_AMALGATED)
 # include <json/writer.h>
 # include "json_tool.h"
-#endif // if !defined(JSON_IS_AMALGAMATION)
+#endif // if !defined(JSON_IS_AMALGATED)
 #include <utility>
 #include <assert.h>
 #include <stdio.h>

@@ -116,7 +116,7 @@ license you like.
 /// If defined, indicates that the source file is amalgated
 /// to prevent private header inclusion.
 /// Remarks: it is automatically defined in the generated amalgated header.
-// #define JSON_IS_AMALGAMATION
+#define JSON_IS_AMALGATED
 
 
 # ifdef JSON_IN_CPPTL
@@ -201,9 +201,9 @@ namespace Json {
 #ifndef JSON_FORWARDS_H_INCLUDED
 # define JSON_FORWARDS_H_INCLUDED
 
-#if !defined(JSON_IS_AMALGAMATION)
+#if !defined(JSON_IS_AMALGATED)
 # include "config.h"
-#endif // if !defined(JSON_IS_AMALGAMATION)
+#endif // if !defined(JSON_IS_AMALGATED)
 
 namespace Json {
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */; };
 		A9C95A3715360A61000BEEF1 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C95A2715360A61000BEEF1 /* libwebsockets.a */; };
 		A9C95A3815360A61000BEEF1 /* ofxWebSocketConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */; };
 		A9C95A3915360A61000BEEF1 /* ofxWebSocketEvents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */; };
@@ -64,6 +65,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A9587895153E6DFC0015A6B9 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
+		A9587898153E6E640015A6B9 /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
 		A9C95A2215360A61000BEEF1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		A9C95A2415360A61000BEEF1 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
 		A9C95A2715360A61000BEEF1 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebsockets.a; sourceTree = "<group>"; };
@@ -130,6 +134,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A9587892153E6DFC0015A6B9 /* jsoncpp */ = {
+			isa = PBXGroup;
+			children = (
+				A9587893153E6DFC0015A6B9 /* json */,
+				A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */,
+			);
+			path = jsoncpp;
+			sourceTree = "<group>";
+		};
+		A9587893153E6DFC0015A6B9 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				A9587898153E6E640015A6B9 /* json-forwards.h */,
+				A9587895153E6DFC0015A6B9 /* json.h */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
 		A9C959F115360A60000BEEF1 /* ofxLibwebsockets */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +165,7 @@
 		A9C95A2015360A60000BEEF1 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				A9587892153E6DFC0015A6B9 /* jsoncpp */,
 				A9C95A2115360A60000BEEF1 /* libwebsockets */,
 			);
 			path = libs;
@@ -379,6 +402,7 @@
 				A9C95A3B15360A61000BEEF1 /* ofxWebSocketServer.cpp in Sources */,
 				A9C95A3F1537191B000BEEF1 /* ofxWebSocketClient.cpp in Sources */,
 				A9C95A4215371C36000BEEF1 /* ofxWebSocketReactor.cpp in Sources */,
+				A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

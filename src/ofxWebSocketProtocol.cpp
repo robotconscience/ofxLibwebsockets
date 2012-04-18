@@ -26,8 +26,7 @@ ofxWebSocketProtocol::~ofxWebSocketProtocol()
 }
 
 //--------------------------------------------------------------
-bool
-ofxWebSocketProtocol::_allowClient(const std::string name,
+bool ofxWebSocketProtocol::_allowClient(const std::string name,
                                    const std::string ip) const
 {
     std::map<std::string, bool>::const_iterator allow_iter;
@@ -51,56 +50,54 @@ bool ofxWebSocketProtocol::allowClient(const std::string name,
 }
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::_onconnect(ofxWebSocketEvent& args){ onconnect(args); }  
+void ofxWebSocketProtocol::_onconnect(ofxWebSocketEvent& args){ onconnect(args); }  
 
-void
-ofxWebSocketProtocol::onconnect(ofxWebSocketEvent& args){}
+void ofxWebSocketProtocol::onconnect(ofxWebSocketEvent& args){}
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::_onopen(ofxWebSocketEvent& args){ onopen(args); }
+void ofxWebSocketProtocol::_onopen(ofxWebSocketEvent& args){ onopen(args); }
 
-void
-ofxWebSocketProtocol::onopen(ofxWebSocketEvent&args){}
+void ofxWebSocketProtocol::onopen(ofxWebSocketEvent&args){}
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::_onclose(ofxWebSocketEvent& args){ onclose(args); }
+void ofxWebSocketProtocol::_onclose(ofxWebSocketEvent& args){ onclose(args); }
 
-void
-ofxWebSocketProtocol::onclose(ofxWebSocketEvent&args){}
+void ofxWebSocketProtocol::onclose(ofxWebSocketEvent&args){}
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::_onidle(ofxWebSocketEvent& args){ onidle(args); }
+void ofxWebSocketProtocol::_onidle(ofxWebSocketEvent& args){ onidle(args); }
 
 void ofxWebSocketProtocol::onidle(ofxWebSocketEvent&args){}
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::_onmessage(ofxWebSocketEvent& args){
+void ofxWebSocketProtocol::_onmessage(ofxWebSocketEvent& args){
     args.message = args.conn.recv(args.message);
+    args.json    = NULL;
+    
+    bool parsingSuccessful = reader.parse( args.message, args.json );
+    if ( !parsingSuccessful )
+    {
+        // report to the user the failure and their locations in the document.
+        std::cout  << "Failed to parse JSON\n"<< reader.getFormatedErrorMessages();
+        args.json = NULL;
+    }
+    
     //std::cout << args.message << std::endl;
     onmessage(args);
 }
 
-void
-ofxWebSocketProtocol::onmessage(ofxWebSocketEvent&args)
+void ofxWebSocketProtocol::onmessage(ofxWebSocketEvent&args)
 {}
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::_onbroadcast(ofxWebSocketEvent& args)
+void ofxWebSocketProtocol::_onbroadcast(ofxWebSocketEvent& args)
 { onbroadcast(args); }
 
-void
-ofxWebSocketProtocol::onbroadcast(ofxWebSocketEvent&args)
+void ofxWebSocketProtocol::onbroadcast(ofxWebSocketEvent&args)
 { args.conn.send(args.message); }
 
 //--------------------------------------------------------------
-void
-ofxWebSocketProtocol::broadcast(const std::string& message)
+void ofxWebSocketProtocol::broadcast(const std::string& message)
 {
     std::string buf(LWS_SEND_BUFFER_PRE_PADDING+1024+LWS_SEND_BUFFER_POST_PADDING, 0);
     unsigned char *p = (unsigned char*)&buf[LWS_SEND_BUFFER_PRE_PADDING];
