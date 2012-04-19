@@ -68,10 +68,10 @@
 		A9587895153E6DFC0015A6B9 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
 		A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
 		A9587898153E6E640015A6B9 /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
+		A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLibwebsockets.h; sourceTree = "<group>"; };
 		A9C95A2215360A61000BEEF1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		A9C95A2415360A61000BEEF1 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
 		A9C95A2715360A61000BEEF1 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebsockets.a; sourceTree = "<group>"; };
-		A9C95A2A15360A61000BEEF1 /* ofxWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocket.h; sourceTree = "<group>"; };
 		A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketConnection.cpp; sourceTree = "<group>"; };
 		A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketConnection.h; sourceTree = "<group>"; };
 		A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketEvents.cpp; sourceTree = "<group>"; };
@@ -208,7 +208,9 @@
 		A9C95A2915360A61000BEEF1 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A9C95A2A15360A61000BEEF1 /* ofxWebSocket.h */,
+				A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */,
+				A9C95A3E1537191B000BEEF1 /* ofxWebSocketClient.cpp */,
+				A9C95A3C15360ABB000BEEF1 /* ofxWebSocketClient.h */,
 				A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */,
 				A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */,
 				A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */,
@@ -217,8 +219,6 @@
 				A9C95A3015360A61000BEEF1 /* ofxWebSocketProtocol.h */,
 				A9C95A3115360A61000BEEF1 /* ofxWebSocketServer.cpp */,
 				A9C95A3215360A61000BEEF1 /* ofxWebSocketServer.h */,
-				A9C95A3E1537191B000BEEF1 /* ofxWebSocketClient.cpp */,
-				A9C95A3C15360ABB000BEEF1 /* ofxWebSocketClient.h */,
 				A9C95A3D153613BC000BEEF1 /* ofxWebSocketUtil.h */,
 				A9C95A4115371C36000BEEF1 /* ofxWebSocketReactor.cpp */,
 				A9C95A4015371B4E000BEEF1 /* ofxWebSocketReactor.h */,

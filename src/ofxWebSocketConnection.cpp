@@ -1,4 +1,6 @@
-#include "ofxWebSocket.h"
+#include "ofxWebSocketConnection.h"
+#include "ofxWebSocketReactor.h"
+#include "ofxWebSocketProtocol.h"
 
 //--------------------------------------------------------------
 ofxWebSocketConnection::ofxWebSocketConnection(){

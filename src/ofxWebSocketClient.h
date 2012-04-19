@@ -18,11 +18,12 @@ public:
     
     ofxWebSocketClient();
     
-    bool connect ( string _address = "localhost", int _port=7681 );
-    bool connect ( string _address, int _port, string _channel );
+    bool connect ( string _address = "localhost", bool bUseSSL=false );
+    bool connect ( string _address = "localhost", int _port=80, bool bUseSSL=false );
+    bool connect ( string _address, int _port, bool bUseSSL, string _channel );
     
     // this is ugly for now, should be a smarter way?
-    bool connect ( string _address, int _port, string _channel, string protocol );
+    bool connect ( string _address, int _port, bool bUseSSL, string _channel, string protocol );
     
     void onClose( ofxWebSocketEvent& args );
     void close();

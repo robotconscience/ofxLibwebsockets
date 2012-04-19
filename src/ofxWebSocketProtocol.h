@@ -6,9 +6,9 @@
 #include "ofMain.h"
 #include "ofxWebSocketEvents.h"
 
-#include "json.h"
-
 class ofxWebSocketReactor;
+
+#include "json.h"
 
 class ofxWebSocketProtocol
 {

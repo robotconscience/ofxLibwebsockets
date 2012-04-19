@@ -14,9 +14,6 @@
 #include "ofxWebSocketProtocol.h"
 #include "ofxWebSocketConnection.h"
 
-class ofxWebSocketConnection;
-class ofxWebSocketProtocol;
-
 class ofxWebSocketReactor : public ofThread {
     friend class ofxWebSocketProtocol;
     

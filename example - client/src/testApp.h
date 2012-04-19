@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#include "ofxWebSocket.h"
+#include "ofxLibwebsockets.h"
 
 class testApp : public ofBaseApp{
 

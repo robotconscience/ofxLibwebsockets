@@ -1,4 +1,5 @@
-#include "ofxWebSocket.h"
+#include "ofxWebSocketProtocol.h"
+#include "ofxWebSocketReactor.h"
 
 //--------------------------------------------------------------
 ofxWebSocketProtocol::ofxWebSocketProtocol()
@@ -78,7 +79,7 @@ void ofxWebSocketProtocol::_onmessage(ofxWebSocketEvent& args){
     if ( !parsingSuccessful )
     {
         // report to the user the failure and their locations in the document.
-        std::cout  << "Failed to parse JSON\n"<< reader.getFormatedErrorMessages();
+        ofLog( OF_LOG_VERBOSE, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
         args.json = NULL;
     }
     

@@ -5,7 +5,9 @@ void testApp::setup(){
     //http://localhost:9091/
     
     client.addListener(this);
-    bool connected = client.connect( "localhost", 9092 );
+    
+    // connect to websocket.org's echo server on default port
+    bool connected = client.connect( "echo.websocket.org", true );
 }
 
 //--------------------------------------------------------------
@@ -14,7 +16,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    client.send("{\"hey\":\"0\"}");
+    client.send("Hello");
 }
 
 //--------------------------------------------------------------
