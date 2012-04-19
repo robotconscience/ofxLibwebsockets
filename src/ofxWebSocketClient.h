@@ -19,7 +19,7 @@ public:
     ofxWebSocketClient();
     
     bool connect ( string _address = "localhost", bool bUseSSL=false );
-    bool connect ( string _address = "localhost", int _port=80, bool bUseSSL=false );
+    bool connect ( string _address, int _port, bool bUseSSL=false );
     bool connect ( string _address, int _port, bool bUseSSL, string _channel );
     
     // this is ugly for now, should be a smarter way?

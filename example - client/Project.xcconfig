@@ -5,5 +5,13 @@ OF_PATH = ../../..
 //THIS HAS ALL THE HEADER AND LIBS FOR OF CORE
 #include "../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig"
 
-OTHER_LDFLAGS = $(OF_CORE_LIBS) 
-HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS)
+LIB_SSL = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a"
+LIB_CRYPTO = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a"
+SSL_INC = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/"
+LWS = "$(OF_PATH)/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a"
+
+LIBWEBSOCKETS_LIBS = $(LIB_CRYPTO) $(LIB_SSL) $(LWS)
+LIBWEBSOCKETS_INCLUDES= $(SSL_INC)
+
+OTHER_LDFLAGS = $(OF_CORE_LIBS) $(LIBWEBSOCKETS_LIBS)
+HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(SSL_INC)

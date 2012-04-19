@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */; };
-		A9C95A3715360A61000BEEF1 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C95A2715360A61000BEEF1 /* libwebsockets.a */; };
 		A9C95A3815360A61000BEEF1 /* ofxWebSocketConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */; };
 		A9C95A3915360A61000BEEF1 /* ofxWebSocketEvents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */; };
 		A9C95A3A15360A61000BEEF1 /* ofxWebSocketProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2F15360A61000BEEF1 /* ofxWebSocketProtocol.cpp */; };
@@ -71,7 +70,6 @@
 		A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLibwebsockets.h; sourceTree = "<group>"; };
 		A9C95A2215360A61000BEEF1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		A9C95A2415360A61000BEEF1 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
-		A9C95A2715360A61000BEEF1 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebsockets.a; sourceTree = "<group>"; };
 		A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketConnection.cpp; sourceTree = "<group>"; };
 		A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketConnection.h; sourceTree = "<group>"; };
 		A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketEvents.cpp; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
-				A9C95A3715360A61000BEEF1 /* libwebsockets.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +173,6 @@
 			children = (
 				A9C95A2215360A61000BEEF1 /* COPYING */,
 				A9C95A2315360A61000BEEF1 /* include */,
-				A9C95A2515360A61000BEEF1 /* lib */,
 			);
 			path = libwebsockets;
 			sourceTree = "<group>";
@@ -187,22 +183,6 @@
 				A9C95A2415360A61000BEEF1 /* libwebsockets.h */,
 			);
 			path = include;
-			sourceTree = "<group>";
-		};
-		A9C95A2515360A61000BEEF1 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				A9C95A2615360A61000BEEF1 /* osx */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		A9C95A2615360A61000BEEF1 /* osx */ = {
-			isa = PBXGroup;
-			children = (
-				A9C95A2715360A61000BEEF1 /* libwebsockets.a */,
-			);
-			path = osx;
 			sourceTree = "<group>";
 		};
 		A9C95A2915360A61000BEEF1 /* src */ = {
@@ -437,9 +417,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					"$(LIBWEBSOCKETS_LIBS)",
 				);
 			};
 			name = Debug;
@@ -466,9 +451,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					"$(LIBWEBSOCKETS_LIBS)",
 				);
 			};
 			name = Release;
@@ -554,8 +544,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../libs/libwebsockets/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../libs/openssl/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = LibwebsocketClientDebug;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
@@ -643,8 +635,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../libs/libwebsockets/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../libs/openssl/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = LibwebsocketClient;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";

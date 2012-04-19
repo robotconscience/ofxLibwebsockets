@@ -19,7 +19,7 @@ ofxWebSocketClient::ofxWebSocketClient(){
 
 //--------------------------------------------------------------
 bool ofxWebSocketClient::connect ( string _address, bool bUseSSL ){
-    connect( _address, 80, bUseSSL, "/" );
+    connect( _address, (bUseSSL ? 443 : 80), bUseSSL, "/" );
 }
 
 //--------------------------------------------------------------
@@ -62,7 +62,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, str
         
         string host = address +":"+ ofToString( port );
         
-        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, bUseSSL, channel.c_str(), host.c_str(), host.c_str(), NULL, -1);
+        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, (bUseSSL ? 2 : 0 ), channel.c_str(), host.c_str(), host.c_str(), NULL, -1);
         
         if ( lwsconnection == NULL ){
             std::cerr << "client connection failed" << std::endl;
@@ -118,7 +118,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, str
         
         string host = address +":"+ ofToString( port );
         
-        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, 0, channel.c_str(), host.c_str(), host.c_str(), lws_protocols[0].name, -1);
+        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, (bUseSSL ? 2 : 0 ), channel.c_str(), host.c_str(), host.c_str(), lws_protocols[0].name, -1);
         
         if ( lwsconnection == NULL ){
             std::cerr << "client connection failed" << std::endl;

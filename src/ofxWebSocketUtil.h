@@ -16,18 +16,17 @@
 class ofxWebSocketClient;
 
 static int lws_client_callback(struct libwebsocket_context* context, struct libwebsocket *ws, enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len){
-        
-    const struct libwebsocket_protocols* lws_protocol = libwebsockets_get_protocol(ws);
-    int idx = lws_protocol? lws_protocol->protocol_index : 0;
+    
+    const struct libwebsocket_protocols* lws_protocol = (ws == NULL ? NULL : libwebsockets_get_protocol(ws));
+    int idx = lws_protocol? lws_protocol->protocol_index : 0;        
+    
     
     ofxWebSocketConnection* conn;
     
     ofxWebSocketConnection** conn_ptr = (ofxWebSocketConnection**)user;
     ofxWebSocketReactor* reactor = NULL;
     ofxWebSocketProtocol* protocol;
-    
-    //cout<<"hey "<<reason<<":"<<reactors.size()<<endl;
-    
+        
     for (int i=0; i<reactors.size(); i++){
         if (reactors[i]->getContext() == context){
             reactor =  reactors[i];
@@ -43,24 +42,7 @@ static int lws_client_callback(struct libwebsocket_context* context, struct libw
     }
     
     switch (reason)
-    {
-        case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
-            return 0;
-        
-        // support for servers that aren't libwebsockets
-        case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
-            /*if ((strcmp(data, "deflate-stream") == 0) && deny_deflate) {
-             fprintf(stderr, "denied deflate-stream extension\n");
-             return 1;
-             }
-             if ((strcmp(data, "x-google-mux") == 0) && deny_mux) {
-             fprintf(stderr, "denied x-google-mux extension\n");
-             return 1;
-             }*/
-            //return 0;
-            
-            break;
-            
+    {            
         //case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
           //  return 0;
             
