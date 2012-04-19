@@ -64,10 +64,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E93813A1540792F001EC6E9 /* ofxLibwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLibwebsockets.h; sourceTree = "<group>"; };
 		A9C95A2215360A61000BEEF1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		A9C95A2415360A61000BEEF1 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
 		A9C95A2715360A61000BEEF1 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebsockets.a; sourceTree = "<group>"; };
-		A9C95A2A15360A61000BEEF1 /* ofxWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocket.h; sourceTree = "<group>"; };
 		A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketConnection.cpp; sourceTree = "<group>"; };
 		A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketConnection.h; sourceTree = "<group>"; };
 		A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketEvents.cpp; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 		A9C95A2915360A61000BEEF1 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A9C95A2A15360A61000BEEF1 /* ofxWebSocket.h */,
+				2E93813A1540792F001EC6E9 /* ofxLibwebsockets.h */,
 				A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */,
 				A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */,
 				A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */,
