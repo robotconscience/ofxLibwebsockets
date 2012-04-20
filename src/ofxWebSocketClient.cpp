@@ -145,6 +145,9 @@ void ofxWebSocketClient::close(){
         libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
         libwebsocket_context_destroy( context );
         context = NULL;        
+        lwsconnection = NULL;
+        delete connection;
+        connection = NULL;
     }
 }
 
