@@ -29,6 +29,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL ){
 
 //--------------------------------------------------------------
 bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, string _channel ){
+    cout<<"connect: "<<_address<<":"<<_port<<_channel<<":"<<bUseSSL<<endl;
     address = _address;
     port    = _port;  
     channel = _channel;

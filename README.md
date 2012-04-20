@@ -8,8 +8,8 @@ TO-DO
 ------------
 
 * Add functionality to examples
-* Test JSON parsing with jsoncpp
-* Fix SSL support so you can talk to production-level WebSockets on the internet (error right now might be with libwebsockets)
+* Test JSON parsing with jsoncpp (seems to be working)
+* Test SSL support more (working so far with echo.websocket.org!)
 * Fix compression issue with newest versions of Chrome (either tell Chrome we're not using compression or implement libwebsockets' compression tools)
 * Clean up names
 * Compile for other platforms

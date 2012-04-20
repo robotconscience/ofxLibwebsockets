@@ -43,8 +43,8 @@ static int lws_client_callback(struct libwebsocket_context* context, struct libw
     
     switch (reason)
     {            
-        //case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
-          //  return 0;
+        case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
+            return 0;
             
         case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
             if (protocol != NULL){
