@@ -2,9 +2,10 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    bool connected = server.setup( 9092, "/" );
+    bool connected = server.setup( 9092 );
     server.addListener(this);
     messages.resize(100);
+    ofSetFrameRate(60);
 }
 
 //--------------------------------------------------------------

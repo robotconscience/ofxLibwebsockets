@@ -11,6 +11,7 @@ void testApp::setup(){
     //bool connected = client.connect( "autobahn.tavendo.de" );
     //bool connected = client.connect( "localhost", 9092, false, "/", "/" ); // this needs to get fixed
     client.addListener(this);
+    ofSetFrameRate(60);
 }
 
 //--------------------------------------------------------------

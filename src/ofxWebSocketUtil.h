@@ -95,17 +95,22 @@ static int lws_callback(struct libwebsocket_context* context, struct libwebsocke
         if (reactors[i]->getContext() == context){
             reactor = (ofxWebSocketServer*) reactors[i];
             protocol = reactor->protocol( (idx > 0 ? idx-1 : 0) );
-            conn = ((ofxWebSocketClient*) reactor)->getConnection();
             break;
         } else {
         }
     }
+    
+    if ( bAllowAllProtocls && reactor != NULL ){
+        protocol = reactor->protocols[0].second;
+    }
         
-    if (reason == LWS_CALLBACK_ESTABLISHED){        
+    if (reason == LWS_CALLBACK_ESTABLISHED){ 
+        cout<<"yes"<<endl;
+        
         if ( reactor != NULL ) *conn_ptr = new ofxWebSocketConnection(reactor, protocol);
     } else if (reason == LWS_CALLBACK_CLOSED){
-        //if (*conn_ptr != NULL)
-        //delete *conn_ptr;
+        if (*conn_ptr != NULL)
+        delete *conn_ptr;
     }
     
     switch (reason)
@@ -116,9 +121,8 @@ static int lws_callback(struct libwebsocket_context* context, struct libwebsocke
         case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
             if (protocol != NULL ){
                 if ( bAllowAllProtocls ){
-                    cout<<"allowing"<<endl;
                     protocol = reactor->protocols[0].second;
-                    conn->protocol = protocol;
+                    //conn = new ofxWebSocketConnection( reactor, protocol );
                     return reactor->_allow(protocol, (int)(long)user)? 0 : 1;
                 }
                 return reactor->_allow(protocol, (int)(long)user)? 0 : 1;
@@ -134,6 +138,7 @@ static int lws_callback(struct libwebsocket_context* context, struct libwebsocke
         case LWS_CALLBACK_SERVER_WRITEABLE:
         case LWS_CALLBACK_RECEIVE:
         case LWS_CALLBACK_BROADCAST:
+            conn = *(ofxWebSocketConnection**)user;
             if (conn && conn->ws != ws) conn->ws = ws;
             if (reactor){
                 return reactor->_notify(conn, reason, (char*)data, len);                
