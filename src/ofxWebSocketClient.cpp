@@ -29,7 +29,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL ){
 
 //--------------------------------------------------------------
 bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, string _channel ){
-    cout<<"connect: "<<_address<<":"<<_port<<_channel<<":"<<bUseSSL<<endl;
+    ofLog( OF_LOG_VERBOSE, "connect: "+_address+":"+ofToString(_port)+_channel+":"+ofToString(bUseSSL) );
     address = _address;
     port    = _port;  
     channel = _channel;
@@ -63,7 +63,7 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, str
         
         string host = address +":"+ ofToString( port );
         
-        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, (bUseSSL ? 2 : 0 ), channel.c_str(), host.c_str(), host.c_str(), NULL, -1);
+        lwsconnection = libwebsocket_client_connect( context, address.c_str(), port, (bUseSSL ? 2 : 0 ), channel.c_str(), host.c_str(), host.c_str(),NULL, -1);
         
         if ( lwsconnection == NULL ){
             std::cerr << "client connection failed" << std::endl;
@@ -87,7 +87,6 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, str
     channel = _channel;
     
     // set up default protocols
-    struct libwebsocket_protocols http_protocol = { "http", lws_client_callback, 0 };
     struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
     
     registerProtocol( protocol, clientProtocol );  
@@ -102,7 +101,6 @@ bool ofxWebSocketClient::connect ( string _address, int _port, bool bUseSSL, str
         };
         lws_protocols.push_back(lws_protocol);
     }
-    lws_protocols.push_back(http_protocol);
     lws_protocols.push_back(null_protocol);
     
     if ( context == NULL ){
@@ -174,8 +172,13 @@ void ofxWebSocketClient::threadedFunction(){
                 //unlock();
             }
         }
-        libwebsocket_callback_on_writable(context, lwsconnection);
-        libwebsocket_service(context, waitMillis);
+        if (context != NULL && lwsconnection != NULL){
+            //libwebsocket_callback_on_writable(context, lwsconnection);
+            libwebsocket_service(context, waitMillis);            
+        } else {
+            stopThread();
+            close();
+        }
     }
     
 }

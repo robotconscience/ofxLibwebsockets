@@ -78,14 +78,20 @@ unsigned int ofxWebSocketReactor::_notify(ofxWebSocketConnection* const conn,
                             const char* const _message,
                             const unsigned int len)
 {
-    if (conn == NULL || conn->protocol == NULL)
+    if (conn == NULL || conn->protocol == NULL){
+        if (conn == NULL){
+            cout<<"connection is null"<<endl;
+        } else {
+            cout<<"protocol is null"<<endl;            
+        }
         return 1;
+    }
     
     std::string message;
-    if (_message != NULL && len > 0)
+    if (_message != NULL && len > 0){
         message = std::string(_message, len);
+    }
     
-    ofEvent<ofxWebSocketEvent> evt;
     ofxWebSocketEvent args(*conn, message);
     
     if (reason==LWS_CALLBACK_ESTABLISHED || reason == LWS_CALLBACK_CLIENT_ESTABLISHED){

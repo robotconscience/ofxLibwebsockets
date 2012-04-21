@@ -28,9 +28,9 @@ public:
     
     libwebsocket* ws;
     ofxWebSocketReactor*  reactor;
+    ofxWebSocketProtocol* protocol;
     
 protected:
-    ofxWebSocketProtocol* protocol;
     ofxWebSocketSession*  session;
     
     bool binary;

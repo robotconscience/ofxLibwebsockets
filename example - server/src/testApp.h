@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#include "ofxWebSocket.h"
+#include "ofxLibwebsockets.h"
 
 class testApp : public ofBaseApp{
 
@@ -22,6 +22,9 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
         ofxWebSocketServer server;
+    
+        //queue of rec'd messages
+        vector<string> messages;
     
         // websocket methods
         void onConnect( ofxWebSocketEvent& args );

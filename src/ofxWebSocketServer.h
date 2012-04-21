@@ -18,7 +18,7 @@ class ofxWebSocketServer : public ofxWebSocketReactor {
 public:
     ofxWebSocketServer();
     
-    bool setup( const short _port=7681 );
+    bool setup( const short _port=80 );
     bool setup( const short _port, string protocol, bool bAllowAllProtocols = true );
     
     template<class T>
@@ -30,8 +30,6 @@ public:
         ofAddListener( serverProtocol.onmessageEvent, app, &T::onMessage);
         ofAddListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
     }
-    
-    ofxWebSocketProtocol* const protocol(const unsigned int idx);
     
 protected:
     std::string interface;

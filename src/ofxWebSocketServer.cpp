@@ -16,7 +16,7 @@ ofxWebSocketServer::ofxWebSocketServer(){
 bool ofxWebSocketServer::setup( const short _port )
 {
     // setup with default protocol (http) and allow ALL other protocols
-    setup( _port, "http", true );
+    setup( _port, "/", true );
 }
 
 //--------------------------------------------------------------
@@ -44,19 +44,25 @@ bool ofxWebSocketServer::setup( const short _port, string protocol, bool bAllowA
      _sslKeyPath = sslKeyPath.c_str();
      }*/
     
-    if (document_root.empty())
-        document_root = "web";
-    
-    if (document_root.at(0) != '/')
+    // where our webserver is loading files from
+    if (document_root.empty()){
+        document_root = "web";        
+    }
+    if (document_root.at(0) != '/'){
         document_root = ofToDataPath(document_root, true);
+    }
     
-    // register main protocol 
-    registerProtocol( protocol, serverProtocol );
-    
-    struct libwebsocket_protocols null_name_protocol = { NULL, lws_callback, sizeof(ofxWebSocketConnection) };
+    // NULL protocol is required by LWS
     struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
     
+    // NULL name = any protocol
+    struct libwebsocket_protocols null_name_protocol = { NULL, lws_callback, sizeof(ofxWebSocketConnection) };
+    
+    //setup protocols
     lws_protocols.clear();
+    
+    // register main protocol     
+    registerProtocol( protocol, serverProtocol );            
     for (int i=0; i<protocols.size(); ++i)
     {
         struct libwebsocket_protocols lws_protocol = {
@@ -66,11 +72,14 @@ bool ofxWebSocketServer::setup( const short _port, string protocol, bool bAllowA
         };
         lws_protocols.push_back(lws_protocol);
     }
-    if (bAllowAllProtocols) lws_protocols.push_back(null_name_protocol);
+    
+    if ( bAllowAllProtocols ){
+        lws_protocols.push_back(null_name_protocol); 
+    }
     lws_protocols.push_back(null_protocol);
     
     int opts = 0;
-    context = libwebsocket_create_context( port, interface.c_str(), &lws_protocols[0],
+    context = libwebsocket_create_context( port, NULL, &lws_protocols[0],
                                           libwebsocket_internal_extensions, _sslCertPath, _sslKeyPath,
                                           -1, -1, opts);
     

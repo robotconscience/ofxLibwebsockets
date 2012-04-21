@@ -4,11 +4,13 @@
 void testApp::setup(){
     //http://localhost:9091/
     
-    client.addListener(this);
     
     // connect to websocket.org's echo server on default port
     //bool connected = client.connect( "echo.websocket.org", true );
     bool connected = client.connect( "echo.websocket.org" );
+    //bool connected = client.connect( "autobahn.tavendo.de" );
+    //bool connected = client.connect( "localhost", 9092, false, "/", "/" ); // this needs to get fixed
+    client.addListener(this);
 }
 
 //--------------------------------------------------------------

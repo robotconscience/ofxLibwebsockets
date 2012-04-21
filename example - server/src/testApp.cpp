@@ -2,8 +2,9 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    bool connected = server.setup( 9092 );
+    bool connected = server.setup( 9092, "/" );
     server.addListener(this);
+    messages.resize(100);
 }
 
 //--------------------------------------------------------------
@@ -38,6 +39,8 @@ void testApp::onIdle( ofxWebSocketEvent& args ){
 //--------------------------------------------------------------
 void testApp::onMessage( ofxWebSocketEvent& args ){
     cout<<"got message "<<args.message<<endl;
+    // echo server = send message right back!
+    args.conn.send( args.message );
 }
 
 //--------------------------------------------------------------
