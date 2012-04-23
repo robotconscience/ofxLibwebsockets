@@ -2,7 +2,23 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    // setup a server with default options on port 9092
+    // - pass in true after port to set up with SSL
     bool connected = server.setup( 9092 );
+    
+    // Uncomment this to set up a server with a protocol
+    // Right now, clients created via libwebsockets that are connecting to servers
+    // made via libwebsockets seem to want a protocol. Hopefully this gets fixed, 
+    // but until now you have to do something like this:
+
+    /*
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    options.port = 9092;
+    options.protocol = "of-protocol";
+    
+    bool connected = server.setup( options );
+    */
+    
     server.addListener(this);
     messages.resize(100);
     ofSetFrameRate(60);
@@ -14,7 +30,6 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
 }
 
 //--------------------------------------------------------------
@@ -24,7 +39,7 @@ void testApp::onConnect( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
-    cout<<"on open"<<endl;
+    cout<<"new connection open"<<endl;
 }
 
 //--------------------------------------------------------------
