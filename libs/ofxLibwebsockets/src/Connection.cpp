@@ -41,16 +41,14 @@ namespace ofxLibwebsockets {
     }
     //--------------------------------------------------------------
     void
-    Connection::close()
-    {
+    Connection::close() {
         if (reactor != NULL)
             reactor->close(this);
         
     }
 
     //--------------------------------------------------------------
-    void
-    Connection::send(const std::string& message)
+    void Connection::send(const std::string& message)
     {
         int n = 0;
         if(message.size() > 4096){
@@ -92,9 +90,7 @@ namespace ofxLibwebsockets {
     }
 
     //--------------------------------------------------------------
-    const std::string
-    Connection::recv(const std::string& message)
-    {
+    const std::string Connection::recv(const std::string& message) {
         std::string decoded = message;
         
         //TODO: when libwebsockets has an API

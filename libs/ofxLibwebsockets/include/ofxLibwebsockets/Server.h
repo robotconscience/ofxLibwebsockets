@@ -56,6 +56,8 @@ namespace ofxLibwebsockets {
         bool setup( int _port = 80, bool bUseSSL = false );
         bool setup( ServerOptions options );
         
+        void broadcast( string message );
+        
         template<class T>
         void addListener(T * app){
             ofAddListener( serverProtocol.onconnectEvent, app, &T::onConnect); 
