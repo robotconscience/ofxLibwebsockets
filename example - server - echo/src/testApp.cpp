@@ -15,12 +15,18 @@ void testApp::setup(){
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9092;
     options.protocol = "of-protocol";
-    
     bool connected = server.setup( options );
     */
     
+    // this adds your app as a listener for the server
     server.addListener(this);
-    messages.resize(100);
+    
+    // setup message queue
+    
+    font.loadFont("myriad.ttf", 20);
+    messages.push_back("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL") );
+    
+    ofBackground(0);
     ofSetFrameRate(60);
 }
 
@@ -30,6 +36,13 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    int x = font.getSize();
+    int y = font.getSize()*2;
+    ofSetColor(255);
+    for (int i = messages.size() -1; i >= 0; i-- ){
+        font.drawString( messages[i], x, y );
+        y += font.stringHeight( messages[i] ) + font.getSize();
+    }
 }
 
 //--------------------------------------------------------------
@@ -40,11 +53,15 @@ void testApp::onConnect( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"new connection open"<<endl;
+    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
+    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
 }
 
 //--------------------------------------------------------------
 void testApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
+    messages.push_back("Connection closed");
+    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
 }
 
 //--------------------------------------------------------------
@@ -55,6 +72,16 @@ void testApp::onIdle( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void testApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
+    
+    // trace out string messages or JSON messages!
+    if ( args.json != NULL){
+        messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
+    } else {
+        messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
+    }
+    
+    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
+    
     // echo server = send message right back!
     args.conn.send( args.message );
 }

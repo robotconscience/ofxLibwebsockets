@@ -4,6 +4,8 @@
 
 #include "ofxLibwebsockets.h"
 
+#define NUM_MESSAGES 20 // how many past messages we want to keep
+
 class testApp : public ofBaseApp{
 
 	public:
@@ -24,6 +26,7 @@ class testApp : public ofBaseApp{
         ofxLibwebsockets::Server server;
     
         //queue of rec'd messages
+        ofTrueTypeFont font;
         vector<string> messages;
     
         // websocket methods
