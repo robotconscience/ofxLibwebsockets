@@ -76,18 +76,6 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     void Protocol::_onmessage(Event& args){
-        args.message = args.conn.recv(args.message);
-        args.json    = NULL;
-        
-        bool parsingSuccessful = reader.parse( args.message, args.json );
-        if ( !parsingSuccessful )
-        {
-            // report to the user the failure and their locations in the document.
-            ofLog( OF_LOG_VERBOSE, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
-            args.json = NULL;
-        }
-        
-        //std::cout << args.message << std::endl;
         onmessage(args);
     }
 

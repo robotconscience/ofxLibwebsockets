@@ -94,6 +94,23 @@ namespace ofxLibwebsockets {
             protocols[i].second->broadcast( message );
         }
     }
+    
+    
+    //getters
+    //--------------------------------------------------------------
+    int Server::getPort(){
+        return defaultOptions.port;
+    }
+    
+    //--------------------------------------------------------------
+    string Server::getProtocol(){
+        return ( defaultOptions.protocol == "NULL" ? "none" : defaultOptions.protocol );
+    }
+    
+    //--------------------------------------------------------------
+    bool Server::usingSSL(){
+        return defaultOptions.bUseSSL;
+    }
 
     //--------------------------------------------------------------
     void Server::threadedFunction()

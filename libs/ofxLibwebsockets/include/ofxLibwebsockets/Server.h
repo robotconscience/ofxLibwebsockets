@@ -68,6 +68,11 @@ namespace ofxLibwebsockets {
             ofAddListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
         }
         
+        //getters
+        int     getPort();
+        string  getProtocol();
+        bool    usingSSL();
+        
     protected:
         std::string interface;
         

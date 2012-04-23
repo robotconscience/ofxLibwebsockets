@@ -113,8 +113,10 @@ namespace ofxLibwebsockets {
         
         ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
         
-        if (reason == LWS_CALLBACK_ESTABLISHED){            
-            if ( reactor != NULL ) *conn_ptr = new Connection(reactor, protocol);
+        if (reason == LWS_CALLBACK_ESTABLISHED){
+            if ( reactor != NULL ){
+                *conn_ptr = new Connection(reactor, protocol);
+            }
         } else if (reason == LWS_CALLBACK_CLOSED){
             if (*conn_ptr != NULL)
             delete *conn_ptr;
@@ -141,6 +143,7 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_RECEIVE:
             case LWS_CALLBACK_BROADCAST:
                 conn = *(Connection**)user;
+                //conn->setupAddress( (int)(long)user );
                 if (conn && conn->ws != ws) conn->ws = ws;
                 if (reactor){
                     return reactor->_notify(conn, reason, (char*)data, len);                

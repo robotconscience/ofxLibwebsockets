@@ -62,6 +62,10 @@ namespace ofxLibwebsockets {
         struct libwebsocket_context *context;
         
         std::vector<struct libwebsocket_protocols> lws_protocols;
+        
+    private:
+        Json::Reader reader;
+        
     };
     
     static vector<Reactor *> reactors;

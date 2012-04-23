@@ -40,11 +40,27 @@ namespace ofxLibwebsockets {
         delete buf;
     }
     //--------------------------------------------------------------
-    void
-    Connection::close() {
+    void Connection::close() {
         if (reactor != NULL)
             reactor->close(this);
         
+    }
+    
+    //--------------------------------------------------------------
+    std::string Connection::getClientIP(){
+        return client_ip;
+    }
+    
+    //--------------------------------------------------------------
+    std::string Connection::getClientName(){
+        return client_name;
+    }
+    
+    //--------------------------------------------------------------
+    void Connection::setupAddress( const long fd ){
+        libwebsockets_get_peer_addresses((int)fd,
+                                         &client_name[0], client_name.size(),
+                                         &client_ip[0], client_ip.size());
     }
 
     //--------------------------------------------------------------

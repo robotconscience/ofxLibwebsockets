@@ -34,12 +34,20 @@ namespace ofxLibwebsockets {
         void send(const std::string& message);
         const std::string recv(const std::string& message);  
         
+        void setupAddress( const long fd );
+        
+        std::string getClientIP();
+        std::string getClientName();
+        
         libwebsocket* ws;
         Reactor*  reactor;
         Protocol* protocol;
         
     protected:
         Session*  session;
+        
+        std::string client_ip;
+        std::string client_name;
         
         bool binary;
         bool supportsBinary;

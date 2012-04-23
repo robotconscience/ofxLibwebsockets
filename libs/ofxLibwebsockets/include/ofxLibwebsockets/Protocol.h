@@ -61,8 +61,6 @@ namespace ofxLibwebsockets {
         Reactor* reactor;
         
     private:
-        Json::Reader reader;
-        
         void _onconnect   (Event& args);
         void _onopen      (Event& args);
         void _onclose     (Event& args);
