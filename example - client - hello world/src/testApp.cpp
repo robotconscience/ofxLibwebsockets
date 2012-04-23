@@ -5,9 +5,17 @@ void testApp::setup(){
     
     // connect to websocket.org's echo server on default port
     //bool connected = client.connect( "echo.websocket.org", true );
-    bool connected = client.connect( "echo.websocket.org" );
-    //bool connected = client.connect( "autobahn.tavendo.de" );
-    //bool connected = client.connect( "localhost", 9092, false, "/", "/" ); // this needs to get fixed
+    //bool connected = client.connect( "echo.websocket.org" );
+    
+    // Uncomment this to connect to the server example!
+    
+    /*
+    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
+    options.port = 9092; 
+    options.protocol = "of-protocol";
+    bool connected = client.connect( options );
+    */
+    
     client.addListener(this);
     ofSetFrameRate(60);
 }
@@ -73,7 +81,6 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
 }
 
 //--------------------------------------------------------------
