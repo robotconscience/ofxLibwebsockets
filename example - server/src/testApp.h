@@ -21,16 +21,16 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-        ofxWebSocketServer server;
+        ofxLibwebsockets::Server server;
     
         //queue of rec'd messages
         vector<string> messages;
     
         // websocket methods
-        void onConnect( ofxWebSocketEvent& args );
-        void onOpen( ofxWebSocketEvent& args );
-        void onClose( ofxWebSocketEvent& args );
-        void onIdle( ofxWebSocketEvent& args );
-        void onMessage( ofxWebSocketEvent& args );
-        void onBroadcast( ofxWebSocketEvent& args );
+        void onConnect( ofxLibwebsockets::Event& args );
+        void onOpen( ofxLibwebsockets::Event& args );
+        void onClose( ofxLibwebsockets::Event& args );
+        void onIdle( ofxLibwebsockets::Event& args );
+        void onMessage( ofxLibwebsockets::Event& args );
+        void onBroadcast( ofxLibwebsockets::Event& args );
 };

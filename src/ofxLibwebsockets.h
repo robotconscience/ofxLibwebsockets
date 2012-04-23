@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ofxWebSocketUtil.h"
-#include "ofxWebSocketProtocol.h"
-#include "ofxWebSocketClient.h"
-#include "ofxWebSocketServer.h"
-#include "ofxWebSocketEvents.h"
+#include "ofxLibwebsockets/Util.h"
+#include "ofxLibwebsockets/Protocol.h"
+#include "ofxLibwebsockets/Client.h"
+#include "ofxLibwebsockets/Server.h"
+#include "ofxLibwebsockets/Events.h"

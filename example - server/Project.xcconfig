@@ -9,9 +9,10 @@ LIB_SSL = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a"
 LIB_CRYPTO = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a"
 SSL_INC = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/"
 LWS = "$(OF_PATH)/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a"
+OFX_LWS_INCLUDE = "$(OF_PATH)/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include"
 
 LIBWEBSOCKETS_LIBS = $(LIB_CRYPTO) $(LIB_SSL) $(LWS)
 LIBWEBSOCKETS_INCLUDES= $(SSL_INC)
 
 OTHER_LDFLAGS = $(OF_CORE_LIBS) $(LIBWEBSOCKETS_LIBS)
-HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(SSL_INC)
+HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(SSL_INC) $(OFX_LWS_INCLUDE)

@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */; };
-		A9C95A3815360A61000BEEF1 /* ofxWebSocketConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */; };
-		A9C95A3915360A61000BEEF1 /* ofxWebSocketEvents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */; };
-		A9C95A3A15360A61000BEEF1 /* ofxWebSocketProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A2F15360A61000BEEF1 /* ofxWebSocketProtocol.cpp */; };
-		A9C95A3B15360A61000BEEF1 /* ofxWebSocketServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A3115360A61000BEEF1 /* ofxWebSocketServer.cpp */; };
-		A9C95A3F1537191B000BEEF1 /* ofxWebSocketClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A3E1537191B000BEEF1 /* ofxWebSocketClient.cpp */; };
-		A9C95A4215371C36000BEEF1 /* ofxWebSocketReactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9C95A4115371C36000BEEF1 /* ofxWebSocketReactor.cpp */; };
+		A98A96F21544D41000D50B3C /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96EC1544D41000D50B3C /* Client.cpp */; };
+		A98A96F31544D41000D50B3C /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96ED1544D41000D50B3C /* Connection.cpp */; };
+		A98A96F41544D41000D50B3C /* Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96EE1544D41000D50B3C /* Events.cpp */; };
+		A98A96F51544D41000D50B3C /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96EF1544D41000D50B3C /* Protocol.cpp */; };
+		A98A96F61544D41000D50B3C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96F01544D41000D50B3C /* Reactor.cpp */; };
+		A98A96F71544D41000D50B3C /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96F11544D41000D50B3C /* Server.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -68,21 +68,21 @@
 		A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
 		A9587898153E6E640015A6B9 /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
 		A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLibwebsockets.h; sourceTree = "<group>"; };
+		A98A96E41544D41000D50B3C /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		A98A96E51544D41000D50B3C /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		A98A96E61544D41000D50B3C /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
+		A98A96E71544D41000D50B3C /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
+		A98A96E81544D41000D50B3C /* Reactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
+		A98A96E91544D41000D50B3C /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		A98A96EA1544D41000D50B3C /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		A98A96EC1544D41000D50B3C /* Client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Client.cpp; sourceTree = "<group>"; };
+		A98A96ED1544D41000D50B3C /* Connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Connection.cpp; sourceTree = "<group>"; };
+		A98A96EE1544D41000D50B3C /* Events.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Events.cpp; sourceTree = "<group>"; };
+		A98A96EF1544D41000D50B3C /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
+		A98A96F01544D41000D50B3C /* Reactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Reactor.cpp; sourceTree = "<group>"; };
+		A98A96F11544D41000D50B3C /* Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Server.cpp; sourceTree = "<group>"; };
 		A9C95A2215360A61000BEEF1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		A9C95A2415360A61000BEEF1 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
-		A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketConnection.cpp; sourceTree = "<group>"; };
-		A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketConnection.h; sourceTree = "<group>"; };
-		A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketEvents.cpp; sourceTree = "<group>"; };
-		A9C95A2E15360A61000BEEF1 /* ofxWebSocketEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketEvents.h; sourceTree = "<group>"; };
-		A9C95A2F15360A61000BEEF1 /* ofxWebSocketProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketProtocol.cpp; sourceTree = "<group>"; };
-		A9C95A3015360A61000BEEF1 /* ofxWebSocketProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketProtocol.h; sourceTree = "<group>"; };
-		A9C95A3115360A61000BEEF1 /* ofxWebSocketServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketServer.cpp; sourceTree = "<group>"; };
-		A9C95A3215360A61000BEEF1 /* ofxWebSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketServer.h; sourceTree = "<group>"; };
-		A9C95A3C15360ABB000BEEF1 /* ofxWebSocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketClient.h; sourceTree = "<group>"; };
-		A9C95A3D153613BC000BEEF1 /* ofxWebSocketUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketUtil.h; sourceTree = "<group>"; };
-		A9C95A3E1537191B000BEEF1 /* ofxWebSocketClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketClient.cpp; sourceTree = "<group>"; };
-		A9C95A4015371B4E000BEEF1 /* ofxWebSocketReactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWebSocketReactor.h; sourceTree = "<group>"; };
-		A9C95A4115371C36000BEEF1 /* ofxWebSocketReactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWebSocketReactor.cpp; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -149,6 +149,50 @@
 			path = json;
 			sourceTree = "<group>";
 		};
+		A98A96E11544D41000D50B3C /* ofxLibwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				A98A96E21544D41000D50B3C /* include */,
+				A98A96EB1544D41000D50B3C /* src */,
+			);
+			path = ofxLibwebsockets;
+			sourceTree = "<group>";
+		};
+		A98A96E21544D41000D50B3C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				A98A96E31544D41000D50B3C /* ofxLibwebsockets */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		A98A96E31544D41000D50B3C /* ofxLibwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				A98A96E41544D41000D50B3C /* Client.h */,
+				A98A96E51544D41000D50B3C /* Connection.h */,
+				A98A96E61544D41000D50B3C /* Events.h */,
+				A98A96E71544D41000D50B3C /* Protocol.h */,
+				A98A96E81544D41000D50B3C /* Reactor.h */,
+				A98A96E91544D41000D50B3C /* Server.h */,
+				A98A96EA1544D41000D50B3C /* Util.h */,
+			);
+			path = ofxLibwebsockets;
+			sourceTree = "<group>";
+		};
+		A98A96EB1544D41000D50B3C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A98A96EC1544D41000D50B3C /* Client.cpp */,
+				A98A96ED1544D41000D50B3C /* Connection.cpp */,
+				A98A96EE1544D41000D50B3C /* Events.cpp */,
+				A98A96EF1544D41000D50B3C /* Protocol.cpp */,
+				A98A96F01544D41000D50B3C /* Reactor.cpp */,
+				A98A96F11544D41000D50B3C /* Server.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		A9C959F115360A60000BEEF1 /* ofxLibwebsockets */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +206,7 @@
 		A9C95A2015360A60000BEEF1 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				A98A96E11544D41000D50B3C /* ofxLibwebsockets */,
 				A9587892153E6DFC0015A6B9 /* jsoncpp */,
 				A9C95A2115360A60000BEEF1 /* libwebsockets */,
 			);
@@ -189,19 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */,
-				A9C95A3E1537191B000BEEF1 /* ofxWebSocketClient.cpp */,
-				A9C95A3C15360ABB000BEEF1 /* ofxWebSocketClient.h */,
-				A9C95A2B15360A61000BEEF1 /* ofxWebSocketConnection.cpp */,
-				A9C95A2C15360A61000BEEF1 /* ofxWebSocketConnection.h */,
-				A9C95A2D15360A61000BEEF1 /* ofxWebSocketEvents.cpp */,
-				A9C95A2E15360A61000BEEF1 /* ofxWebSocketEvents.h */,
-				A9C95A2F15360A61000BEEF1 /* ofxWebSocketProtocol.cpp */,
-				A9C95A3015360A61000BEEF1 /* ofxWebSocketProtocol.h */,
-				A9C95A3115360A61000BEEF1 /* ofxWebSocketServer.cpp */,
-				A9C95A3215360A61000BEEF1 /* ofxWebSocketServer.h */,
-				A9C95A3D153613BC000BEEF1 /* ofxWebSocketUtil.h */,
-				A9C95A4115371C36000BEEF1 /* ofxWebSocketReactor.cpp */,
-				A9C95A4015371B4E000BEEF1 /* ofxWebSocketReactor.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -376,13 +408,13 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				A9C95A3815360A61000BEEF1 /* ofxWebSocketConnection.cpp in Sources */,
-				A9C95A3915360A61000BEEF1 /* ofxWebSocketEvents.cpp in Sources */,
-				A9C95A3A15360A61000BEEF1 /* ofxWebSocketProtocol.cpp in Sources */,
-				A9C95A3B15360A61000BEEF1 /* ofxWebSocketServer.cpp in Sources */,
-				A9C95A3F1537191B000BEEF1 /* ofxWebSocketClient.cpp in Sources */,
-				A9C95A4215371C36000BEEF1 /* ofxWebSocketReactor.cpp in Sources */,
 				A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */,
+				A98A96F21544D41000D50B3C /* Client.cpp in Sources */,
+				A98A96F31544D41000D50B3C /* Connection.cpp in Sources */,
+				A98A96F41544D41000D50B3C /* Events.cpp in Sources */,
+				A98A96F51544D41000D50B3C /* Protocol.cpp in Sources */,
+				A98A96F61544D41000D50B3C /* Reactor.cpp in Sources */,
+				A98A96F71544D41000D50B3C /* Server.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

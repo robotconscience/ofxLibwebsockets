@@ -18,34 +18,34 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::onConnect( ofxWebSocketEvent& args ){
+void testApp::onConnect( ofxLibwebsockets::Event& args ){
     cout<<"on connected"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onOpen( ofxWebSocketEvent& args ){
+void testApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"on open"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onClose( ofxWebSocketEvent& args ){
+void testApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onIdle( ofxWebSocketEvent& args ){
+void testApp::onIdle( ofxLibwebsockets::Event& args ){
     cout<<"on idle"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onMessage( ofxWebSocketEvent& args ){
+void testApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
     // echo server = send message right back!
     args.conn.send( args.message );
 }
 
 //--------------------------------------------------------------
-void testApp::onBroadcast( ofxWebSocketEvent& args ){
+void testApp::onBroadcast( ofxLibwebsockets::Event& args ){
     cout<<"got broadcast "<<args.message<<endl;    
 }
 
