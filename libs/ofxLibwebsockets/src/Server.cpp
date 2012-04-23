@@ -20,47 +20,28 @@ namespace ofxLibwebsockets {
         waitMillis = 50;
         count_pollfds = 0;
         reactors.push_back(this);
+        
+        defaultOptions = defaultServerOptions();
     }
 
     //--------------------------------------------------------------
-    bool Server::setup( const short _port )
+    bool Server::setup( int _port, bool bUseSSL )
     {
         // setup with default protocol (http) and allow ALL other protocols
-        setup( _port, "/", true );
+        defaultOptions.port     = _port;
+        defaultOptions.bUseSSL  = bUseSSL;
+        
+        if ( defaultOptions.port == 80 && defaultOptions.bUseSSL == true ){
+            ofLog( OF_LOG_WARNING, "SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!");
+        }
+        
+        setup( defaultOptions );
     }
 
     //--------------------------------------------------------------
-    bool Server::setup( const short _port, string protocol, bool bAllowAllProtocols ){
-        port = _port;  
-        // libwebsockets isn't compiled with SSL support right now!
-        bool useSSL = false;//(!_sslCertFilename.empty() && !_sslKeyFilename.empty());
-        
-        std::string sslCertPath, sslKeyPath;
-        const char *_sslCertPath = NULL;
-        const char *_sslKeyPath = NULL;
-        
-        /*if (useSSL)
-         {
-         if (_sslCertFilename.at(0) == '/')
-         sslCertPath = _sslCertFilename;
-         else
-         sslCertPath = ofToDataPath(_sslCertFilename, true);
-         _sslCertPath = sslCertPath.c_str();
-         
-         if (_sslKeyFilename.at(0) == '/')
-         sslKeyPath = _sslKeyFilename;
-         else
-         sslKeyPath = ofToDataPath(_sslKeyFilename, true);
-         _sslKeyPath = sslKeyPath.c_str();
-         }*/
-        
-        // where our webserver is loading files from
-        if (document_root.empty()){
-            document_root = "web";        
-        }
-        if (document_root.at(0) != '/'){
-            document_root = ofToDataPath(document_root, true);
-        }
+    bool Server::setup( ServerOptions options ){
+        port = options.port;
+        document_root = options.documentRoot;
         
         // NULL protocol is required by LWS
         struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
@@ -71,27 +52,31 @@ namespace ofxLibwebsockets {
         //setup protocols
         lws_protocols.clear();
         
-        // register main protocol     
-        registerProtocol( protocol, serverProtocol );            
-        for (int i=0; i<protocols.size(); ++i)
-        {
+        //register main protocol
+        registerProtocol( options.protocol, serverProtocol );
+        
+        //register any added protocols
+        for (int i=0; i<protocols.size(); ++i){
             struct libwebsocket_protocols lws_protocol = {
-                protocols[i].first.c_str(),
+                ( protocols[i].first == "NULL" ? NULL : protocols[i].first.c_str() ),
                 lws_callback,
                 sizeof(Connection)
             };
             lws_protocols.push_back(lws_protocol);
         }
-        
-        if ( bAllowAllProtocols ){
-            lws_protocols.push_back(null_name_protocol); 
-        }
         lws_protocols.push_back(null_protocol);
         
+        // make cert paths  null if not using ssl
+        const char * sslCert = NULL;
+        const char * sslKey = NULL;
+        
+        if ( defaultOptions.bUseSSL ){
+            sslCert = defaultOptions.sslCertPath.c_str();
+            sslKey = defaultOptions.sslKeyPath.c_str();
+        }
+        
         int opts = 0;
-        context = libwebsocket_create_context( port, NULL, &lws_protocols[0],
-                                              libwebsocket_internal_extensions, _sslCertPath, _sslKeyPath,
-                                              -1, -1, opts);
+        context = libwebsocket_create_context( port, NULL, &lws_protocols[0], libwebsocket_internal_extensions, sslCert, sslKey, -1, -1, opts);
         
         if (context == NULL){
             std::cerr << "libwebsocket init failed" << std::endl;

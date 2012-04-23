@@ -41,7 +41,6 @@ namespace ofxLibwebsockets {
         unsigned int _http(struct libwebsocket *ws,
                            const char* const url);
         
-        std::string document_root;
         std::vector<std::pair<std::string, Protocol*> > protocols;
         
         struct libwebsocket_context * getContext();
@@ -50,8 +49,9 @@ namespace ofxLibwebsockets {
         int count_pollfds;
         
     protected:
-        unsigned int waitMillis;
-        std::string interface;
+        std::string     document_root;
+        unsigned int    waitMillis;
+        std::string     interface;
         
         virtual void threadedFunction(){};  
         

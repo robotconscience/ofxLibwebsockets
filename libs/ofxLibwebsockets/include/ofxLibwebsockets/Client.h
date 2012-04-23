@@ -13,6 +13,24 @@
 
 namespace ofxLibwebsockets {
 
+    struct ClientOptions {
+        string  host;
+        int     port;
+        bool    bUseSSL;
+        string  channel;
+        string  protocol;
+    };
+    
+    static ClientOptions defaultClientOptions(){
+        ClientOptions opts;
+        opts.host     = "localhost";
+        opts.port     = 80;
+        opts.bUseSSL  = false;
+        opts.channel  = "/";
+        opts.protocol = "NULL";
+        return opts;
+    };
+    
     class Client : public Reactor {
         friend class Protocol;
     public:  
@@ -21,10 +39,7 @@ namespace ofxLibwebsockets {
         
         bool connect ( string _address = "localhost", bool bUseSSL=false );
         bool connect ( string _address, int _port, bool bUseSSL=false );
-        bool connect ( string _address, int _port, bool bUseSSL, string _channel );
-        
-        // this is ugly for now, should be a smarter way?
-        bool connect ( string _address, int _port, bool bUseSSL, string _channel, string protocol );
+        bool connect ( ClientOptions options );
         
         void onClose( Event& args );
         void close();
@@ -44,6 +59,9 @@ namespace ofxLibwebsockets {
         Connection * getConnection(){
             return connection;
         }
+        
+    protected:
+        ClientOptions defaultOptions;
         
     private:
 

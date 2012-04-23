@@ -23,7 +23,7 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     void Reactor::registerProtocol(const std::string& name, Protocol& protocol){
-        protocol.idx = protocols.size()+1; // "http" is protocol 0
+        protocol.idx = protocols.size();
         protocol.reactor = this;
         protocols.push_back(make_pair(name, &protocol));
     }
@@ -82,6 +82,7 @@ namespace ofxLibwebsockets {
         }
         
         std::string message;
+        
         if (_message != NULL && len > 0){
             message = std::string(_message, len);
         }
@@ -111,13 +112,6 @@ namespace ofxLibwebsockets {
             url = "/index.html";
         
         // why does this need to be done?
-        
-        if (document_root.empty())
-            document_root = "web";
-        
-        if (document_root.at(0) != '/')
-            document_root = ofToDataPath(document_root, true);
-        
         std::string ext = url.substr(url.find_last_of(".")+1);
         std::string file = document_root+url;
         std::string mimetype = "text/html";
@@ -133,13 +127,8 @@ namespace ofxLibwebsockets {
         if (ext == "css")
             mimetype = "text/css";
         
-        if (libwebsockets_serve_http_file(ws, file.c_str(), mimetype.c_str()))
-        {
-            std::cerr
-            << "Failed to send HTTP file " << file << " for " << url
-            << std::endl;
-        } else {
-            cout<<"served file "<<file<<endl;
+        if (libwebsockets_serve_http_file(ws, file.c_str(), mimetype.c_str())){
+            ofLog( OF_LOG_WARNING, "Failed to send HTTP file "+ file + " for "+ url);
         }
     }
 }
