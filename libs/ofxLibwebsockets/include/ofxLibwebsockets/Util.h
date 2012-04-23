@@ -1,5 +1,5 @@
 //
-//  ofxLibwebsockets::Util.h
+//  Util.h
 //  ofxLibwebsockets
 //
 //  Created by Brett Renfer on 4/11/12.

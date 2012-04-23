@@ -1,5 +1,5 @@
 //
-//  ofxLibwebsockets::Events.h
+//  Events.h
 //  ofxLibwebsockets
 //
 //  Created by Brett Renfer on 4/11/12.

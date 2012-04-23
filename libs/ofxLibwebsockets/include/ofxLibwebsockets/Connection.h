@@ -1,5 +1,5 @@
 //
-//  ofxLibwebsockets::Connection.h
+//  Connection.h
 //  ofxLibwebsockets
 //
 //  Created by Brett Renfer on 4/11/12.
