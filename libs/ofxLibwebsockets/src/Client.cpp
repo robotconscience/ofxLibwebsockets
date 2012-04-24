@@ -14,7 +14,7 @@ namespace ofxLibwebsockets {
     Client::Client(){
         context = NULL;
         waitMillis = 50;
-        count_pollfds = 0;
+        //count_pollfds = 0;
         reactors.push_back(this);
         
         defaultOptions = defaultClientOptions();
@@ -28,7 +28,7 @@ namespace ofxLibwebsockets {
         defaultOptions.bUseSSL  = bUseSSL;
         defaultOptions.port     = (bUseSSL ? 443 : 80);
         
-        connect( defaultOptions );
+        return connect( defaultOptions );
     }
 
     //--------------------------------------------------------------
@@ -37,7 +37,7 @@ namespace ofxLibwebsockets {
         defaultOptions.port     = _port;
         defaultOptions.bUseSSL  = bUseSSL;
         
-        connect( defaultOptions );
+        return connect( defaultOptions );
     }
 
     //--------------------------------------------------------------

@@ -12,7 +12,7 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     Reactor::Reactor()
-    : context(NULL), waitMillis(50), count_pollfds(0){
+    : context(NULL), waitMillis(50){
         reactors.push_back(this);
     }
 
@@ -142,5 +142,6 @@ namespace ofxLibwebsockets {
         if (libwebsockets_serve_http_file(ws, file.c_str(), mimetype.c_str())){
             ofLog( OF_LOG_WARNING, "Failed to send HTTP file "+ file + " for "+ url);
         }
+			return 0;
     }
 }

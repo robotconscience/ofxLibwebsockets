@@ -35,6 +35,14 @@ obj/
 *.opensdf
 *.suo
 
+#windows stuff
+*.exe
+*/bin/*.dll
+*/bin/*.exp
+*/bin/*.ilk
+*/bin/*.lib
+*/bin/*.pdb
+
 #eclipse build folders
 #Mac OS X
 xcuserdata

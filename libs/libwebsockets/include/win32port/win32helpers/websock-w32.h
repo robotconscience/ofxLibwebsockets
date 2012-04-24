@@ -42,13 +42,12 @@ typedef struct pollfd {
 #define POLLHUP     0x0010      /* file descriptor was "hung up" */
 #define POLLNVAL    0x0020		/* requested events "invalid"    */
 
-#endif
-
 typedef INT (WSAAPI *PFNWSAPOLL)(LPWSAPOLLFD fdarray, ULONG nfds, INT timeout);
 extern PFNWSAPOLL poll;
 
 extern INT WSAAPI emulated_poll(LPWSAPOLLFD fdarray, ULONG nfds, INT timeout);
 
+#endif
 /* override configure because we are not using Makefiles */
 
 #define LWS_NO_FORK

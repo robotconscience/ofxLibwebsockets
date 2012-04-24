@@ -33,9 +33,9 @@ extern "C" {
 #endif
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "../win32port/win32helpers/websock-w32.h"
+#include "win32port/win32helpers/websock-w32.h"
 
-#include "../win32port/win32helpers/gettimeofday.h"
+#include "win32port/win32helpers/gettimeofday.h"
 
 #define strcasecmp stricmp
 

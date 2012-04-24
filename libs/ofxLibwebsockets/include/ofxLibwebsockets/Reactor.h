@@ -45,8 +45,8 @@ namespace ofxLibwebsockets {
         
         struct libwebsocket_context * getContext();
         
-        struct pollfd pollfds[100];
-        int count_pollfds;
+        //struct pollfd pollfds[100];
+        //int count_pollfds;
         
     protected:
         std::string     document_root;

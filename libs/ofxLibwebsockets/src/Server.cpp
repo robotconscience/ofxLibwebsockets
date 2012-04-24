@@ -18,7 +18,7 @@ namespace ofxLibwebsockets {
     Server::Server(){
         context = NULL;
         waitMillis = 50;
-        count_pollfds = 0;
+        //count_pollfds = 0;
         reactors.push_back(this);
         
         defaultOptions = defaultServerOptions();
@@ -35,7 +35,7 @@ namespace ofxLibwebsockets {
             ofLog( OF_LOG_WARNING, "SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!");
         }
         
-        setup( defaultOptions );
+        return setup( defaultOptions );
     }
 
     //--------------------------------------------------------------
