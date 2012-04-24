@@ -13,6 +13,7 @@ STATUS
 TO-DO
 ------------
 * Add functionality to examples
+* More fun examples
 * Try to add binary sending/receiving
 * More testing of JSON parsing with jsoncpp (seems to be working)
-* Compile for other platforms
+* Compile for linux
