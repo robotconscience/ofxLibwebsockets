@@ -3,6 +3,9 @@ var socket;
 var canvas;
 var ctx;
 
+var canvasData;
+var data;
+
 //----------------------------------------------------------------------------------------------------------------
 // ON READY, SETUP SOCKET!
 //----------------------------------------------------------------------------------------------------------------
@@ -10,6 +13,10 @@ var ctx;
 $(document).ready( function() {
 	canvas 		= document.getElementById('contourCanvas');
 	ctx			= canvas.getContext('2d');
+
+    canvasData = ctx.getImageData(0,0,canvas.width, canvas.height);
+    data = canvasData.data;
+
 	document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
 		+ BrowserDetect.version +" " + BrowserDetect.OS +" ";
 
@@ -36,23 +43,23 @@ function onClose(){
 // WS: ON MESSAGE
 //----------------------------------------------------------------------------------------------------------------
 function onMessage( messageEvent ){
+	console.log("hey");
 	// check for binary
 	if (messageEvent.data instanceof ArrayBuffer) {
 		var image = new Image();
-		
-        var imgdata = ctx.getImageData(0,0,canvas.width, canvas.height);
+		data = canvasData.data;
 
 		var bytearray = new Uint8Array( messageEvent.data );
 		var index = 0;
 
-		for (var i = 0; i < imgdata.data.length; i+=4) {
-            imgdata.data[i] = bytearray[index]; index++;
-            imgdata.data[i + 1] = bytearray[index]; index++;
-            imgdata.data[i + 2] = bytearray[index]; index++;
-            imgdata.data[i + 3] = 255;
+		for (var i = 0; i < data.length; i+=4) {
+            data[i] = bytearray[index]; index++;
+            data[i + 1] = bytearray[index]; index++;
+            data[i + 2] = bytearray[index]; index++;
+            data[i + 3] = 255;
 		}
-    
-        ctx.putImageData(imgdata,0,0);
+
+        ctx.putImageData(canvasData,0,0);
 
 
         /*var img = document.createElement('img');

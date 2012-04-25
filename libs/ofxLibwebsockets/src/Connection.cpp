@@ -110,19 +110,18 @@ namespace ofxLibwebsockets {
         if (n < 0)
             std::cout << "ERROR writing to socket" << std::endl;
     }
-    
+        
     //--------------------------------------------------------------
-    void Connection::send( ofImage & image ){
-        // let's be safe
-        ofImage copy; copy.clone(image);
+    void Connection::sendBinary( char * data, unsigned int size ){
+        //memset( binaryBuf, 0, binaryBufsize );
+        binaryBufsize = size;
+        free( binaryBuf );
+        binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
+        //(unsigned char*)realloc(binaryBuf, binaryBufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
         
-        int size = copy.width * copy.height * copy.getPixelsRef().getNumChannels();
-        if( size > binaryBufsize ){
-            binaryBufsize = size;
-            binaryBuf = (unsigned char*)realloc(binaryBuf, binaryBufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
-        }
+        ofSleepMillis(50);
         
-        memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], copy.getPixels(), size );
+        memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, size );
         
         int n = -1;
         if ( ws != NULL ){

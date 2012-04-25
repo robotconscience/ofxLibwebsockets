@@ -34,7 +34,6 @@ namespace ofxLibwebsockets {
                                  const std::string ip) const;
         
         void broadcast(const std::string& message);
-        void broadcast(ofImage & image);
         
         unsigned int idx;
         bool binary;

@@ -61,8 +61,17 @@ namespace ofxLibwebsockets {
         
         // send to all connections
         void send( string message );
-        void send( ofImage image );
-        void send( const char * data );
+        
+        template <class T> 
+        void sendBinary( T& image ){
+            for (int i=0; i<connections.size(); i++){
+                if ( connections[i] ){
+                    connections[i]->sendBinary( image );
+                }
+            }
+        }
+        
+        void sendBinary( char * data, int size );
         
         // send to a specific connection
         void send( string message, string ip );

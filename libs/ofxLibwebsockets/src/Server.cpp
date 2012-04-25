@@ -107,19 +107,10 @@ namespace ofxLibwebsockets {
     }
     
     //--------------------------------------------------------------
-    void Server::send( ofImage image ){
+    void Server::sendBinary( char * data, int size ){
         for (int i=0; i<connections.size(); i++){
             if ( connections[i] ){
-                connections[i]->send( image );
-            }
-        }
-    }
-    
-    //--------------------------------------------------------------
-    void Server::send( const char * data ){
-        for (int i=0; i<connections.size(); i++){
-            if ( connections[i] ){
-                connections[i]->send( data );
+                connections[i]->sendBinary( data, size );
             }
         }
     }

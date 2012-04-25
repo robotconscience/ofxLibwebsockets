@@ -33,9 +33,10 @@ void testApp::setup(){
 void testApp::update(){
     if ( bSendImage && toLoad != "" ){
         currentImage.loadImage( toLoad );
-        currentImage.resize(1024, 768);
+        currentImage.setImageType(OF_IMAGE_COLOR);
+        //currentImage.setImageType(OF_IMAGE_COLOR_ALPHA); // makes it way simpler to load it into canvas
         ofSleepMillis(500);
-        server.send( currentImage );
+        server.sendBinary( currentImage );
         messages.push_back( "Sending image" );
         bSendImage = false;
         toLoad = "";
