@@ -3,6 +3,7 @@ ofxLibwebsockets
 * openframeworks wrapper for libwebsockets (http://git.warmcat.com/cgi-bin/cgit/libwebsockets/) 
 * implements both client and server functionality of libwebsockets
 * based on Paul Reimer's work on ofxWebUI (https://github.com/paulreimer/ofxWebUI) and jason vancleave's ofxLibWebSockets (https://github.com/jvcleave/ofxLibWebSockets)
+* NOTE: uses our clone of libwebsockets https://github.com/labatrockwell/libwebsockets
 
 STATUS
 ------------
