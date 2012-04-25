@@ -30,7 +30,9 @@ namespace ofxLibwebsockets {
         if (_protocol != NULL){
             binary = _protocol->binary;
             bufsize = 1024;
+            binaryBufsize = 1024;
             buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
+            binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
         }
         
     }
@@ -41,9 +43,9 @@ namespace ofxLibwebsockets {
     }
     //--------------------------------------------------------------
     void Connection::close() {
-        if (reactor != NULL)
+        if (reactor != NULL){
             reactor->close(this);
-        
+        }
     }
     
     //--------------------------------------------------------------
@@ -57,9 +59,13 @@ namespace ofxLibwebsockets {
     }
     
     //--------------------------------------------------------------
-    void Connection::setupAddress( const long fd ){
-        libwebsockets_get_peer_addresses((int)fd,
-                                         &client_name[0], client_name.size(),
+    void Connection::setupAddress(){
+        int fd = libwebsocket_get_socket_fd( ws );
+        
+        client_ip.resize(128);
+        client_name.resize(128);
+        
+        libwebsockets_get_peer_addresses(fd, &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
     }
 
@@ -104,7 +110,30 @@ namespace ofxLibwebsockets {
         if (n < 0)
             std::cout << "ERROR writing to socket" << std::endl;
     }
-
+    
+    //--------------------------------------------------------------
+    void Connection::send( ofImage & image ){
+        // let's be safe
+        ofImage copy; copy.clone(image);
+        
+        int size = copy.width * copy.height * copy.getPixelsRef().getNumChannels();
+        if( size > binaryBufsize ){
+            binaryBufsize = size;
+            binaryBuf = (unsigned char*)realloc(binaryBuf, binaryBufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
+        }
+        
+        memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], copy.getPixels(), size );
+        
+        int n = -1;
+        if ( ws != NULL ){
+            n = libwebsocket_write(ws, binaryBuf, size, LWS_WRITE_BINARY);
+        }
+        
+        if (n < 0){
+            std::cout << "ERROR writing to socket" << std::endl;
+        }
+    }
+    
     //--------------------------------------------------------------
     const std::string Connection::recv(const std::string& message) {
         std::string decoded = message;

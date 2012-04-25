@@ -35,8 +35,9 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     void Reactor::close(Connection* const conn){
-        if (conn != NULL && conn->ws != NULL)
+        if (conn != NULL && conn->ws != NULL){
             libwebsocket_close_and_free_session(context, conn->ws, LWS_CLOSE_STATUS_NORMAL);
+        }
     }
 
     //--------------------------------------------------------------
@@ -54,6 +55,19 @@ namespace ofxLibwebsockets {
     struct libwebsocket_context * Reactor::getContext(){
         return context;
     }
+    
+    //--------------------------------------------------------------
+    vector<Connection *> Reactor::getConnections(){
+        return connections;
+    }
+    
+    //--------------------------------------------------------------
+    Connection * Reactor::getConnection( int index ){
+        if ( index < connections.size() ){
+            return connections[ index ];
+        }
+        return NULL;
+    }
 
     //--------------------------------------------------------------
     unsigned int
@@ -68,7 +82,7 @@ namespace ofxLibwebsockets {
     }
 
     //--------------------------------------------------------------
-    unsigned int Reactor::_notify(Connection* const conn,
+    unsigned int Reactor::_notify(Connection* conn,
                                 enum libwebsocket_callback_reasons const reason,
                                 const char* const _message,
                                 const unsigned int len){
@@ -102,8 +116,18 @@ namespace ofxLibwebsockets {
         }
         
         if (reason==LWS_CALLBACK_ESTABLISHED || reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
+            connections.push_back( conn );
             ofNotifyEvent(conn->protocol->onopenEvent, args);
         } else if (reason==LWS_CALLBACK_CLOSED){
+            
+            // erase connection from vector
+            for (int i=0; i<connections.size(); i++){
+                if ( connections[i] == conn ){
+                    connections.erase( connections.begin() + i );
+                    break;
+                }
+            }
+            
             ofNotifyEvent(conn->protocol->oncloseEvent, args);
         } else if (reason==LWS_CALLBACK_SERVER_WRITEABLE){
             ofNotifyEvent(conn->protocol->onidleEvent, args);

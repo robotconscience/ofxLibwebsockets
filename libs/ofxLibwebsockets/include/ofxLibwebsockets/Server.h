@@ -56,7 +56,16 @@ namespace ofxLibwebsockets {
         bool setup( int _port = 80, bool bUseSSL = false );
         bool setup( ServerOptions options );
         
+        // broadcast a message to all connections
         void broadcast( string message );
+        
+        // send to all connections
+        void send( string message );
+        void send( ofImage image );
+        void send( const char * data );
+        
+        // send to a specific connection
+        void send( string message, string ip );
         
         template<class T>
         void addListener(T * app){
@@ -75,7 +84,6 @@ namespace ofxLibwebsockets {
         
     protected:
         std::string interface;
-        
         ServerOptions defaultOptions;
         
     private:

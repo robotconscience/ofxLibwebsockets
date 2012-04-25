@@ -118,8 +118,8 @@ namespace ofxLibwebsockets {
                 *conn_ptr = new Connection(reactor, protocol);
             }
         } else if (reason == LWS_CALLBACK_CLOSED){
-            if (*conn_ptr != NULL)
-            delete *conn_ptr;
+            //if (*conn_ptr != NULL)
+            //delete *conn_ptr;
         }
         
         switch (reason)
@@ -144,7 +144,10 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_BROADCAST:
                 conn = *(Connection**)user;
                 //conn->setupAddress( (int)(long)user );
-                if (conn && conn->ws != ws) conn->ws = ws;
+                if (conn && conn->ws != ws){
+                    conn->ws = ws;
+                    conn->setupAddress();
+                }
                 if (reactor){
                     return reactor->_notify(conn, reason, (char*)data, len);                
                 } else {

@@ -40,8 +40,10 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     bool Server::setup( ServerOptions options ){
-        port = options.port;
-        document_root = options.documentRoot;
+        defaultOptions = options;
+        
+        port = defaultOptions.port = options.port;
+        document_root = defaultOptions.documentRoot = options.documentRoot;
         
         // NULL protocol is required by LWS
         struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
@@ -95,6 +97,46 @@ namespace ofxLibwebsockets {
         }
     }
     
+    //--------------------------------------------------------------
+    void Server::send( string message ){
+        for (int i=0; i<connections.size(); i++){
+            if ( connections[i] ){
+                connections[i]->send( message );
+            }
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Server::send( ofImage image ){
+        for (int i=0; i<connections.size(); i++){
+            if ( connections[i] ){
+                connections[i]->send( image );
+            }
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Server::send( const char * data ){
+        for (int i=0; i<connections.size(); i++){
+            if ( connections[i] ){
+                connections[i]->send( data );
+            }
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Server::send( string message, string ip ){
+        bool bFound = false;
+        for (int i=0; i<connections.size(); i++){
+            if ( connections[i] ){
+                if ( connections[i]->getClientIP() == ip ){
+                    connections[i]->send( message );
+                    bFound = true;
+                }
+            }
+        }
+        if ( !bFound ) ofLog( OF_LOG_ERROR, "Connection not found!" );
+    }
     
     //getters
     //--------------------------------------------------------------

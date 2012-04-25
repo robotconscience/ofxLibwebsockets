@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include "ofMain.h"
 #include <libwebsockets.h>
 
 #include <vector>
@@ -32,9 +33,11 @@ namespace ofxLibwebsockets {
         ~Connection();
         void close();
         void send(const std::string& message);
+        void send( ofImage & image );
+        
         const std::string recv(const std::string& message);  
         
-        void setupAddress( const long fd );
+        void setupAddress();
         
         std::string getClientIP();
         std::string getClientName();
@@ -53,7 +56,9 @@ namespace ofxLibwebsockets {
         bool supportsBinary;
         int buffersize;
         unsigned char* buf;
+        unsigned char* binaryBuf;
         int bufsize;
+        int binaryBufsize;
         //std::vector<unsigned char> buf;
     };
     
