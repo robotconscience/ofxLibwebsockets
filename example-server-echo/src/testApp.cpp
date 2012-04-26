@@ -42,7 +42,9 @@ void testApp::draw(){
     for (int i = messages.size() -1; i >= 0; i-- ){
         font.drawString( messages[i], x, y );
         y += font.stringHeight( messages[i] ) + font.getSize();
+        cout << font.stringHeight( messages[i] ) + font.getSize() << endl;
     }
+    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
 }
 
 //--------------------------------------------------------------
@@ -54,14 +56,12 @@ void testApp::onConnect( ofxLibwebsockets::Event& args ){
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"new connection open"<<endl;
     messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
-    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
 }
 
 //--------------------------------------------------------------
 void testApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
     messages.push_back("Connection closed");
-    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
 }
 
 //--------------------------------------------------------------
@@ -79,9 +79,7 @@ void testApp::onMessage( ofxLibwebsockets::Event& args ){
     } else {
         messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
     }
-    
-    if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
-    
+        
     // echo server = send message right back!
     args.conn.send( args.message );
 }
