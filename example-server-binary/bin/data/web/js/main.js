@@ -44,7 +44,6 @@ function onClose(){
 // WS: ON MESSAGE
 //----------------------------------------------------------------------------------------------------------------
 function onMessage( messageEvent ){
-	console.log("hey");
 	// check for binary
 	if (messageEvent.data instanceof ArrayBuffer) {
 		var image = new Image();
@@ -112,7 +111,6 @@ function onMessage( messageEvent ){
 				    data = canvasData.data;
 				}
 				type = vals[2];
-				console.log( type );
 			} catch ( e ){
 
 			}
@@ -127,10 +125,10 @@ function onMessage( messageEvent ){
 function setupSocket(){
 	// setup!
 	if (BrowserDetect.browser == "Firefox") {
-		socket = new MozWebSocket( "ws://localhost:9093/", "of-protocol" );
+		socket = new MozWebSocket( get_appropriate_ws_url(), "of-protocol" );
 		socket.binaryType = "arraybuffer";
 	} else {
-		socket = new WebSocket( "ws://localhost:9093/", "of-protocol");	
+		socket = new WebSocket( get_appropriate_ws_url(), "of-protocol");	
 		socket.binaryType = "arraybuffer";
 	}
 	

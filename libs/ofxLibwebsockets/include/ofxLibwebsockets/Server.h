@@ -63,8 +63,8 @@ namespace ofxLibwebsockets {
         void send( string message );
         
         // send anything that has pixels
-        //template <class T> 
-        void sendBinary( ofImage& image ){
+        template <class T> 
+        void sendBinary( T& image ){
             lock();
             for (int i=0; i<connections.size(); i++){
                 if ( connections[i] != NULL ){
