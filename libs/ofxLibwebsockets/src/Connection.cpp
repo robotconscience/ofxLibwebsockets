@@ -86,12 +86,10 @@ namespace ofxLibwebsockets {
         if (binary)
         {
             //TODO: when libwebsockets has an API supporting something this, we should use it
-            if (supportsBinary)
-            {
+            if (supportsBinary){
                 memcpy(p, message.c_str(), message.size());
                 n = libwebsocket_write(ws, p, message.size(), LWS_WRITE_BINARY);
-            }
-            else {
+            } else {
                 int encoded_len;
                 //encoded_len = b64_encode_string(message.c_str(), message.size(), (char*)p, buf.size());
                 cout<<"encode "<<message<<endl;
@@ -101,8 +99,7 @@ namespace ofxLibwebsockets {
                     n = libwebsocket_write(ws, p, encoded_len, LWS_WRITE_TEXT);
                 }
             }
-        }
-        else {
+        } else {
             memcpy(p, message.c_str(), message.size());
             n = libwebsocket_write(ws, p, message.size(), LWS_WRITE_TEXT);
         }
@@ -112,20 +109,18 @@ namespace ofxLibwebsockets {
     }
         
     //--------------------------------------------------------------
-    void Connection::sendBinary( char * data, unsigned int size ){
-        //memset( binaryBuf, 0, binaryBufsize );
-        binaryBufsize = size;
-        free( binaryBuf );
-        binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
-        //(unsigned char*)realloc(binaryBuf, binaryBufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
-        
-        ofSleepMillis(50);
+    void Connection::sendBinary( unsigned char * data, unsigned int size ){
+        if ( binaryBufsize < size ){
+            cout<<"realloc from "<<binaryBufsize<<" to "<<size<<endl;
+            binaryBufsize = size;
+            binaryBuf = (unsigned char*)realloc(binaryBuf, LWS_SEND_BUFFER_PRE_PADDING+binaryBufsize+LWS_SEND_BUFFER_POST_PADDING * sizeof(unsigned char));
+        }
         
         memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, size );
         
         int n = -1;
-        if ( ws != NULL ){
-            n = libwebsocket_write(ws, binaryBuf, size, LWS_WRITE_BINARY);
+        if ( ws != NULL && binaryBuf ){  
+            n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], size, LWS_WRITE_BINARY);
         }
         
         if (n < 0){

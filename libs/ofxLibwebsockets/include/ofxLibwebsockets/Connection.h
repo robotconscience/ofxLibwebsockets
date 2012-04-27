@@ -34,12 +34,12 @@ namespace ofxLibwebsockets {
         void close();
         void send(const std::string& message);
         template <class T> 
-        void sendBinary( T& image ){        
+        void sendBinary( T& image ){
             int size = image.width * image.height * image.getPixelsRef().getNumChannels();
-            sendBinary( (char *) image.getPixels(), size );
+            sendBinary( (unsigned char *) image.getPixels(), size );
         }
         
-        void sendBinary( char * data, unsigned int size );
+        void sendBinary( unsigned char * data, unsigned int size );
         
         const std::string recv(const std::string& message);  
         

@@ -18,7 +18,6 @@ namespace ofxLibwebsockets {
     Server::Server(){
         context = NULL;
         waitMillis = 50;
-        //count_pollfds = 0;
         reactors.push_back(this);
         
         defaultOptions = defaultServerOptions();
@@ -107,7 +106,7 @@ namespace ofxLibwebsockets {
     }
     
     //--------------------------------------------------------------
-    void Server::sendBinary( char * data, int size ){
+    void Server::sendBinary( unsigned char * data, int size ){
         for (int i=0; i<connections.size(); i++){
             if ( connections[i] ){
                 connections[i]->sendBinary( data, size );
@@ -150,13 +149,16 @@ namespace ofxLibwebsockets {
     {
         while (isThreadRunning())
         {
-            for (int i=0; i<protocols.size(); ++i)
+            for (int i=0; i<protocols.size(); ++i){
                 if (protocols[i].second != NULL){
                     //lock();
                     protocols[i].second->execute();
                     //unlock();
                 }
+            }
+            lock();
             libwebsocket_service(context, waitMillis);
+            unlock();
         }
     }
 }

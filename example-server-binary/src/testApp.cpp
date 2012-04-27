@@ -33,9 +33,7 @@ void testApp::setup(){
 void testApp::update(){
     if ( bSendImage && toLoad != "" ){
         currentImage.loadImage( toLoad );
-        currentImage.setImageType(OF_IMAGE_COLOR);
-        //currentImage.setImageType(OF_IMAGE_COLOR_ALPHA); // makes it way simpler to load it into canvas
-        ofSleepMillis(500);
+        server.send( ofToString(currentImage.width) +":"+ ofToString( currentImage.height ) +":"+ ofToString( currentImage.type ) );
         server.sendBinary( currentImage );
         messages.push_back( "Sending image" );
         bSendImage = false;
@@ -64,14 +62,18 @@ void testApp::onConnect( ofxLibwebsockets::Event& args ){
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"new connection open"<<endl;
     messages.push_back("New connection from " + args.conn.getClientIP() );
-    //if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
+    
+    // send the latest image if there is one!
+    if ( currentImage.bAllocated() ){
+        args.conn.send( ofToString(currentImage.width) +":"+ ofToString( currentImage.height ) +":"+ ofToString( currentImage.type ) );
+        args.conn.sendBinary( currentImage );
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
     messages.push_back("Connection closed");
-    //if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
 }
 
 //--------------------------------------------------------------

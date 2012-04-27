@@ -5,6 +5,7 @@ var ctx;
 
 var canvasData;
 var data;
+var type;
 
 //----------------------------------------------------------------------------------------------------------------
 // ON READY, SETUP SOCKET!
@@ -52,38 +53,69 @@ function onMessage( messageEvent ){
 		var bytearray = new Uint8Array( messageEvent.data );
 		var index = 0;
 
-		for (var i = 0; i < data.length; i+=4) {
-            data[i] = bytearray[index]; index++;
-            data[i + 1] = bytearray[index]; index++;
-            data[i + 2] = bytearray[index]; index++;
-            data[i + 3] = 255;
+		// b & w
+		if ( type == 0 ){
+			for (var i = 0; i < data.length; i+=4) {
+            	data[i] = bytearray[index]; 
+	            data[i + 1] = bytearray[index];
+	            data[i + 2] = bytearray[index];
+	            data[i + 3] = 255;
+	            index++;
+			}
+		// rgb
+		} else if ( type == 1 ){
+			for (var i = 0; i < data.length; i+=4) {
+	            data[i] = bytearray[index]; index++;
+	            data[i + 1] = bytearray[index]; index++;
+	            data[i + 2] = bytearray[index]; index++;
+	            data[i + 3] = 255;
+			}
+		// rgba
+		} else {
+			console.log( bytearray.length );
+			console.log( data.length );
+			for (var i = 0; i < bytearray.length; i++) {
+	            data[i] = bytearray[i]
+			}
 		}
 
         ctx.putImageData(canvasData,0,0);
+	} else if (messageEvent.data instanceof Blob) {
+		var image = new Image();
+		image.onload = function () {
+			ctx.clearRect(0, 0, destinationCanvas.width, destinationCanvas.height);
+			ctx.drawImage(image, 0, 0);
+			document.body.appendChild(image);
+		}
 
-
-        /*var img = document.createElement('img');
-            img.height = imageheight;
-            img.width = imagewidth;
-            img.src = tempcanvas.toDataURL();
-        chatdiv.appendChild(img);*/
-
-		/*
 		if ( window.URL ){
 			image.src = window.URL.createObjectURL(messageEvent.data);
 		} else if ( window.webkitURL ){
 			image.src = window.webkitURL.createObjectURL(messageEvent.data);
 		} else {
 			console.error( "your browser does not have a window.URL method :(")
-		}*/
-	//} else if ( messageEvent instanceof ArrayBuffer ){
-	//	document.getElementById("textresponse").value = messageEvent.data;
+		}
 	} else {
-		var data;
+		// here's where we'll catch the image stuff!
+
+		var imgData;
 		try {
-			data =  jQuery.parseJSON( messageEvent.data );
+			imgData =  jQuery.parseJSON( messageEvent.data );
 		} catch( e ){
-			data = messageEvent.data;
+			imgData = messageEvent.data;
+			var vals = imgData.split(":");
+			try {
+				if ( canvas.width != vals[0] || canvas.height != vals[1] ){
+					canvas.width = vals[0];
+					canvas.height = vals[1];
+				    canvasData = ctx.getImageData(0,0,canvas.width, canvas.height);
+				    data = canvasData.data;
+				}
+				type = vals[2];
+				console.log( type );
+			} catch ( e ){
+
+			}
 		}
 	}
 }
