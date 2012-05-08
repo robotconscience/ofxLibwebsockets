@@ -4,7 +4,7 @@
 void testApp::setup(){
     // setup a server with default options on port 9092
     // - pass in true after port to set up with SSL
-    bool connected = server.setup( 9092 );
+    bConnected = server.setup( 9092 );
     
     // Uncomment this to set up a server with a protocol
     // Right now, clients created via libwebsockets that are connecting to servers
@@ -15,16 +15,11 @@ void testApp::setup(){
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9092;
     options.protocol = "of-protocol";
-    bool connected = server.setup( options );
+    bConnected = server.setup( options );
     */
     
     // this adds your app as a listener for the server
     server.addListener(this);
-    
-    // setup message queue
-    
-    font.loadFont("myriad.ttf", 20);
-    messages.push_back("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL") );
     
     ofBackground(0);
     ofSetFrameRate(60);
@@ -36,15 +31,32 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    int x = font.getSize();
-    int y = font.getSize()*2;
+    if ( bConnected ){
+        ofDrawBitmapString("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL"), 20, 20);
+        
+        ofSetColor(150);
+        ofDrawBitmapString("Click anywhere to open up client example", 20, 40);  
+    } else {
+        ofDrawBitmapString("WebSocket setup failed :(", 20,20);
+    }
+    
+    int x = 20;
+    int y = 100;
+    
+    ofSetColor(0,150,0);
+    ofDrawBitmapString("Console", x, 80);
+    
     ofSetColor(255);
     for (int i = messages.size() -1; i >= 0; i-- ){
-        font.drawString( messages[i], x, y );
-        y += font.stringHeight( messages[i] ) + font.getSize();
-        cout << font.stringHeight( messages[i] ) + font.getSize() << endl;
+        ofDrawBitmapString( messages[i], x, y );
+        y += 20;
     }
     if (messages.size() > NUM_MESSAGES) messages.erase( messages.begin() );
+    
+    ofSetColor(150,0,0);
+    ofDrawBitmapString("Type a message, hit [RETURN] to send:", x, ofGetHeight()-60);
+    ofSetColor(255);
+    ofDrawBitmapString(toSend, x, ofGetHeight() - 40);
 }
 
 //--------------------------------------------------------------
@@ -91,7 +103,21 @@ void testApp::onBroadcast( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    // do some typing!
+    if ( key != OF_KEY_RETURN ){
+        if ( key == OF_KEY_BACKSPACE ){
+            if ( toSend.length() > 0 ){
+                toSend.erase(toSend.end()-1);
+            }
+        } else {
+            toSend += key;
+        }
+    } else {
+        // send to all clients
+        server.send( toSend );
+        messages.push_back("Sent: '" + toSend + "' to "+ ofToString(server.getConnections().size())+" websockets" );
+        toSend = "";
+    }
 }
 
 //--------------------------------------------------------------
@@ -111,7 +137,12 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+    string url = "http";
+    if ( server.usingSSL() ){
+        url += "s";
+    }
+    url += "://localhost:" + ofToString( server.getPort() );
+    ofLaunchBrowser(url);
 }
 
 //--------------------------------------------------------------

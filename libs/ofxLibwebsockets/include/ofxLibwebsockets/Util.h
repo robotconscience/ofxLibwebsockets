@@ -20,6 +20,7 @@ namespace ofxLibwebsockets {
     class Server;
     
     static string getCallbackReason( int reason );
+    static void dump_handshake_info(struct lws_tokens *lwst);
 
     // CLIENT CALLBACK
 

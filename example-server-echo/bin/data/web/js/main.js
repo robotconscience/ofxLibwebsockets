@@ -1,68 +1,65 @@
 var socket;
-var outputDiv;
-var canvas;
-var ctx;
+
+var messageDiv;
+var statusDiv;
+var button;
+var textField;
 
 $(document).ready( function() {
-	outputDiv 	= document.getElementById('output');
-	canvas 		= document.getElementById('contourCanvas');
-	ctx			= canvas.getContext('2d');
-	ctx.fillStyle = 'rgba(0,0,0,0)';
 	setupSocket();
 	
 	document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
 		+ BrowserDetect.version +" " + BrowserDetect.OS +" ";
-	
+
+	messageDiv = document.getElementById("messages");
+	statusDiv = document.getElementById("status");
+
+	//setup message sending button
+	message = document.getElementById("message");
+	button = document.getElementById("button");
+
+	// send the form when you press enter 
+	// or when you press the button
+	button.onclick = function(e){
+		sendMessageForm();
+	};
+	$("#message").keyup(function(event){
+    	if(event.keyCode == 13){
+    		sendMessageForm()
+    	}
+    })
 });
 
-function render(){
-	/*canvas.width = canvas.width;
-	// draw contours
-
-	// draw rect
-	ctx.strokeStyle = 'black';
-	ctx.strokeRect(person.boundingrect.x*vid_width,person.boundingrect.y*vid_height, person.boundingrect.width*vid_width, person.boundingrect.height*vid_height);
-	ctx.stroke();
-
-	// draw contours
-	ctx.fillStyle = '#111111';
-	ctx.font	  = "11pt Helvetica";
-	ctx.fillText("id: "+person.id, person.centroid.x*vid_width, person.centroid.y*vid_height);
-	ctx.fillText("age: "+person.age, person.centroid.x*vid_width, person.centroid.y*vid_height+20);
-	ctx.fillText("depth: "+person.depth, person.centroid.x*vid_width, person.centroid.y*vid_height+40);
-	ctx.strokeStyle = '#ff0000';
-	ctx.beginPath();
-	ctx.moveTo(person.contours[0].x*vid_width,person.contours[0].y*vid_height);
-
-	for (var j=1; j<person.contours.length; j++ ){
-		ctx.lineTo( person.contours[j].x*vid_width,person.contours[j].y*vid_height );
-	}				
-	ctx.stroke();*/
+// send value from text input
+function sendMessageForm(){
+	socket.send(message.value);
+	message.value = "";
 }
 
 // setup web socket
 function setupSocket(){
+
+	// setup websocket
+	// get_appropriate_ws_url is a nifty function by the libwebsockets people
+	// it decides what the websocket url is based on the broswer url
+	// e.g. https://mygreathost:9099 = wss://mygreathost:9099
+
 	if (BrowserDetect.browser == "Firefox") {
-		socket = new MozWebSocket(get_appropriate_ws_url());//,"tsps-protocol");
+		socket = new MozWebSocket(get_appropriate_ws_url());
 	} else {
-		socket = new WebSocket(get_appropriate_ws_url());//,"tsps-protocol");
+		socket = new WebSocket(get_appropriate_ws_url());
 	}
 	
 	// open
 	try {
 		socket.onopen = function() {
-			document.getElementById("wslm_statustd").style.backgroundColor = "#40ff40";
-			document.getElementById("wslm_statustd").textContent = " websocket connection opened ";
+			statusDiv.style.backgroundColor = "#40ff40";
+			statusDiv.textContent = " websocket connection opened ";
 		} 
 
 		// received message
 		socket.onmessage =function got_packet(msg) {
-			try {
-				var data =  jQuery.parseJSON( msg.data );
-			} catch (e){
-			}
-
-			render();
+			messageDiv.innerHTML = msg.data + "<br />" + messageDiv.innerHTML;
 		}
 
 		socket.onclose = function(){
