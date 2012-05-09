@@ -14,6 +14,8 @@ void testApp::setup(){
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9093;
     options.protocol = "of-protocol";
+    options.bBinaryProtocol = true;
+    
     bool connected = server.setup( options );
     
     // this adds your app as a listener for the server
