@@ -144,7 +144,7 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_RECEIVE:
             case LWS_CALLBACK_BROADCAST:
                 conn = *(Connection**)user;
-                //conn->setupAddress( (int)(long)user );
+                
                 if (conn && conn->ws != ws){
                     conn->ws = ws;
                     conn->setupAddress();
