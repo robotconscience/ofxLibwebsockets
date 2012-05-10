@@ -39,7 +39,7 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     Connection::~Connection(){
-        delete buf;
+        free(buf);
     }
     //--------------------------------------------------------------
     void Connection::close() {
