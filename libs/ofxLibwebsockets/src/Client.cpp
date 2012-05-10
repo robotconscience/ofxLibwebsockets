@@ -13,6 +13,7 @@ namespace ofxLibwebsockets {
 
     Client::Client(){
         context = NULL;
+        connection = NULL;
         waitMillis = 50;
         //count_pollfds = 0;
         reactors.push_back(this);
@@ -112,8 +113,10 @@ namespace ofxLibwebsockets {
             libwebsocket_context_destroy( context );
             context = NULL;        
             lwsconnection = NULL;
-            delete connection;
-            connection = NULL;
+            if ( connection != NULL){
+                delete connection;
+                connection = NULL;                
+            }
         }
     }
 
