@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */; };
-		A98A96F21544D41000D50B3C /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96EC1544D41000D50B3C /* Client.cpp */; };
-		A98A96F31544D41000D50B3C /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96ED1544D41000D50B3C /* Connection.cpp */; };
-		A98A96F41544D41000D50B3C /* Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96EE1544D41000D50B3C /* Events.cpp */; };
-		A98A96F51544D41000D50B3C /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96EF1544D41000D50B3C /* Protocol.cpp */; };
-		A98A96F61544D41000D50B3C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96F01544D41000D50B3C /* Reactor.cpp */; };
-		A98A96F71544D41000D50B3C /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A98A96F11544D41000D50B3C /* Server.cpp */; };
+		6d73a566cfec0b462fe6e43c7cf4d23f /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232a9453e355593ef36ada7af643673 /* Reactor.cpp */; };
+		86135253dc7909ca8590e1574a6d2112 /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57eefec8b85f7c3b15dd45a430db9c25 /* Protocol.cpp */; };
+		9ef1133bc23669a5c94fe30f676125b8 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -31,6 +27,10 @@
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		a78c77753d562ae8f0e928ed7b2c02ac /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = edf52649deb8d25ca011eb4114a1546b /* Connection.cpp */; };
+		c6c3882a0b0872d1485f3874ee93b0d5 /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ee5e38d74c62b19279b65bc78b3905fb /* Client.cpp */; };
+		f1ac6aefb9b93c6ac45c9ca82bf2666f /* Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34a70e2c091020ee93f6b1ce67c503f0 /* Events.cpp */; };
+		f3ad9e2a2e56b6af32a0bdaf2fc8a017 /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5d95092d59e7a34c9db7823e160595b4 /* Server.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,25 +64,60 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A9587895153E6DFC0015A6B9 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
-		A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
-		A9587898153E6E640015A6B9 /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
-		A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLibwebsockets.h; sourceTree = "<group>"; };
-		A98A96E41544D41000D50B3C /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
-		A98A96E51544D41000D50B3C /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
-		A98A96E61544D41000D50B3C /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
-		A98A96E71544D41000D50B3C /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
-		A98A96E81544D41000D50B3C /* Reactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
-		A98A96E91544D41000D50B3C /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
-		A98A96EA1544D41000D50B3C /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
-		A98A96EC1544D41000D50B3C /* Client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Client.cpp; sourceTree = "<group>"; };
-		A98A96ED1544D41000D50B3C /* Connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Connection.cpp; sourceTree = "<group>"; };
-		A98A96EE1544D41000D50B3C /* Events.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Events.cpp; sourceTree = "<group>"; };
-		A98A96EF1544D41000D50B3C /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
-		A98A96F01544D41000D50B3C /* Reactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Reactor.cpp; sourceTree = "<group>"; };
-		A98A96F11544D41000D50B3C /* Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Server.cpp; sourceTree = "<group>"; };
-		A9C95A2215360A61000BEEF1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
-		A9C95A2415360A61000BEEF1 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
+		044d7915ca960109876a53d3b94c2a75 /* conf_api.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = conf_api.h; path = ../libs/openssl/openssl/conf_api.h; sourceTree = SOURCE_ROOT; };
+		116315db33db9b9d272aae9ae5b0657b /* ripemd.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ripemd.h; path = ../libs/openssl/openssl/ripemd.h; sourceTree = SOURCE_ROOT; };
+		123354539c152f1ee3ffc1901bff344c /* json-forwards.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = "json-forwards.h"; path = "../libs/jsoncpp/json/json-forwards.h"; sourceTree = SOURCE_ROOT; };
+		1480290643bda63be33ae5d2f75e57d5 /* asn1_mac.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = asn1_mac.h; path = ../libs/openssl/openssl/asn1_mac.h; sourceTree = SOURCE_ROOT; };
+		160bde3db2846eeb6161b9600ce7cbdc /* conf.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = conf.h; path = ../libs/openssl/openssl/conf.h; sourceTree = SOURCE_ROOT; };
+		17f4d8f83a55ea93a1c3b34fce16e03d /* md2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = md2.h; path = ../libs/openssl/openssl/md2.h; sourceTree = SOURCE_ROOT; };
+		1816162dc196322c5d709c96d9ec81b1 /* Server.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Server.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Server.h; sourceTree = SOURCE_ROOT; };
+		1e24eaac4ed4f5b1145085a21a4ac570 /* safestack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = safestack.h; path = ../libs/openssl/openssl/safestack.h; sourceTree = SOURCE_ROOT; };
+		2232a9453e355593ef36ada7af643673 /* Reactor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Reactor.cpp; path = ../libs/ofxLibwebsockets/src/Reactor.cpp; sourceTree = SOURCE_ROOT; };
+		2636eb9d80e00a8d28ec8bf76747ea09 /* ossl_typ.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ossl_typ.h; path = ../libs/openssl/openssl/ossl_typ.h; sourceTree = SOURCE_ROOT; };
+		2806d266631bc98c124ffd5410fdfbbc /* engine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = engine.h; path = ../libs/openssl/openssl/engine.h; sourceTree = SOURCE_ROOT; };
+		2a30aa5af15b2b2d324622868fd0c527 /* x509.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = x509.h; path = ../libs/openssl/openssl/x509.h; sourceTree = SOURCE_ROOT; };
+		2ade0f2515a25463a245dac73235d991 /* comp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = comp.h; path = ../libs/openssl/openssl/comp.h; sourceTree = SOURCE_ROOT; };
+		2b0b675e1fd68f4128b37df3190ddfd1 /* rand.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = rand.h; path = ../libs/openssl/openssl/rand.h; sourceTree = SOURCE_ROOT; };
+		330298ec4a89dc9282754fbc7f78fc0f /* ofxLibwebsockets.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLibwebsockets.h; path = ../src/ofxLibwebsockets.h; sourceTree = SOURCE_ROOT; };
+		34a70e2c091020ee93f6b1ce67c503f0 /* Events.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Events.cpp; path = ../libs/ofxLibwebsockets/src/Events.cpp; sourceTree = SOURCE_ROOT; };
+		377d4405d8997e654021dfb164d61ac2 /* ec.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ec.h; path = ../libs/openssl/openssl/ec.h; sourceTree = SOURCE_ROOT; };
+		41f30419cf289704f21478b43042cbf6 /* sha.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = sha.h; path = ../libs/openssl/openssl/sha.h; sourceTree = SOURCE_ROOT; };
+		447e0812667c0e5b96d9fd246d9f602e /* md5.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = md5.h; path = ../libs/openssl/openssl/md5.h; sourceTree = SOURCE_ROOT; };
+		4b63aa56c2650745089f504ae3e00b3e /* rsa.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = rsa.h; path = ../libs/openssl/openssl/rsa.h; sourceTree = SOURCE_ROOT; };
+		4ef806931d699fdf409c80a9bbe232ed /* obj_mac.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = obj_mac.h; path = ../libs/openssl/openssl/obj_mac.h; sourceTree = SOURCE_ROOT; };
+		4f7c615eb38d48a52a9c19bc7c49f080 /* opensslv.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = opensslv.h; path = ../libs/openssl/openssl/opensslv.h; sourceTree = SOURCE_ROOT; };
+		50167501439784fec92ef06fbdb7ed2a /* des_old.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = des_old.h; path = ../libs/openssl/openssl/des_old.h; sourceTree = SOURCE_ROOT; };
+		515b80ab5ffebc941b9e13c73ab9c52e /* err.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = err.h; path = ../libs/openssl/openssl/err.h; sourceTree = SOURCE_ROOT; };
+		57eefec8b85f7c3b15dd45a430db9c25 /* Protocol.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Protocol.cpp; path = ../libs/ofxLibwebsockets/src/Protocol.cpp; sourceTree = SOURCE_ROOT; };
+		58ffd1d91d5a9ca334fade302ea2f729 /* ssl23.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ssl23.h; path = ../libs/openssl/openssl/ssl23.h; sourceTree = SOURCE_ROOT; };
+		5a8b97bd32aa66c9d1d90448d57093a0 /* ebcdic.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ebcdic.h; path = ../libs/openssl/openssl/ebcdic.h; sourceTree = SOURCE_ROOT; };
+		5c9ffb9d189c8ad58bf30f20db87155d /* pkcs12.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pkcs12.h; path = ../libs/openssl/openssl/pkcs12.h; sourceTree = SOURCE_ROOT; };
+		5d95092d59e7a34c9db7823e160595b4 /* Server.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Server.cpp; path = ../libs/ofxLibwebsockets/src/Server.cpp; sourceTree = SOURCE_ROOT; };
+		5fab5c737d393e9511679b9fa33e4f79 /* symhacks.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = symhacks.h; path = ../libs/openssl/openssl/symhacks.h; sourceTree = SOURCE_ROOT; };
+		68cf8b08606fbbd8ff487fee857ecd93 /* asn1t.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = asn1t.h; path = ../libs/openssl/openssl/asn1t.h; sourceTree = SOURCE_ROOT; };
+		69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = jsoncpp.cpp; path = ../libs/jsoncpp/jsoncpp.cpp; sourceTree = SOURCE_ROOT; };
+		6c5a1b35bfeb829bc2dd018d45b01438 /* asn1.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = asn1.h; path = ../libs/openssl/openssl/asn1.h; sourceTree = SOURCE_ROOT; };
+		6c980660b67515b384adafd92f614881 /* rc2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = rc2.h; path = ../libs/openssl/openssl/rc2.h; sourceTree = SOURCE_ROOT; };
+		75dca31cf0745355cc4ad2ddbc999727 /* libwebsockets.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = libwebsockets.h; path = ../libs/libwebsockets/include/libwebsockets.h; sourceTree = SOURCE_ROOT; };
+		775177a944200b080247f86c0128453e /* mdc2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mdc2.h; path = ../libs/openssl/openssl/mdc2.h; sourceTree = SOURCE_ROOT; };
+		77d06276edf0357a1cf34a45325f9cfd /* ssl3.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ssl3.h; path = ../libs/openssl/openssl/ssl3.h; sourceTree = SOURCE_ROOT; };
+		783ba51a9088c69174de2dbed0389521 /* pem.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pem.h; path = ../libs/openssl/openssl/pem.h; sourceTree = SOURCE_ROOT; };
+		7d29273fd1a324c7a6a23bd5e2a81837 /* krb5_asn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = krb5_asn.h; path = ../libs/openssl/openssl/krb5_asn.h; sourceTree = SOURCE_ROOT; };
+		81e3d3cfbbe7136d4dd58a3b8c842903 /* x509_vfy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = x509_vfy.h; path = ../libs/openssl/openssl/x509_vfy.h; sourceTree = SOURCE_ROOT; };
+		8456313accbff74734780aeb0b7fc6e2 /* pem2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pem2.h; path = ../libs/openssl/openssl/pem2.h; sourceTree = SOURCE_ROOT; };
+		867ed5ac0fefa02ec3fb688627409fa9 /* pkcs7.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pkcs7.h; path = ../libs/openssl/openssl/pkcs7.h; sourceTree = SOURCE_ROOT; };
+		8832ffad497eede92710308d98690616 /* evp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = evp.h; path = ../libs/openssl/openssl/evp.h; sourceTree = SOURCE_ROOT; };
+		88b7ec17198aeea5be7d8d60ab95a056 /* buffer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = buffer.h; path = ../libs/openssl/openssl/buffer.h; sourceTree = SOURCE_ROOT; };
+		8a7a54fc0aef8a0e41cff07c1097f849 /* Connection.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Connection.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Connection.h; sourceTree = SOURCE_ROOT; };
+		8e6059294c25352ae3337874d186afdb /* x509v3.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = x509v3.h; path = ../libs/openssl/openssl/x509v3.h; sourceTree = SOURCE_ROOT; };
+		8f68e1e4f39bfea41902b954f4a3fa45 /* ssl.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ssl.h; path = ../libs/openssl/openssl/ssl.h; sourceTree = SOURCE_ROOT; };
+		902d3bedeb166344f7f8d96b08d0a49f /* kssl.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kssl.h; path = ../libs/openssl/openssl/kssl.h; sourceTree = SOURCE_ROOT; };
+		91e9ecd1771e416d71dafa59e30850a1 /* rc4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = rc4.h; path = ../libs/openssl/openssl/rc4.h; sourceTree = SOURCE_ROOT; };
+		9223b45264e0ed036d3c42f7274ac76c /* des.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = des.h; path = ../libs/openssl/openssl/des.h; sourceTree = SOURCE_ROOT; };
+		96fe29d1ce3027dbd12283a8c3316ab0 /* ui_compat.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ui_compat.h; path = ../libs/openssl/openssl/ui_compat.h; sourceTree = SOURCE_ROOT; };
+		97f27be13d191be238606db1bdd70a31 /* opensslconf.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = opensslconf.h; path = ../libs/openssl/openssl/opensslconf.h; sourceTree = SOURCE_ROOT; };
+		9bd79105e0d8162ad50c74e63b2cf706 /* stack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = stack.h; path = ../libs/openssl/openssl/stack.h; sourceTree = SOURCE_ROOT; };
+		9dba9304fb99bdb218246dde355b3d83 /* e_os2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = e_os2.h; path = ../libs/openssl/openssl/e_os2.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -104,6 +139,34 @@
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		a07ab27d8eb785a53ed304a2c791cb57 /* objects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = objects.h; path = ../libs/openssl/openssl/objects.h; sourceTree = SOURCE_ROOT; };
+		a881453e52ce0251dec076cd504c16fe /* Events.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Events.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Events.h; sourceTree = SOURCE_ROOT; };
+		a9bd8a03a22fadfaa9f7f5c126eab3cc /* ssl2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ssl2.h; path = ../libs/openssl/openssl/ssl2.h; sourceTree = SOURCE_ROOT; };
+		ae8585993dbb7a61126a7e12c8cc4d40 /* dso.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = dso.h; path = ../libs/openssl/openssl/dso.h; sourceTree = SOURCE_ROOT; };
+		b2337e6b5ae9f16afcdb22883467c279 /* md4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = md4.h; path = ../libs/openssl/openssl/md4.h; sourceTree = SOURCE_ROOT; };
+		b5f1c398574d662dbd9a3481e0c678ee /* tmdiff.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tmdiff.h; path = ../libs/openssl/openssl/tmdiff.h; sourceTree = SOURCE_ROOT; };
+		ba9fa17bace0bc9114a35a2309ce1138 /* Util.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Util.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Util.h; sourceTree = SOURCE_ROOT; };
+		c42fd9e28a60a8e420539088dfcad6bb /* txt_db.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = txt_db.h; path = ../libs/openssl/openssl/txt_db.h; sourceTree = SOURCE_ROOT; };
+		c77ad7eda10fc3e9fe9365ef087de485 /* Reactor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Reactor.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Reactor.h; sourceTree = SOURCE_ROOT; };
+		cb7efeb1cb757aef688c26d85be54da0 /* aes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = aes.h; path = ../libs/openssl/openssl/aes.h; sourceTree = SOURCE_ROOT; };
+		cf4075ae08dcc901080970f7744a5a7b /* Protocol.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Protocol.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Protocol.h; sourceTree = SOURCE_ROOT; };
+		cf52912db70509a7b0b7fdc3b23b902e /* bn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = bn.h; path = ../libs/openssl/openssl/bn.h; sourceTree = SOURCE_ROOT; };
+		d7e114c3cd4ce03172debb7e3eed01f8 /* crypto.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = crypto.h; path = ../libs/openssl/openssl/crypto.h; sourceTree = SOURCE_ROOT; };
+		e3261a85562bd2578300f23e829269b2 /* Client.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Client.h; path = ../libs/ofxLibwebsockets/include/ofxLibwebsockets/Client.h; sourceTree = SOURCE_ROOT; };
+		e697fcbb6f8c5e14dc15fc93c760a8ae /* hmac.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = hmac.h; path = ../libs/openssl/openssl/hmac.h; sourceTree = SOURCE_ROOT; };
+		e84994b6bb82e801b1779a58b72d6430 /* rc5.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = rc5.h; path = ../libs/openssl/openssl/rc5.h; sourceTree = SOURCE_ROOT; };
+		eb840abaf8cce6431938368dd66f3069 /* lhash.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = lhash.h; path = ../libs/openssl/openssl/lhash.h; sourceTree = SOURCE_ROOT; };
+		ec14faafbb1143e1c64bf2c369ab6d6c /* json.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = json.h; path = ../libs/jsoncpp/json/json.h; sourceTree = SOURCE_ROOT; };
+		edf52649deb8d25ca011eb4114a1546b /* Connection.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Connection.cpp; path = ../libs/ofxLibwebsockets/src/Connection.cpp; sourceTree = SOURCE_ROOT; };
+		ee5e38d74c62b19279b65bc78b3905fb /* Client.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Client.cpp; path = ../libs/ofxLibwebsockets/src/Client.cpp; sourceTree = SOURCE_ROOT; };
+		ef9421c5a57388c0243a3437653d9cd0 /* ui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ui.h; path = ../libs/openssl/openssl/ui.h; sourceTree = SOURCE_ROOT; };
+		f0964bd4978a9ec74ab1b6568f5f1ac7 /* ocsp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ocsp.h; path = ../libs/openssl/openssl/ocsp.h; sourceTree = SOURCE_ROOT; };
+		f201571031ff14bc47e35adb0776d28d /* dh.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = dh.h; path = ../libs/openssl/openssl/dh.h; sourceTree = SOURCE_ROOT; };
+		f252e94c6a08fc773eafdc5a026cee06 /* dsa.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = dsa.h; path = ../libs/openssl/openssl/dsa.h; sourceTree = SOURCE_ROOT; };
+		f27257f79d9269658652dd8e9c3ec082 /* tls1.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tls1.h; path = ../libs/openssl/openssl/tls1.h; sourceTree = SOURCE_ROOT; };
+		fd759c0e78a55e0c786ef066847a32e5 /* bio.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = bio.h; path = ../libs/openssl/openssl/bio.h; sourceTree = SOURCE_ROOT; };
+		fe71529bc31ea4a7348ee678d01b57fa /* blowfish.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = blowfish.h; path = ../libs/openssl/openssl/blowfish.h; sourceTree = SOURCE_ROOT; };
+		ff1c0706aa9677f569d1857f93231e00 /* cast.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cast.h; path = ../libs/openssl/openssl/cast.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,117 +194,169 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A9587892153E6DFC0015A6B9 /* jsoncpp */ = {
+		108c8d494bf6997f7a730f6efd191a83 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				A9587893153E6DFC0015A6B9 /* json */,
-				A9587896153E6DFC0015A6B9 /* jsoncpp.cpp */,
+				557e2a608249176e0784e6094223ff54 /* ofxLibwebsockets */,
 			);
-			path = jsoncpp;
+			name = include;
 			sourceTree = "<group>";
 		};
-		A9587893153E6DFC0015A6B9 /* json */ = {
+		12ca34da3b4f71871cbfa23ac0c3785b /* json */ = {
 			isa = PBXGroup;
 			children = (
-				A9587898153E6E640015A6B9 /* json-forwards.h */,
-				A9587895153E6DFC0015A6B9 /* json.h */,
+				123354539c152f1ee3ffc1901bff344c /* json-forwards.h */,
+				ec14faafbb1143e1c64bf2c369ab6d6c /* json.h */,
 			);
-			path = json;
+			name = json;
 			sourceTree = "<group>";
 		};
-		A98A96E11544D41000D50B3C /* ofxLibwebsockets */ = {
+		18fccfaa3ceb7c78c4bfc512b76d7934 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				A98A96E21544D41000D50B3C /* include */,
-				A98A96EB1544D41000D50B3C /* src */,
+				75dca31cf0745355cc4ad2ddbc999727 /* libwebsockets.h */,
 			);
-			path = ofxLibwebsockets;
+			name = include;
 			sourceTree = "<group>";
 		};
-		A98A96E21544D41000D50B3C /* include */ = {
+		213fde476bbc2b9b0347cc2fb744dc27 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A98A96E31544D41000D50B3C /* ofxLibwebsockets */,
+				ee5e38d74c62b19279b65bc78b3905fb /* Client.cpp */,
+				edf52649deb8d25ca011eb4114a1546b /* Connection.cpp */,
+				34a70e2c091020ee93f6b1ce67c503f0 /* Events.cpp */,
+				57eefec8b85f7c3b15dd45a430db9c25 /* Protocol.cpp */,
+				2232a9453e355593ef36ada7af643673 /* Reactor.cpp */,
+				5d95092d59e7a34c9db7823e160595b4 /* Server.cpp */,
 			);
-			path = include;
+			name = src;
 			sourceTree = "<group>";
 		};
-		A98A96E31544D41000D50B3C /* ofxLibwebsockets */ = {
+		3829adade426c7607d2bc855ec6c88eb /* openssl */ = {
 			isa = PBXGroup;
 			children = (
-				A98A96E41544D41000D50B3C /* Client.h */,
-				A98A96E51544D41000D50B3C /* Connection.h */,
-				A98A96E61544D41000D50B3C /* Events.h */,
-				A98A96E71544D41000D50B3C /* Protocol.h */,
-				A98A96E81544D41000D50B3C /* Reactor.h */,
-				A98A96E91544D41000D50B3C /* Server.h */,
-				A98A96EA1544D41000D50B3C /* Util.h */,
+				6b0fe15f18da378ee2af29ff70093209 /* openssl */,
 			);
-			path = ofxLibwebsockets;
+			name = openssl;
 			sourceTree = "<group>";
 		};
-		A98A96EB1544D41000D50B3C /* src */ = {
+		557e2a608249176e0784e6094223ff54 /* ofxLibwebsockets */ = {
 			isa = PBXGroup;
 			children = (
-				A98A96EC1544D41000D50B3C /* Client.cpp */,
-				A98A96ED1544D41000D50B3C /* Connection.cpp */,
-				A98A96EE1544D41000D50B3C /* Events.cpp */,
-				A98A96EF1544D41000D50B3C /* Protocol.cpp */,
-				A98A96F01544D41000D50B3C /* Reactor.cpp */,
-				A98A96F11544D41000D50B3C /* Server.cpp */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		A9C959F115360A60000BEEF1 /* ofxLibwebsockets */ = {
-			isa = PBXGroup;
-			children = (
-				A9C95A2015360A60000BEEF1 /* libs */,
-				A9C95A2915360A61000BEEF1 /* src */,
+				e3261a85562bd2578300f23e829269b2 /* Client.h */,
+				8a7a54fc0aef8a0e41cff07c1097f849 /* Connection.h */,
+				a881453e52ce0251dec076cd504c16fe /* Events.h */,
+				cf4075ae08dcc901080970f7744a5a7b /* Protocol.h */,
+				c77ad7eda10fc3e9fe9365ef087de485 /* Reactor.h */,
+				1816162dc196322c5d709c96d9ec81b1 /* Server.h */,
+				ba9fa17bace0bc9114a35a2309ce1138 /* Util.h */,
 			);
 			name = ofxLibwebsockets;
-			path = ..;
 			sourceTree = "<group>";
 		};
-		A9C95A2015360A60000BEEF1 /* libs */ = {
+		5ac16a8d6ec87b59a03906c1aa8fa726 /* jsoncpp */ = {
 			isa = PBXGroup;
 			children = (
-				A98A96E11544D41000D50B3C /* ofxLibwebsockets */,
-				A9587892153E6DFC0015A6B9 /* jsoncpp */,
-				A9C95A2115360A60000BEEF1 /* libwebsockets */,
+				12ca34da3b4f71871cbfa23ac0c3785b /* json */,
+				69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */,
 			);
-			path = libs;
+			name = jsoncpp;
 			sourceTree = "<group>";
 		};
-		A9C95A2115360A60000BEEF1 /* libwebsockets */ = {
+		6b0fe15f18da378ee2af29ff70093209 /* openssl */ = {
 			isa = PBXGroup;
 			children = (
-				A9C95A2215360A61000BEEF1 /* COPYING */,
-				A9C95A2315360A61000BEEF1 /* include */,
+				cb7efeb1cb757aef688c26d85be54da0 /* aes.h */,
+				6c5a1b35bfeb829bc2dd018d45b01438 /* asn1.h */,
+				1480290643bda63be33ae5d2f75e57d5 /* asn1_mac.h */,
+				68cf8b08606fbbd8ff487fee857ecd93 /* asn1t.h */,
+				fd759c0e78a55e0c786ef066847a32e5 /* bio.h */,
+				fe71529bc31ea4a7348ee678d01b57fa /* blowfish.h */,
+				cf52912db70509a7b0b7fdc3b23b902e /* bn.h */,
+				88b7ec17198aeea5be7d8d60ab95a056 /* buffer.h */,
+				ff1c0706aa9677f569d1857f93231e00 /* cast.h */,
+				2ade0f2515a25463a245dac73235d991 /* comp.h */,
+				160bde3db2846eeb6161b9600ce7cbdc /* conf.h */,
+				044d7915ca960109876a53d3b94c2a75 /* conf_api.h */,
+				d7e114c3cd4ce03172debb7e3eed01f8 /* crypto.h */,
+				9223b45264e0ed036d3c42f7274ac76c /* des.h */,
+				50167501439784fec92ef06fbdb7ed2a /* des_old.h */,
+				f201571031ff14bc47e35adb0776d28d /* dh.h */,
+				f252e94c6a08fc773eafdc5a026cee06 /* dsa.h */,
+				ae8585993dbb7a61126a7e12c8cc4d40 /* dso.h */,
+				9dba9304fb99bdb218246dde355b3d83 /* e_os2.h */,
+				5a8b97bd32aa66c9d1d90448d57093a0 /* ebcdic.h */,
+				377d4405d8997e654021dfb164d61ac2 /* ec.h */,
+				2806d266631bc98c124ffd5410fdfbbc /* engine.h */,
+				515b80ab5ffebc941b9e13c73ab9c52e /* err.h */,
+				8832ffad497eede92710308d98690616 /* evp.h */,
+				e697fcbb6f8c5e14dc15fc93c760a8ae /* hmac.h */,
+				7d29273fd1a324c7a6a23bd5e2a81837 /* krb5_asn.h */,
+				902d3bedeb166344f7f8d96b08d0a49f /* kssl.h */,
+				eb840abaf8cce6431938368dd66f3069 /* lhash.h */,
+				17f4d8f83a55ea93a1c3b34fce16e03d /* md2.h */,
+				b2337e6b5ae9f16afcdb22883467c279 /* md4.h */,
+				447e0812667c0e5b96d9fd246d9f602e /* md5.h */,
+				775177a944200b080247f86c0128453e /* mdc2.h */,
+				4ef806931d699fdf409c80a9bbe232ed /* obj_mac.h */,
+				a07ab27d8eb785a53ed304a2c791cb57 /* objects.h */,
+				f0964bd4978a9ec74ab1b6568f5f1ac7 /* ocsp.h */,
+				97f27be13d191be238606db1bdd70a31 /* opensslconf.h */,
+				4f7c615eb38d48a52a9c19bc7c49f080 /* opensslv.h */,
+				2636eb9d80e00a8d28ec8bf76747ea09 /* ossl_typ.h */,
+				783ba51a9088c69174de2dbed0389521 /* pem.h */,
+				8456313accbff74734780aeb0b7fc6e2 /* pem2.h */,
+				5c9ffb9d189c8ad58bf30f20db87155d /* pkcs12.h */,
+				867ed5ac0fefa02ec3fb688627409fa9 /* pkcs7.h */,
+				2b0b675e1fd68f4128b37df3190ddfd1 /* rand.h */,
+				6c980660b67515b384adafd92f614881 /* rc2.h */,
+				91e9ecd1771e416d71dafa59e30850a1 /* rc4.h */,
+				e84994b6bb82e801b1779a58b72d6430 /* rc5.h */,
+				116315db33db9b9d272aae9ae5b0657b /* ripemd.h */,
+				4b63aa56c2650745089f504ae3e00b3e /* rsa.h */,
+				1e24eaac4ed4f5b1145085a21a4ac570 /* safestack.h */,
+				41f30419cf289704f21478b43042cbf6 /* sha.h */,
+				8f68e1e4f39bfea41902b954f4a3fa45 /* ssl.h */,
+				a9bd8a03a22fadfaa9f7f5c126eab3cc /* ssl2.h */,
+				58ffd1d91d5a9ca334fade302ea2f729 /* ssl23.h */,
+				77d06276edf0357a1cf34a45325f9cfd /* ssl3.h */,
+				9bd79105e0d8162ad50c74e63b2cf706 /* stack.h */,
+				5fab5c737d393e9511679b9fa33e4f79 /* symhacks.h */,
+				f27257f79d9269658652dd8e9c3ec082 /* tls1.h */,
+				b5f1c398574d662dbd9a3481e0c678ee /* tmdiff.h */,
+				c42fd9e28a60a8e420539088dfcad6bb /* txt_db.h */,
+				ef9421c5a57388c0243a3437653d9cd0 /* ui.h */,
+				96fe29d1ce3027dbd12283a8c3316ab0 /* ui_compat.h */,
+				2a30aa5af15b2b2d324622868fd0c527 /* x509.h */,
+				81e3d3cfbbe7136d4dd58a3b8c842903 /* x509_vfy.h */,
+				8e6059294c25352ae3337874d186afdb /* x509v3.h */,
 			);
-			path = libwebsockets;
+			name = openssl;
 			sourceTree = "<group>";
 		};
-		A9C95A2315360A61000BEEF1 /* include */ = {
+		70911a54686309fc932b3014c7a1a50c /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				A9C95A2415360A61000BEEF1 /* libwebsockets.h */,
+				5ac16a8d6ec87b59a03906c1aa8fa726 /* jsoncpp */,
+				cb67baa20e44b0f45701c777e5b966a4 /* libwebsockets */,
+				ab97697ec6f10e7234eff261a71705ef /* ofxLibwebsockets */,
+				3829adade426c7607d2bc855ec6c88eb /* openssl */,
 			);
-			path = include;
+			name = libs;
 			sourceTree = "<group>";
 		};
-		A9C95A2915360A61000BEEF1 /* src */ = {
+		97b6e31ffc746b023496bb488ccb38aa /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A9587899153FB2880015A6B9 /* ofxLibwebsockets.h */,
+				330298ec4a89dc9282754fbc7f78fc0f /* ofxLibwebsockets.h */,
 			);
-			path = src;
+			name = src;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				A9C959F115360A60000BEEF1 /* ofxLibwebsockets */,
+				aae50e341c7382a4ef10af5ab25be21b /* ofxLibwebsockets */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -293,6 +408,8 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
+				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
@@ -314,12 +431,36 @@
 		E4EEC9E9138DF44700A80321 /* openFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */,
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
-				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 			);
 			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+		aae50e341c7382a4ef10af5ab25be21b /* ofxLibwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				97b6e31ffc746b023496bb488ccb38aa /* src */,
+				70911a54686309fc932b3014c7a1a50c /* libs */,
+			);
+			name = ofxLibwebsockets;
+			sourceTree = "<group>";
+		};
+		ab97697ec6f10e7234eff261a71705ef /* ofxLibwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				108c8d494bf6997f7a730f6efd191a83 /* include */,
+				213fde476bbc2b9b0347cc2fb744dc27 /* src */,
+			);
+			name = ofxLibwebsockets;
+			sourceTree = "<group>";
+		};
+		cb67baa20e44b0f45701c777e5b966a4 /* libwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				18fccfaa3ceb7c78c4bfc512b76d7934 /* include */,
+			);
+			name = libwebsockets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,13 +549,13 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				A9587897153E6DFC0015A6B9 /* jsoncpp.cpp in Sources */,
-				A98A96F21544D41000D50B3C /* Client.cpp in Sources */,
-				A98A96F31544D41000D50B3C /* Connection.cpp in Sources */,
-				A98A96F41544D41000D50B3C /* Events.cpp in Sources */,
-				A98A96F51544D41000D50B3C /* Protocol.cpp in Sources */,
-				A98A96F61544D41000D50B3C /* Reactor.cpp in Sources */,
-				A98A96F71544D41000D50B3C /* Server.cpp in Sources */,
+				9ef1133bc23669a5c94fe30f676125b8 /* jsoncpp.cpp in Sources */,
+				c6c3882a0b0872d1485f3874ee93b0d5 /* Client.cpp in Sources */,
+				a78c77753d562ae8f0e928ed7b2c02ac /* Connection.cpp in Sources */,
+				f1ac6aefb9b93c6ac45c9ca82bf2666f /* Events.cpp in Sources */,
+				86135253dc7909ca8590e1574a6d2112 /* Protocol.cpp in Sources */,
+				6d73a566cfec0b462fe6e43c7cf4d23f /* Reactor.cpp in Sources */,
+				f3ad9e2a2e56b6af32a0bdaf2fc8a017 /* Server.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +582,7 @@
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
@@ -449,14 +590,39 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				LIBRARY_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+					../../../addons/ofxLibwebsockets/libs,
+					../../../addons/ofxLibwebsockets/libs/jsoncpp,
+					../../../addons/ofxLibwebsockets/libs/jsoncpp/json,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/data,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/include,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/win32,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src,
+					../../../addons/ofxLibwebsockets/libs/openssl,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/win32,
+					../../../addons/ofxLibwebsockets/libs/openssl/openssl,
+					../../../addons/ofxLibwebsockets/src,
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
+					"-mtune=native",
 				);
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
-					"$(LIBWEBSOCKETS_LIBS)",
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
 				);
 			};
 			name = Debug;
@@ -473,7 +639,6 @@
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
@@ -483,14 +648,39 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				LIBRARY_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+					../../../addons/ofxLibwebsockets/libs,
+					../../../addons/ofxLibwebsockets/libs/jsoncpp,
+					../../../addons/ofxLibwebsockets/libs/jsoncpp/json,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/data,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/include,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/win32,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets,
+					../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src,
+					../../../addons/ofxLibwebsockets/libs/openssl,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/win32,
+					../../../addons/ofxLibwebsockets/libs/openssl/openssl,
+					../../../addons/ofxLibwebsockets/src,
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
+					"-mtune=native",
 				);
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
-					"$(LIBWEBSOCKETS_LIBS)",
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
 				);
 			};
 			name = Release;
@@ -507,7 +697,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G4;
+				GCC_MODEL_TUNING = NONE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
@@ -575,14 +765,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../libs/libwebsockets/lib/osx\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../libs/openssl/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = ClientDebug;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -597,8 +782,8 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G4;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = NONE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
@@ -666,14 +851,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../libs/libwebsockets/lib/osx\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../libs/openssl/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = Client;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
