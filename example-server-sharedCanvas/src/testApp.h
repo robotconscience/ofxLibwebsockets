@@ -4,6 +4,8 @@
 
 #include "ofxLibwebsockets.h"
 
+#include "Drawing.h"
+
 class testApp : public ofBaseApp{
 
 	public:
@@ -25,12 +27,9 @@ class testApp : public ofBaseApp{
         bool bConnected;
     
         // drawing stuff
-        vector<ofPoint> drawing;
+        map<int, Drawing *> drawings;
+        int             canvasID;
     
-        // give each new client a color
-        // map of client 
-        map<ofxLibwebsockets::Connection *, ofColor> colors;
-        
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );
         void onOpen( ofxLibwebsockets::Event& args );
