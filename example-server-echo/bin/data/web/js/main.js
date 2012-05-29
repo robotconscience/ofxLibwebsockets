@@ -63,8 +63,8 @@ function setupSocket(){
 		}
 
 		socket.onclose = function(){
-			document.getElementById("wslm_statustd").style.backgroundColor = "#ff4040";
-			document.getElementById("wslm_statustd").textContent = " websocket connection CLOSED ";
+			statusDiv.style.backgroundColor = "#ff4040";
+			statusDiv.textContent = " websocket connection CLOSED ";
 		}
 	} catch(exception) {
 		alert('<p>Error' + exception);  

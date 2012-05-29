@@ -4,7 +4,7 @@
 void testApp::setup(){
     // setup a server with default options on port 9092
     // - pass in true after port to set up with SSL
-    bConnected = server.setup( 9092 );
+    bConnected = server.setup( 9093 );
     
     // Uncomment this to set up a server with a protocol
     // Right now, clients created via libwebsockets that are connecting to servers
