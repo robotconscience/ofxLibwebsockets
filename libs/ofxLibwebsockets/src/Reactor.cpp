@@ -149,6 +149,11 @@ namespace ofxLibwebsockets {
         
         // why does this need to be done?
         std::string ext = url.substr(url.find_last_of(".")+1);
+        // watch out for query strings!
+        size_t find = url.find("?");
+        if ( find!=string::npos ){
+            url = url.substr(0,url.find("?"));
+        }
         std::string file = document_root+url;
         std::string mimetype = "text/html";
         
