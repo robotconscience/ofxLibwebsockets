@@ -81,7 +81,7 @@ namespace ofxLibwebsockets {
             default:
                 return 0;
         }
-
+        
         return 1; // FAIL (e.g. unhandled case/break in switch)
     }
     

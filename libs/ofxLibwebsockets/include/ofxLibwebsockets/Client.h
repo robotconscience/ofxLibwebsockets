@@ -19,6 +19,7 @@ namespace ofxLibwebsockets {
         bool    bUseSSL;
         string  channel;
         string  protocol;
+        int     version;
     };
     
     static ClientOptions defaultClientOptions(){
@@ -28,6 +29,7 @@ namespace ofxLibwebsockets {
         opts.bUseSSL  = false;
         opts.channel  = "/";
         opts.protocol = "NULL";
+        opts.version  = -1;     //use latest version
         return opts;
     };
     

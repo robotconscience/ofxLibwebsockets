@@ -66,6 +66,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     void Connection::send(const std::string& message)
     {
+        if ( message.size() == 0 ) return;
         int n = 0;
         if(message.size() > 4096){
             return;

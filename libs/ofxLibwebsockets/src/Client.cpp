@@ -81,11 +81,11 @@ namespace ofxLibwebsockets {
             if ( options.protocol == "NULL"){
                 lwsconnection = libwebsocket_client_connect( context, 
                                                             options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ), 
-                                                            options.channel.c_str(), host.c_str(), host.c_str(), NULL, -1);
+                                                            options.channel.c_str(), host.c_str(), host.c_str(), NULL, options.version);
             } else {
                 lwsconnection = libwebsocket_client_connect( context, 
                                                             options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ), 
-                                                            options.channel.c_str(), host.c_str(), host.c_str(), options.protocol.c_str(), -1);
+                                                            options.channel.c_str(), host.c_str(), host.c_str(), options.protocol.c_str(), options.version);
             }
             
             if ( lwsconnection == NULL ){
