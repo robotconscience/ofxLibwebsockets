@@ -93,6 +93,16 @@ namespace ofxLibwebsockets {
             ofAddListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
         }
         
+        template<class T>
+        void removeListener(T * app){
+            ofRemoveListener( serverProtocol.onconnectEvent, app, &T::onConnect);
+            ofRemoveListener( serverProtocol.onopenEvent, app, &T::onOpen);
+            ofRemoveListener( serverProtocol.oncloseEvent, app, &T::onClose);
+            ofRemoveListener( serverProtocol.onidleEvent, app, &T::onIdle);
+            ofRemoveListener( serverProtocol.onmessageEvent, app, &T::onMessage);
+            ofRemoveListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
+        }
+        
         //getters
         int     getPort();
         string  getProtocol();
