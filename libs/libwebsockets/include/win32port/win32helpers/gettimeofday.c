@@ -26,9 +26,11 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
 	tmpres <<= 32;
 	tmpres |= ft.dwLowDateTime;
  
+	/*convert into microseconds*/
+	tmpres /= 10;
+
 	/*converting file time to unix epoch*/
 	tmpres -= DELTA_EPOCH_IN_MICROSECS; 
-	tmpres /= 10;  /*convert into microseconds*/
 	tv->tv_sec = (long)(tmpres / 1000000UL);
 	tv->tv_usec = (long)(tmpres % 1000000UL);
   }

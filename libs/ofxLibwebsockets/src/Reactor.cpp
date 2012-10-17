@@ -88,9 +88,9 @@ namespace ofxLibwebsockets {
                                 const unsigned int len){
         if (conn == NULL || conn->protocol == NULL){
             if (conn == NULL){
-                cout<<"connection is null"<<endl;
+                ofLog(OF_LOG_WARNING, "connection is null");
             } else {
-                cout<<"protocol is null"<<endl;            
+                ofLog(OF_LOG_WARNING, "protocol is null"); 
             }
             return 1;
         }

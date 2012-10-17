@@ -68,7 +68,7 @@ namespace ofxLibwebsockets {
         
         context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
                                               &lws_protocols[0], libwebsocket_internal_extensions,
-                                              NULL, NULL, -1, -1, 0);
+                                              NULL, NULL, NULL, -1, -1, 0);
         if (context == NULL){
             std::cerr << "libwebsocket init failed" << std::endl;
             return false;
@@ -114,7 +114,7 @@ namespace ofxLibwebsockets {
             context = NULL;        
             lwsconnection = NULL;
             if ( connection != NULL){
-                delete connection;
+                //delete connection;
                 connection = NULL;                
             }
         }

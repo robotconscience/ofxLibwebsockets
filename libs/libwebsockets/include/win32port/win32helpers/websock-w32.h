@@ -19,45 +19,14 @@
 #define random rand
 #define usleep _sleep
 
-#ifdef  __MINGW64__                                                             
-#define DEF_POLL_STUFF
-#endif
-#ifdef  __MINGW32__                                                             
-#define DEF_POLL_STUFF
-#endif
-
-#ifdef DEF_POLL_STUFF
-
-#include <winsock2.h>
-
-typedef struct pollfd {
-	SOCKET fd;
-	short  events;
-	short  revents;
-} WSAPOLLFD, *PWSAPOLLFD, *LPWSAPOLLFD;
-
-#define POLLIN      0x0001      /* any readable data available   */
-#define POLLOUT     0x0004      /* file descriptor is writeable  */
-#define POLLERR     0x0008      /* some poll error occurred      */
-#define POLLHUP     0x0010      /* file descriptor was "hung up" */
-#define POLLNVAL    0x0020		/* requested events "invalid"    */
-
 typedef INT (WSAAPI *PFNWSAPOLL)(LPWSAPOLLFD fdarray, ULONG nfds, INT timeout);
 extern PFNWSAPOLL poll;
 
 extern INT WSAAPI emulated_poll(LPWSAPOLLFD fdarray, ULONG nfds, INT timeout);
 
-#endif
 /* override configure because we are not using Makefiles */
 
 #define LWS_NO_FORK
-
-/* windows can't cope with this idea, needs assets in cwd */
-
-#ifdef INSTALL_DATADIR
-#undef INSTALL_DATADIR
-#endif
-
-#define INSTALL_DATADIR "."
+#define DATADIR "."
 
 #endif

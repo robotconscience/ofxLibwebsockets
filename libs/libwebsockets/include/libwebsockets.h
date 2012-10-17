@@ -33,11 +33,6 @@ extern "C" {
 #endif
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "win32port/win32helpers/websock-w32.h"
-
-#include "win32port/win32helpers/gettimeofday.h"
-
-#define strcasecmp stricmp
 
 #ifdef LWS_DLL
 #ifdef LWS_INTERNAL
@@ -65,6 +60,7 @@ enum libwebsocket_context_options {
 
 enum libwebsocket_callback_reasons {
 	LWS_CALLBACK_ESTABLISHED,
+	LWS_CALLBACK_CLIENT_CONNECTION_ERROR,
 	LWS_CALLBACK_CLIENT_ESTABLISHED,
 	LWS_CALLBACK_CLOSED,
 	LWS_CALLBACK_RECEIVE,
@@ -111,6 +107,8 @@ enum libwebsocket_extension_callback_reasons {
 	LWS_EXT_CALLBACK_1HZ,
 	LWS_EXT_CALLBACK_REQUEST_ON_WRITEABLE,
 	LWS_EXT_CALLBACK_IS_WRITEABLE,
+	LWS_EXT_CALLBACK_PAYLOAD_TX,
+	LWS_EXT_CALLBACK_PAYLOAD_RX,
 };
 
 enum libwebsocket_write_protocol {
@@ -185,16 +183,16 @@ enum lws_token_indexes {
 };
 
 /*
- * From 06 spec
+ * From RFC 6455
    1000
 
-      1000 indicates a normal closure, meaning whatever purpose the
-      connection was established for has been fulfilled.
+      1000 indicates a normal closure, meaning that the purpose for
+      which the connection was established has been fulfilled.
 
    1001
 
       1001 indicates that an endpoint is "going away", such as a server
-      going down, or a browser having navigated away from a page.
+      going down or a browser having navigated away from a page.
 
    1002
 
@@ -204,14 +202,73 @@ enum lws_token_indexes {
    1003
 
       1003 indicates that an endpoint is terminating the connection
-      because it has received a type of data it cannot accept (e.g. an
-      endpoint that understands only text data may send this if it
-      receives a binary message.)
+      because it has received a type of data it cannot accept (e.g., an
+      endpoint that understands only text data MAY send this if it
+      receives a binary message).
 
    1004
 
-      1004 indicates that an endpoint is terminating the connection
-      because it has received a message that is too large.
+      Reserved.  The specific meaning might be defined in the future.
+
+   1005
+
+      1005 is a reserved value and MUST NOT be set as a status code in a
+      Close control frame by an endpoint.  It is designated for use in
+      applications expecting a status code to indicate that no status
+      code was actually present.
+
+   1006
+
+      1006 is a reserved value and MUST NOT be set as a status code in a
+      Close control frame by an endpoint.  It is designated for use in
+      applications expecting a status code to indicate that the
+      connection was closed abnormally, e.g., without sending or
+      receiving a Close control frame.
+
+   1007
+
+      1007 indicates that an endpoint is terminating the connection
+      because it has received data within a message that was not
+      consistent with the type of the message (e.g., non-UTF-8 [RFC3629]
+      data within a text message).
+
+   1008
+
+      1008 indicates that an endpoint is terminating the connection
+      because it has received a message that violates its policy.  This
+      is a generic status code that can be returned when there is no
+      other more suitable status code (e.g., 1003 or 1009) or if there
+      is a need to hide specific details about the policy.
+
+   1009
+
+      1009 indicates that an endpoint is terminating the connection
+      because it has received a message that is too big for it to
+      process.
+
+   1010
+
+      1010 indicates that an endpoint (client) is terminating the
+      connection because it has expected the server to negotiate one or
+      more extension, but the server didn't return them in the response
+      message of the WebSocket handshake.  The list of extensions that
+      are needed SHOULD appear in the /reason/ part of the Close frame.
+      Note that this status code is not used by the server, because it
+      can fail the WebSocket handshake instead.
+
+   1011
+
+      1011 indicates that a server is terminating the connection because
+      it encountered an unexpected condition that prevented it from
+      fulfilling the request.
+
+   1015
+
+      1015 is a reserved value and MUST NOT be set as a status code in a
+      Close control frame by an endpoint.  It is designated for use in
+      applications expecting a status code to indicate that the
+      connection was closed due to a failure to perform a TLS handshake
+      (e.g., the server certificate can't be verified).
 */
 
 enum lws_close_status {
@@ -220,16 +277,34 @@ enum lws_close_status {
 	LWS_CLOSE_STATUS_GOINGAWAY = 1001,
 	LWS_CLOSE_STATUS_PROTOCOL_ERR = 1002,
 	LWS_CLOSE_STATUS_UNACCEPTABLE_OPCODE = 1003,
-	LWS_CLOSE_STATUS_PAYLOAD_TOO_LARGE = 1004,
+	LWS_CLOSE_STATUS_RESERVED = 1004,
+	LWS_CLOSE_STATUS_NO_STATUS = 1005,
+	LWS_CLOSE_STATUS_ABNORMAL_CLOSE = 1006,
+	LWS_CLOSE_STATUS_INVALID_PAYLOAD = 1007,
+	LWS_CLOSE_STATUS_POLICY_VIOLATION = 1008,
+	LWS_CLOSE_STATUS_MESSAGE_TOO_LARGE = 1009,
+	LWS_CLOSE_STATUS_EXTENSION_REQUIRED = 1010,
+    LWS_CLOSE_STATUS_UNEXPECTED_CONDITION = 1011,
+    LWS_CLOSE_STATUS_TLS_FAILURE = 1015,
+};
+
+
+enum libwebsocket_log_severity {
+	LWS_LOG_DEBUG = 0,
+    LWS_LOG_INFO = 1,
+    LWS_LOG_WARNING = 2,
+    LWS_LOG_ERROR = 3,
 };
 
 struct libwebsocket;
 struct libwebsocket_context;
 struct libwebsocket_extension;
 
-/* document the generic callback (it's a fake prototype under this) */
+typedef void (*libwebsocket_log_callback)(enum libwebsocket_log_severity severity,
+                                          const char *msg, ...);
+
 /**
- * callback() - User server actions
+ * callback_function() - User server actions
  * @context:	Websockets context
  * @wsi:	Opaque websocket instance pointer
  * @reason:	The reason for the call
@@ -250,7 +325,10 @@ struct libwebsocket_extension;
  *	LWS_CALLBACK_ESTABLISHED:  after the server completes a handshake with
  *				an incoming client
  *
- *      LWS_CALLBACK_CLIENT_ESTABLISHED: after your client connection completed
+ *  LWS_CALLBACK_CLIENT_CONNECTION_ERROR: the request client connection has
+ *        been unable to complete a handshake with the remote server
+ *
+ *  LWS_CALLBACK_CLIENT_ESTABLISHED: after your client connection completed
  *				a handshake with the remote server
  *
  *	LWS_CALLBACK_CLOSED: when the websocket session ends
@@ -424,9 +502,14 @@ LWS_EXTERN int callback(struct libwebsocket_context * context,
 			 enum libwebsocket_callback_reasons reason, void *user,
 							  void *in, size_t len);
 
-/* document the generic extension callback (it's a fake prototype under this) */
+typedef int (callback_function)(struct libwebsocket_context * context,
+			struct libwebsocket *wsi,
+			 enum libwebsocket_callback_reasons reason, void *user,
+							  void *in, size_t len);
+
+
 /**
- * extension_callback() - Hooks to allow extensions to operate
+ * extension_callback_function() - Hooks to allow extensions to operate
  * @context:	Websockets context
  * @ext:	This extension
  * @wsi:	Opaque websocket instance pointer
@@ -483,13 +566,17 @@ LWS_EXTERN int callback(struct libwebsocket_context * context,
  *		buffer safely, it should copy the data into its own buffer and
  *		set the lws_tokens token pointer to it.
  */
-
 LWS_EXTERN int extension_callback(struct libwebsocket_context * context,
 			struct libwebsocket_extension *ext,
 			struct libwebsocket *wsi,
-			 enum libwebsocket_callback_reasons reason, void *user,
+			 enum libwebsocket_extension_callback_reasons reason, void *user,
 							  void *in, size_t len);
 
+typedef int (extension_callback_function)(struct libwebsocket_context * context,
+			struct libwebsocket_extension *ext,
+			struct libwebsocket *wsi,
+			 enum libwebsocket_extension_callback_reasons reason, void *user,
+							  void *in, size_t len);
 
 /**
  * struct libwebsocket_protocols -	List of protocols and handlers server
@@ -521,10 +608,7 @@ LWS_EXTERN int extension_callback(struct libwebsocket_context * context,
 
 struct libwebsocket_protocols {
 	const char *name;
-	int (*callback)(struct libwebsocket_context * context,
-			struct libwebsocket *wsi,
-			enum libwebsocket_callback_reasons reason, void *user,
-							  void *in, size_t len);
+	callback_function *callback;
 	size_t per_session_data_size;
 
 	/*
@@ -553,11 +637,7 @@ struct libwebsocket_protocols {
 
 struct libwebsocket_extension {
 	const char *name;
-	int (*callback)(struct libwebsocket_context *context,
-			struct libwebsocket_extension *ext,
-			struct libwebsocket *wsi,
-			enum libwebsocket_extension_callback_reasons reason,
-					      void *user, void *in, size_t len);
+	extension_callback_function *callback;
 	size_t per_session_data_size;
 	void * per_context_private_data;
 };
@@ -569,7 +649,8 @@ libwebsocket_create_context(int port, const char * interf,
 		  struct libwebsocket_protocols *protocols,
 		  struct libwebsocket_extension *extensions,
 		  const char *ssl_cert_filepath,
-		  const char *ssl_private_key_filepath, int gid, int uid,
+		  const char *ssl_private_key_filepath,
+		  const char *ssl_ca_filepath, int gid, int uid,
 		  unsigned int options);
 
 LWS_EXTERN void
@@ -617,7 +698,7 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
  */
 
 #define LWS_SEND_BUFFER_PRE_PADDING (4 + 10 + (2 * MAX_MUX_RECURSION))
-#define LWS_SEND_BUFFER_POST_PADDING 1
+#define LWS_SEND_BUFFER_POST_PADDING 4
 
 LWS_EXTERN int
 libwebsocket_write(struct libwebsocket *wsi, unsigned char *buf, size_t len,
@@ -636,6 +717,13 @@ libwebsockets_broadcast(const struct libwebsocket_protocols *protocol,
 LWS_EXTERN const struct libwebsocket_protocols *
 libwebsockets_get_protocol(struct libwebsocket *wsi);
 
+LWS_EXTERN void
+libwebsockets_set_external_user_space(struct libwebsocket *wsi,
+                                      void *external_user_space);
+
+LWS_EXTERN void *
+libwebsockets_get_external_user_space(const struct libwebsocket *wsi);
+
 LWS_EXTERN int
 libwebsocket_callback_on_writable(struct libwebsocket_context *context,
 						      struct libwebsocket *wsi);
@@ -649,6 +737,9 @@ libwebsocket_get_socket_fd(struct libwebsocket *wsi);
 
 LWS_EXTERN int
 libwebsocket_is_final_fragment(struct libwebsocket *wsi);
+
+LWS_EXTERN unsigned char
+libwebsocket_get_reserved_bits(struct libwebsocket *wsi);
 
 LWS_EXTERN void *
 libwebsocket_ensure_user_space(struct libwebsocket *wsi);
@@ -702,6 +793,9 @@ LWS_EXTERN int
 lws_b64_decode_string(const char *in, char *out, int out_size);
 
 LWS_EXTERN struct libwebsocket_extension libwebsocket_internal_extensions[];
+
+LWS_EXTERN void
+libwebsockets_set_log_callback(libwebsocket_log_callback log_callback);
 
 #ifdef __cplusplus
 }
