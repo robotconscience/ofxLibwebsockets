@@ -7,6 +7,7 @@
 #include <winsock2.h>
 #else
 #include <WinSock2.h>
+typedef INT (WSAAPI *PFNWSAPOLL)(LPWSAPOLLFD fdarray, ULONG nfds, INT timeout);
 #endif
 #endif
 
