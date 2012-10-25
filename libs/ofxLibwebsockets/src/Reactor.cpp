@@ -44,7 +44,7 @@ namespace ofxLibwebsockets {
     void Reactor::exit(){
         if (context != NULL)
         {
-            stopThread();
+            waitForThread(true);
             libwebsocket_context_destroy(context);
             context = NULL;
         }
