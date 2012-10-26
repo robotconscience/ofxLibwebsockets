@@ -103,7 +103,7 @@ namespace ofxLibwebsockets {
         Event args(*conn, message);
         
         if (_message != NULL && len > 0){
-            args.json    = NULL;
+            args.json = Json::Value( Json::nullValue );
             
             args.message = args.conn.recv(args.message);
             
@@ -111,7 +111,7 @@ namespace ofxLibwebsockets {
             if ( !parsingSuccessful ){
                 // report to the user the failure and their locations in the document.
                 ofLog( OF_LOG_WARNING, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
-                args.json = NULL;
+                args.json = Json::Value( Json::nullValue );
             }
         }
         
