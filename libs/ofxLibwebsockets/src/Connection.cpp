@@ -68,10 +68,10 @@ namespace ofxLibwebsockets {
     {
         if ( message.size() == 0 ) return;
         int n = 0;
-        if(message.size() > 4096){
+        /*if(message.size() > 4096){
             return;
-        }
-        if(message.size() > bufsize){
+        }*/
+        while(message.size() > bufsize){
             bufsize = bufsize+1024;
             buf = (unsigned char*)realloc(buf, bufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
             cout << "Connection -- received large message, resizing buffer to " << bufsize << endl;
