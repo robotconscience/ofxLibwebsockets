@@ -88,7 +88,7 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     void Protocol::broadcast(const std::string& message){
-        std::string buf(LWS_SEND_BUFFER_PRE_PADDING+1024+LWS_SEND_BUFFER_POST_PADDING, 0);
+        std::string buf(LWS_SEND_BUFFER_PRE_PADDING+message.size()+LWS_SEND_BUFFER_POST_PADDING, 0);
         unsigned char *p = (unsigned char*)&buf[LWS_SEND_BUFFER_PRE_PADDING];
         
         if (reactor != NULL)
