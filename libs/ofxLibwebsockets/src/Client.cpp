@@ -106,18 +106,20 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     void Client::close(){
         if (isThreadRunning()){
-            stopThread();
-        }
-        if ( context != NULL){
+            waitForThread(true);
+        } else {
+			return;
+		}
+        if ( context != NULL ){
             libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
             libwebsocket_context_destroy( context );
             context = NULL;        
             lwsconnection = NULL;
-            if ( connection != NULL){
-                //delete connection;
-                connection = NULL;                
-            }
         }
+		if ( connection != NULL){
+                //delete connection;
+			connection = NULL;                
+		}
     }
 
 
