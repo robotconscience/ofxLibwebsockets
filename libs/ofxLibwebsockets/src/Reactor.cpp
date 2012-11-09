@@ -110,7 +110,7 @@ namespace ofxLibwebsockets {
             bool parsingSuccessful = reader.parse( args.message, args.json );
             if ( !parsingSuccessful ){
                 // report to the user the failure and their locations in the document.
-                ofLog( OF_LOG_WARNING, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
+                ofLog( OF_LOG_VERBOSE, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
                 args.json = Json::Value( Json::nullValue );
             }
         }
