@@ -4,7 +4,7 @@
 void testApp::setup(){
     
     // connect to websocket.org's echo server on default port
-    //bool connected = client.connect( "echo.websocket.org", true );
+    bool connected = client.connect( "echo.websocket.org", true );
     //bool connected = client.connect( "echo.websocket.org" );
     
     // Uncomment this to connect to the server example!

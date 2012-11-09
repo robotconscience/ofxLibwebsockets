@@ -768,6 +768,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ClientDebug;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -854,6 +855,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Client;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
