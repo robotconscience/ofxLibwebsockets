@@ -613,6 +613,7 @@
 					../../../addons/ofxLibwebsockets/libs/openssl/openssl,
 					../../../addons/ofxLibwebsockets/src,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -624,6 +625,7 @@
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
 				);
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -671,6 +673,7 @@
 					../../../addons/ofxLibwebsockets/libs/openssl/openssl,
 					../../../addons/ofxLibwebsockets/src,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -682,6 +685,7 @@
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
 				);
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

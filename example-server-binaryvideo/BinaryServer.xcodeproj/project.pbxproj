@@ -10,6 +10,9 @@
 		6d73a566cfec0b462fe6e43c7cf4d23f /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232a9453e355593ef36ada7af643673 /* Reactor.cpp */; };
 		86135253dc7909ca8590e1574a6d2112 /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57eefec8b85f7c3b15dd45a430db9c25 /* Protocol.cpp */; };
 		9ef1133bc23669a5c94fe30f676125b8 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */; };
+		A9150681164CA45100045635 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A915067E164CA45100045635 /* Accelerate.framework */; };
+		A9150682164CA45100045635 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A915067F164CA45100045635 /* CoreVideo.framework */; };
+		A9150683164CA45100045635 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9150680164CA45100045635 /* QTKit.framework */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -118,6 +121,9 @@
 		97f27be13d191be238606db1bdd70a31 /* opensslconf.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = opensslconf.h; path = ../libs/openssl/openssl/opensslconf.h; sourceTree = SOURCE_ROOT; };
 		9bd79105e0d8162ad50c74e63b2cf706 /* stack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = stack.h; path = ../libs/openssl/openssl/stack.h; sourceTree = SOURCE_ROOT; };
 		9dba9304fb99bdb218246dde355b3d83 /* e_os2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = e_os2.h; path = ../libs/openssl/openssl/e_os2.h; sourceTree = SOURCE_ROOT; };
+		A915067E164CA45100045635 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
+		A915067F164CA45100045635 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = ../../../../../../../../System/Library/Frameworks/CoreVideo.framework; sourceTree = "<group>"; };
+		A9150680164CA45100045635 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = ../../../../../../../../System/Library/Frameworks/QTKit.framework; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -188,6 +194,9 @@
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
+				A9150681164CA45100045635 /* Accelerate.framework in Frameworks */,
+				A9150682164CA45100045635 /* CoreVideo.framework in Frameworks */,
+				A9150683164CA45100045635 /* QTKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,16 +373,19 @@
 		BBAB23C913894ECA00AA2426 /* system frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2424410CC5A17004149E2 /* AppKit.framework */,
-				E4C2424510CC5A17004149E2 /* Cocoa.framework */,
-				E4C2424610CC5A17004149E2 /* IOKit.framework */,
+				A915067E164CA45100045635 /* Accelerate.framework */,
+				A915067F164CA45100045635 /* CoreVideo.framework */,
+				A9150680164CA45100045635 /* QTKit.framework */,
 				E45BE9710E8CC7DD009D7055 /* AGL.framework */,
+				E4C2424410CC5A17004149E2 /* AppKit.framework */,
 				E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */,
 				E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */,
 				E45BE9740E8CC7DD009D7055 /* Carbon.framework */,
+				E4C2424510CC5A17004149E2 /* Cocoa.framework */,
 				E45BE9750E8CC7DD009D7055 /* CoreAudio.framework */,
 				E45BE9760E8CC7DD009D7055 /* CoreFoundation.framework */,
 				E45BE9770E8CC7DD009D7055 /* CoreServices.framework */,
+				E4C2424610CC5A17004149E2 /* IOKit.framework */,
 				E45BE9790E8CC7DD009D7055 /* OpenGL.framework */,
 				E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */,
 			);
@@ -624,6 +636,7 @@
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
 				);
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -682,6 +695,7 @@
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
 				);
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

@@ -127,7 +127,7 @@ void testApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
     
     // trace out string messages or JSON messages!
-    if ( args.json != NULL){
+    if ( !args.json.isNull() ){
         ofPoint point = ofPoint( args.json["point"]["x"].asFloat(), args.json["point"]["y"].asFloat() );
         
         // for some reason these come across as strings via JSON.stringify!

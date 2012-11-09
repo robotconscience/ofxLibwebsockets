@@ -88,7 +88,8 @@ void testApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
     
     // trace out string messages or JSON messages!
-    if ( args.json != NULL){
+    // args.json is null if badly formed or just not JOSN
+    if ( !args.json.isNull() ){
         messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
     } else {
         messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
