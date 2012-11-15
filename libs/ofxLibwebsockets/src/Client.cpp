@@ -68,7 +68,7 @@ namespace ofxLibwebsockets {
         
         context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
                                               &lws_protocols[0], libwebsocket_internal_extensions,
-                                              NULL, NULL, NULL, -1, -1, 0);
+                                              NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
         if (context == NULL){
             std::cerr << "libwebsocket init failed" << std::endl;
             return false;
@@ -87,7 +87,7 @@ namespace ofxLibwebsockets {
                                                             options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ), 
                                                             options.channel.c_str(), host.c_str(), host.c_str(), options.protocol.c_str(), options.version);
             }
-            
+                        
             if ( lwsconnection == NULL ){
                 std::cerr << "client connection failed" << std::endl;
                 return false;
