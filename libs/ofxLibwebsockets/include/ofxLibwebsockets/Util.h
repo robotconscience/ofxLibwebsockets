@@ -26,7 +26,7 @@ namespace ofxLibwebsockets {
 
     static int lws_client_callback(struct libwebsocket_context* context, struct libwebsocket *ws, enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len){
         const struct libwebsocket_protocols* lws_protocol = (ws == NULL ? NULL : libwebsockets_get_protocol(ws));
-        int idx = lws_protocol? lws_protocol->protocol_index : 0;            
+        int idx = lws_protocol? lws_protocol->protocol_index : 0;          
         
         Connection* conn;
         
@@ -225,6 +225,7 @@ namespace ofxLibwebsockets {
             case 19 : return "LWS_CALLBACK_DEL_POLL_FD";
             case 20 : return "LWS_CALLBACK_SET_MODE_POLL_FD";
             case 21 : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
+            default: return "Unknown callback reason";                
         };
     }
 }

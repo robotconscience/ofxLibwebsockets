@@ -74,7 +74,7 @@ namespace ofxLibwebsockets {
         while(message.size() > bufsize){
             bufsize = bufsize+1024;
             buf = (unsigned char*)realloc(buf, bufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
-            cout << "Connection -- received large message, resizing buffer to " << bufsize << endl;
+            ofLog( OF_LOG_VERBOSE, "Connection -- received large message, resizing buffer to " + ofToString( bufsize ) );
         }
         unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
         

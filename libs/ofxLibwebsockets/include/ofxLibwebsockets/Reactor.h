@@ -28,6 +28,9 @@ namespace ofxLibwebsockets {
         void close(Connection* const conn);
         void registerProtocol(const std::string& name, Protocol& protocol);
         
+        // parse JSON automatically? (true by default)
+        bool bParseJSON;
+        
         // getters
         struct libwebsocket_context *   getContext();
         vector<Connection *>            getConnections();

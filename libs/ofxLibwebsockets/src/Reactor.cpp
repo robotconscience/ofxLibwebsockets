@@ -14,6 +14,7 @@ namespace ofxLibwebsockets {
     Reactor::Reactor()
     : context(NULL), waitMillis(50){
         reactors.push_back(this);
+        bParseJSON = true;
     }
 
     //--------------------------------------------------------------
@@ -107,7 +108,7 @@ namespace ofxLibwebsockets {
             
             args.message = args.conn.recv(args.message);
             
-            bool parsingSuccessful = reader.parse( args.message, args.json );
+            bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
             if ( !parsingSuccessful ){
                 // report to the user the failure and their locations in the document.
                 ofLog( OF_LOG_VERBOSE, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
