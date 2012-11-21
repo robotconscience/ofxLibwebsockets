@@ -52,6 +52,9 @@ namespace ofxLibwebsockets {
         unsigned int    waitMillis;
         std::string     interface;
         
+        bool            bReceivingLargeMessage;
+        std::string     largeMessage;
+        
         virtual void threadedFunction(){};  
         
         string address;

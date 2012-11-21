@@ -15,6 +15,8 @@ namespace ofxLibwebsockets {
     : context(NULL), waitMillis(50){
         reactors.push_back(this);
         bParseJSON = true;
+        largeMessage = "";
+        bReceivingLargeMessage  = false;
     }
 
     //--------------------------------------------------------------
@@ -101,9 +103,27 @@ namespace ofxLibwebsockets {
         if (_message != NULL && len > 0){
             message = std::string(_message, len);
         }
+        
+        // decide if this is part of a larger message or not
+        size_t bytesLeft = libwebsockets_remaining_packet_payload( conn->ws );
+        if ( !bReceivingLargeMessage && bytesLeft > 0 ){
+            bReceivingLargeMessage = true;
+        }
+        bool bFinishedReceiving = false;
+        
+        if ( bReceivingLargeMessage){
+            largeMessage += message;
+            if ( bytesLeft == 0 ){
+                message = largeMessage;
+                bFinishedReceiving      = true;
+                bReceivingLargeMessage  = false;
+                largeMessage = "";
+            }
+        }
+        
         Event args(*conn, message);
         
-        if (_message != NULL && len > 0){
+        if (_message != NULL && len > 0 && (!bReceivingLargeMessage || bFinishedReceiving) ){
             args.json = Json::Value( Json::nullValue );
             
             args.message = args.conn.recv(args.message);
@@ -132,9 +152,13 @@ namespace ofxLibwebsockets {
             ofNotifyEvent(conn->protocol->oncloseEvent, args);
         } else if (reason==LWS_CALLBACK_SERVER_WRITEABLE){
             ofNotifyEvent(conn->protocol->onidleEvent, args);
-        } else if (reason==LWS_CALLBACK_BROADCAST){
+            
+            // only notify if we have a complete message
+        } else if (reason==LWS_CALLBACK_BROADCAST && (!bReceivingLargeMessage || bFinishedReceiving) ){
             ofNotifyEvent(conn->protocol->onbroadcastEvent, args);
-        } else if (reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE){
+            
+        // only notify if we have a complete message
+        } else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE) && (!bReceivingLargeMessage || bFinishedReceiving)){
             ofNotifyEvent(conn->protocol->onmessageEvent, args);
         }
         
