@@ -4,6 +4,10 @@ ofxLibwebsockets
 * implements both client and server functionality of libwebsockets
 * based on Paul Reimer's work on ofxWebUI (https://github.com/paulreimer/ofxWebUI) and jason vancleave's ofxLibWebSockets (https://github.com/jvcleave/ofxLibWebSockets)
 
+USAGE
+------------
+* MAC USERS: before using the projectGenerator, delete ofxLibwebsockets/libs/libwebsockets/include/win32port  Ya don't need it, ya knucklehead!
+
 STATUS
 ------------
 * Server example currently works with Chrome, and Safari (need to test FF)
