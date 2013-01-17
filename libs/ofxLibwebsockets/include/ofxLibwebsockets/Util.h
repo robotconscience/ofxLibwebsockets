@@ -9,6 +9,7 @@
 #pragma once
 
 #include <libwebsockets.h>
+
 #include "ofxLibwebsockets/Connection.h"
 #include "ofxLibwebsockets/Reactor.h"
 #include "ofxLibwebsockets/Client.h"
@@ -18,8 +19,9 @@ namespace ofxLibwebsockets {
         
     class Client;
     class Server;
-    
-    static string getCallbackReason( int reason );
+        
+    static string getServerCallbackReason( int reason );
+    static string getClientCallbackReason( int reason );
     static void dump_handshake_info(struct lws_tokens *lwst);
 
     // CLIENT CALLBACK
@@ -44,9 +46,9 @@ namespace ofxLibwebsockets {
             }
         }
         
-        ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
+        ofLog( OF_LOG_VERBOSE, getClientCallbackReason(reason) );
         
-        if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
+        if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
         } else if (reason == LWS_CALLBACK_CLOSED){
         }
         
@@ -67,11 +69,13 @@ namespace ofxLibwebsockets {
                 } else {
                     return 0;
                 }
-            case LWS_CALLBACK_CLIENT_ESTABLISHED:
+                
             case LWS_CALLBACK_CLIENT_WRITEABLE:
+            case LWS_CALLBACK_CLIENT_ESTABLISHED:
             case LWS_CALLBACK_CLOSED:
             case LWS_CALLBACK_CLIENT_RECEIVE:
-                if (reactor != NULL){
+            case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
+                if ( reactor != NULL ){
                     //conn = *(Connection**)user;
                     if (conn && conn->ws != ws) conn->ws = ws;
                     return reactor->_notify(conn, reason, (char*)data, len);
@@ -112,7 +116,7 @@ namespace ofxLibwebsockets {
             }
         }
         
-        ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
+        ofLog( OF_LOG_VERBOSE, getServerCallbackReason(reason) );
         
         if (reason == LWS_CALLBACK_ESTABLISHED){
             if ( reactor != NULL ){
@@ -200,7 +204,39 @@ namespace ofxLibwebsockets {
         }
     }
     
-    static string getCallbackReason( int reason ){
+    
+    static string getClientCallbackReason( int reason ){
+        switch (reason){
+            case 0 : return "LWS_CALLBACK_ESTABLISHED";
+            case 1 : return "LWS_CALLBACK_CLIENT_CONNECTION_ERROR";
+            case 2 : return "LWS_CALLBACK_CLIENT_ESTABLISHED";
+            case 3 : return "LWS_CALLBACK_CLOSED";
+            case 4 : return "LWS_CALLBACK_RECEIVE";
+            case 5 : return "LWS_CALLBACK_CLIENT_RECEIVE";
+            case 6 : return "LWS_CALLBACK_CLIENT_RECEIVE_PONG";
+            case 7 : return "LWS_CALLBACK_CLIENT_WRITEABLE";
+            case 8 : return "LWS_CALLBACK_SERVER_WRITEABLE";
+            case 9 : return "LWS_CALLBACK_HTTP";
+            case 10 : return "LWS_CALLBACK_HTTP_FILE_COMPLETION";
+            case 11 : return "LWS_CALLBACK_BROADCAST";
+            case 12 : return "LWS_CALLBACK_FILTER_NETWORK_CONNECTION";
+            case 13 : return "LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION";
+            case 14 : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS";
+            case 15 : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS";
+            case 16 : return "LWS_CALLBACK_OPENSSL_PERFORM_CLIENT_CERT_VERIFICATION";
+            case 17 : return "LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER";
+            case 18 : return "LWS_CALLBACK_CONFIRM_EXTENSION_OKAY";
+            case 19 : return "LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED";
+            case 20 : return "LWS_CALLBACK_ADD_POLL_FD";
+            case 21 : return "LWS_CALLBACK_DEL_POLL_FD";
+            case 22 : return "LWS_CALLBACK_SET_MODE_POLL_FD";
+            case 23 : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
+            case 24 : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
+            default: return "Unknown callback reason";
+        }
+    }
+    
+    static string getServerCallbackReason( int reason ){
         switch (reason){
             case 0 : return "LWS_CALLBACK_ESTABLISHED";
             case 1 : return "LWS_CALLBACK_CLIENT_ESTABLISHED";
