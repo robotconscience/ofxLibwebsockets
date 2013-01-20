@@ -27,14 +27,18 @@ ADDING TO PROJECTS
 			* right click on project in the solution explorer, click "Properties", Go down to C++ > General
 			* click the arrow at the right of "Additional include directories" and select "edit"
 			* add the ofxLibwebsockets source files:
-			```..\..\..\addons\ofxLibwebsockets\libs\jsonpp
+			
+			```
+			..\..\..\addons\ofxLibwebsockets\libs\jsonpp
 			..\..\..\addons\ofxLibwebsockets\libs\jsonpp\json
 			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include
 			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port
 			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include
 			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src
 			..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl
-			..\..\..\addons\ofxLibwebsockets\src```
+			..\..\..\addons\ofxLibwebsockets\src
+```
+		
 		2. Add the ofxLibwebsockets paths to the "Additional Library Directories":
 			* right click on project in the solution explorer, click "Properties", Go down to Linker > General
 			* click the arrow at the right of "Additional Library Directories" and select "edit"
