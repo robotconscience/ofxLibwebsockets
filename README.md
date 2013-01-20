@@ -18,9 +18,13 @@ ADDING TO PROJECTS
 			2. Include ofxLibwebsockets xcconfig
 			```#include "../../../addons/ofxLibwebsockets/ofxLibwebsockets.xcconfig"```
 			2. Add to existing vars in Project.xcconfig:
-			```OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OFX_LWS_LIBS)
+			
+			```
+			OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OFX_LWS_LIBS)
 			HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(OFX_LWS_INCLUDES)
-			LIBRARY_SEARCH_PATHS = $(inherited) $(OFX_LWS_SEARCH)```
+			LIBRARY_SEARCH_PATHS = $(inherited) $(OFX_LWS_SEARCH)
+			```
+
 * Windows
 	* Adding to new/existing project: 
 		1. Add the ofxLibwebsockets source files to the C++ Linker
@@ -38,7 +42,8 @@ ADDING TO PROJECTS
 			..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl
 			..\..\..\addons\ofxLibwebsockets\src
 ```
-		
+
+
 		2. Add the ofxLibwebsockets paths to the "Additional Library Directories":
 			* right click on project in the solution explorer, click "Properties", Go down to Linker > General
 			* click the arrow at the right of "Additional Library Directories" and select "edit"
