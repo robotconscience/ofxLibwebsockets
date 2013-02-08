@@ -51,6 +51,7 @@ ADDING TO PROJECTS
 		3. Now go down to Linker > Input; open the editor "Additional dependencies" the same way
 			* In your debug scheme, add libwebsocketswin32d.lib, libeay32.lib, and ssleay32.lib
 			* In your release scheme, add libwebsocketswin32.lib, libeay32.lib, and ssleay32.lib
+			
 * Linux
 	* Delete the entire directory at ofxLibwebsockets/libs/libwebsockets/include/win32port
 	* 64-bit static version of libwebsockets is included; please let us know if you can contribute a 32 bit version!
