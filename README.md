@@ -63,3 +63,7 @@ TO-DO
 * Add functionality to examples
 * More fun examples
 * Compile for linux
+
+LINUX
+------------
+added linux64 static lib. In order to compile fine the addon , delete the libwebsockets/include/win32 folder with all included. 
