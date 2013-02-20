@@ -28,12 +28,12 @@ namespace ofxLibwebsockets {
             buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
             binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
         }
-        
     }
 
     //--------------------------------------------------------------
     Connection::~Connection(){
         free(buf);
+        free(binaryBuf);
     }
     //--------------------------------------------------------------
     void Connection::close() {

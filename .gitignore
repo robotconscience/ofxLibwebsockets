@@ -46,7 +46,6 @@ obj/
 
 #eclipse build folders
 #Mac OS X
-xcuserdata
 project.xcworkspace
 .DS_Store
 *.pyc

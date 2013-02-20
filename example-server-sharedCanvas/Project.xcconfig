@@ -5,14 +5,15 @@ OF_PATH = ../../..
 //THIS HAS ALL THE HEADER AND LIBS FOR OF CORE
 #include "../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig"
 
-LIB_SSL = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a"
-LIB_CRYPTO = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a"
-SSL_INC = "$(OF_PATH)/addons/ofxLibwebsockets/libs/openssl/"
-LWS = "$(OF_PATH)/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a"
-OFX_LWS_INCLUDE = "$(OF_PATH)/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include"
+// INCLUDE OFX_LIBWEBSOCKETS
+// 1: DEFINE WHERE IT LIVES; only change this if you have installed elsewhere or changed the name!
+OFX_LWS_PATH = "$(OF_PATH)/addons/ofxLibwebsockets"
 
-LIBWEBSOCKETS_LIBS = $(LIB_CRYPTO) $(LIB_SSL) $(LWS)
-LIBWEBSOCKETS_INCLUDES= $(SSL_INC)
+// 2: INCLUDE OFX_LIBWEBSOCKETS XCCONFIG (make sure you change the path if you've installed elsewhere!)
+#include "../../../addons/ofxLibwebsockets/ofxLibwebsockets.xcconfig"
 
-OTHER_LDFLAGS = $(OF_CORE_LIBS) $(LIBWEBSOCKETS_LIBS)
-HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(SSL_INC) $(OFX_LWS_INCLUDE)
+// 3: ADD TO OR REPLACE EXISTING VARS
+
+OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OFX_LWS_LIBS)
+HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(OFX_LWS_INCLUDES)
+LIBRARY_SEARCH_PATHS = $(inherited) $(OFX_LWS_SEARCH)
