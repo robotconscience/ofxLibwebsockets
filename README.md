@@ -54,7 +54,6 @@ ADDING TO PROJECTS
 			* In your release scheme, add libwebsocketswin32.lib, libeay32.lib, and ssleay32.lib
 			
 * Linux
-	* Delete the entire directory at ofxLibwebsockets/libs/libwebsockets/include/win32port
 	* 64-bit static version of libwebsockets is included; please let us know if you can contribute a 32 bit version!
 
 STATUS
