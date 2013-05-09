@@ -78,7 +78,20 @@ namespace ofxLibwebsockets {
         }
         
         int opts = 0;
-        context = libwebsocket_create_context( port, NULL, &lws_protocols[0], libwebsocket_internal_extensions, sslCert, sslKey, /*"",*/ -1, -1, opts, NULL);
+        struct lws_context_creation_info info;
+        memset(&info, 0, sizeof info);
+        info.port = port;
+        info.protocols = &lws_protocols[0];
+        info.extensions = libwebsocket_get_internal_extensions();
+        info.ssl_cert_filepath = sslCert;
+        info.ssl_private_key_filepath = sslKey;
+        info.gid = -1;
+        info.uid = -1;
+        info.options = opts;
+
+        context = libwebsocket_create_context(&info);
+
+        //context = libwebsocket_create_context( port, NULL, &lws_protocols[0], libwebsocket_internal_extensions, sslCert, sslKey, /*"",*/ -1, -1, opts, NULL);
         
         if (context == NULL){
             std::cerr << "libwebsocket init failed" << std::endl;

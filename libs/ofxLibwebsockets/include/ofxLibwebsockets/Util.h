@@ -32,11 +32,10 @@ namespace ofxLibwebsockets {
         
         Connection* conn;
         
-        Connection** conn_ptr = (Connection**)user;
         Reactor* reactor = NULL;
         Protocol* protocol;
             
-        for (int i=0; i<reactors.size(); i++){
+        for (int i=0; i<(int)reactors.size(); i++){
             if (reactors[i]->getContext() == context){
                 reactor =  reactors[i];
                 protocol = reactor->protocol(idx);
@@ -59,7 +58,7 @@ namespace ofxLibwebsockets {
                 
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
                 if (protocol != NULL){
-                    return reactor->_allow(protocol, (int)(long)user)? 0 : 1;
+                    return reactor->_allow(ws, protocol, (int)(long)user)? 0 : 1;
                 } else {
                     return 0;
                 }
@@ -107,7 +106,7 @@ namespace ofxLibwebsockets {
         Server* reactor = NULL;
         Protocol* protocol = NULL;
         
-        for (int i=0; i<reactors.size(); i++){
+        for (int i=0; i<(int)reactors.size(); i++){
             if (reactors[i]->getContext() == context){
                 reactor = (Server*) reactors[i];
                 protocol = reactor->protocol( (idx > 0 ? idx : 0) );
@@ -134,7 +133,7 @@ namespace ofxLibwebsockets {
                 
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
                 if (protocol != NULL ){
-                    return reactor->_allow(protocol, (int)(long)user)? 0 : 1;
+                    return reactor->_allow(ws, protocol, (int)(long)user)? 0 : 1;
                 } else {
                     return 1;
                 }
@@ -146,10 +145,13 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_CLOSED:
             case LWS_CALLBACK_SERVER_WRITEABLE:
             case LWS_CALLBACK_RECEIVE:
-            case LWS_CALLBACK_BROADCAST:
+            //case LWS_CALLBACK_BROADCAST:
+            //In the current git version, All of the broadcast proxy stuff is removed: data must now be sent from the callback only
+            // http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/commit/test-server/test-server.c?id=6f520a5195defcb7fc69c669218a8131a5f35efb
                 conn = *(Connection**)user;
                 
                 if (conn && conn->ws != ws){
+                    conn->context = context;
                     conn->ws = ws;
                     conn->setupAddress();
                 }

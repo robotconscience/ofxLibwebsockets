@@ -65,10 +65,21 @@ namespace ofxLibwebsockets {
             lws_protocols.push_back(lws_protocol);
         }
         lws_protocols.push_back(null_protocol);
+
+        struct lws_context_creation_info info;
+        memset(&info, 0, sizeof info);
+        info.port = CONTEXT_PORT_NO_LISTEN;
+        info.protocols = &lws_protocols[0];
+        info.extensions = libwebsocket_get_internal_extensions();
+        info.gid = -1;
+        info.uid = -1;
+
+        context = libwebsocket_create_context(&info);
+
         
-        context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
-                                              &lws_protocols[0], libwebsocket_internal_extensions,
-                                              NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
+        //context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
+        //                                      &lws_protocols[0], libwebsocket_internal_extensions,
+        //                                      NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
         if (context == NULL){
             std::cerr << "libwebsocket init failed" << std::endl;
             return false;
@@ -111,7 +122,8 @@ namespace ofxLibwebsockets {
 			return;
 		}
         if ( context != NULL ){
-            libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+            //libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+            closeAndFree = true;
             libwebsocket_context_destroy( context );
             context = NULL;        
             lwsconnection = NULL;
