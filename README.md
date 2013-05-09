@@ -21,7 +21,8 @@ ADDING TO PROJECTS
 			
 			```
 			OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OFX_LWS_LIBS)
-			HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) $(OFX_LWS_INCLUDES)
+			HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) 
+			USER_HEADER_SEARCH_PATHS = $(OFX_LWS_INCLUDES)
 			LIBRARY_SEARCH_PATHS = $(inherited) $(OFX_LWS_SEARCH)
 			```
 
@@ -53,7 +54,6 @@ ADDING TO PROJECTS
 			* In your release scheme, add libwebsocketswin32.lib, libeay32.lib, and ssleay32.lib
 			
 * Linux
-	* Delete the entire directory at ofxLibwebsockets/libs/libwebsockets/include/win32port
 	* 64-bit static version of libwebsockets is included; please let us know if you can contribute a 32 bit version!
 
 STATUS

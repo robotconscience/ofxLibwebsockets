@@ -4,17 +4,17 @@
 void testApp::setup(){
     
     // connect to websocket.org's echo server on default port
-    bool connected = client.connect( "echo.websocket.org", true );
+    //bool connected = client.connect( "ws://echo.websocket.org", true );
     //bool connected = client.connect( "echo.websocket.org" );
     
     // Uncomment this to connect to the server example!
     
-    /*
+    
     ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
     options.port = 9092; 
     options.protocol = "of-protocol";
     bool connected = client.connect( options );
-    */
+    
     
     client.addListener(this);
     ofSetFrameRate(60);
@@ -26,7 +26,6 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    client.send("Hello");
 }
 
 //--------------------------------------------------------------
@@ -61,6 +60,8 @@ void testApp::onBroadcast( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+
+    client.send("Hello");
 
 }
 

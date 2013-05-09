@@ -44,7 +44,7 @@ public:
         if ( wrapper != "" ){
             jsonstring << "{\"" + wrapper << "\":";
         }
-        jsonstring<<"{" +getColorJSON()+",\"id\":"<< _id<<"}";
+        jsonstring<<"{" +getColorJSON()+",\"id\":\""<< _id<<"\"}";
         
         if ( wrapper != "" ){
             jsonstring << "}";
