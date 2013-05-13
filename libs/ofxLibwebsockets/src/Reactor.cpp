@@ -56,7 +56,10 @@ namespace ofxLibwebsockets {
         if (context != NULL)
         {
             waitForThread(true);
-            libwebsocket_context_destroy(context);
+			// on windows the app does crash if the context is destroyed
+			// while the thread or the library still might hold pointers
+			// better to live with non deleted memory, or?
+            //libwebsocket_context_destroy(context);
             context = NULL;
         }
     }

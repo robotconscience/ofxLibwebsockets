@@ -39,6 +39,23 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     bool Server::setup( ServerOptions options ){
+		/*
+			enum lws_log_levels {
+			LLL_ERR = 1 << 0,
+			LLL_WARN = 1 << 1,
+			LLL_NOTICE = 1 << 2,
+			LLL_INFO = 1 << 3,
+			LLL_DEBUG = 1 << 4,
+			LLL_PARSER = 1 << 5,
+			LLL_HEADER = 1 << 6,
+			LLL_EXT = 1 << 7,
+			LLL_CLIENT = 1 << 8,
+			LLL_LATENCY = 1 << 9,
+			LLL_COUNT = 10 
+		};
+		*/
+		lws_set_log_level(LLL_ERR, NULL);
+
         defaultOptions = options;
         
         port = defaultOptions.port = options.port;
@@ -102,6 +119,11 @@ namespace ofxLibwebsockets {
         }
     }
     
+	void Server::close() {
+		cout << "server close" << endl; 
+		waitForThread(true);
+	}
+
     //--------------------------------------------------------------
     void Server::broadcast( string message ){
         // loop through all protocols and broadcast!
