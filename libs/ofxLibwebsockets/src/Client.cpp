@@ -48,6 +48,23 @@ namespace ofxLibwebsockets {
         port    = options.port;  
         channel = options.channel;
         
+		/*
+			enum lws_log_levels {
+			LLL_ERR = 1 << 0,
+			LLL_WARN = 1 << 1,
+			LLL_NOTICE = 1 << 2,
+			LLL_INFO = 1 << 3,
+			LLL_DEBUG = 1 << 4,
+			LLL_PARSER = 1 << 5,
+			LLL_HEADER = 1 << 6,
+			LLL_EXT = 1 << 7,
+			LLL_CLIENT = 1 << 8,
+			LLL_LATENCY = 1 << 9,
+			LLL_COUNT = 10 
+		};
+		*/
+		lws_set_log_level(LLL_ERR, NULL);
+
         // set up default protocols
         struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
         
@@ -65,10 +82,21 @@ namespace ofxLibwebsockets {
             lws_protocols.push_back(lws_protocol);
         }
         lws_protocols.push_back(null_protocol);
+
+        struct lws_context_creation_info info;
+        memset(&info, 0, sizeof info);
+        info.port = CONTEXT_PORT_NO_LISTEN;
+        info.protocols = &lws_protocols[0];
+        info.extensions = libwebsocket_get_internal_extensions();
+        info.gid = -1;
+        info.uid = -1;
+
+        context = libwebsocket_create_context(&info);
+
         
-        context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
-                                              &lws_protocols[0], libwebsocket_internal_extensions,
-                                              NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
+        //context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
+        //                                      &lws_protocols[0], libwebsocket_internal_extensions,
+        //                                      NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
         if (context == NULL){
             std::cerr << "libwebsocket init failed" << std::endl;
             return false;
@@ -111,7 +139,8 @@ namespace ofxLibwebsockets {
 			return;
 		}
         if ( context != NULL ){
-            libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+            //libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+            closeAndFree = true;
             libwebsocket_context_destroy( context );
             context = NULL;        
             lwsconnection = NULL;
@@ -125,7 +154,14 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     void Client::onClose( Event& args ){
-        close();
+		// on windows an exit of the server let's the client crash
+		// the event is called from the processing of the thread
+		// thus all we can do wait for the thread to stop itself
+		// by detecting that lwsconnection is NULL
+		if ( context != NULL ){
+			closeAndFree = true;
+			lwsconnection = NULL;
+		}     
     }
 
     //--------------------------------------------------------------
@@ -149,8 +185,16 @@ namespace ofxLibwebsockets {
                 //libwebsocket_callback_on_writable(context, lwsconnection);
                 int n = libwebsocket_service(context, waitMillis);
             } else {
-                stopThread();
-                close();
+				stopThread();
+				if ( context != NULL ){
+					closeAndFree = true;
+					libwebsocket_context_destroy( context );
+					context = NULL;        
+					lwsconnection = NULL;
+				}
+				if (connection != NULL){
+					connection = NULL;                
+				}
             }
         }
     }

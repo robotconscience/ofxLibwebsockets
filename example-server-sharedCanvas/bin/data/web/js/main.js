@@ -86,7 +86,8 @@ function setupSocket(){
 	// get_appropriate_ws_url is a nifty function by the libwebsockets people
 	// it decides what the websocket url is based on the broswer url
 	// e.g. https://mygreathost:9099 = wss://mygreathost:9099
-	socket = new WebSocket(get_appropriate_ws_url());
+	//socket = new WebSocket(get_appropriate_ws_url());
+	socket = new WebSocket(get_appropriate_ws_url(), "of-protocol");
 	
 	// open
 	try {

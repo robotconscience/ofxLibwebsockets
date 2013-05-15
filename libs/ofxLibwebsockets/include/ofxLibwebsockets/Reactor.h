@@ -40,7 +40,7 @@ namespace ofxLibwebsockets {
         std::vector<std::pair<std::string, Protocol*> > protocols;
         
         //private:
-        unsigned int _allow(Protocol* const protocol, const long fd);
+        unsigned int _allow(struct libwebsocket *ws, Protocol* const protocol, const long fd);
         
         unsigned int _notify(Connection* conn, enum libwebsocket_callback_reasons const reason,
                              const char* const _message, const unsigned int len);
@@ -54,6 +54,8 @@ namespace ofxLibwebsockets {
         
         bool            bReceivingLargeMessage;
         std::string     largeMessage;
+
+        bool closeAndFree;
         
         virtual void threadedFunction(){};  
         
