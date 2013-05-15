@@ -17,6 +17,7 @@ namespace ofxLibwebsockets {
         bParseJSON = true;
         largeMessage = "";
         bReceivingLargeMessage  = false;
+        closeAndFree = false;
     }
 
     //--------------------------------------------------------------
@@ -39,7 +40,14 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     void Reactor::close(Connection* const conn){
         if (conn != NULL && conn->ws != NULL){
-            libwebsocket_close_and_free_session(context, conn->ws, LWS_CLOSE_STATUS_NORMAL);
+          // In the current git for the library, libwebsocket_close_and_free_session() has been removed from the public api.
+
+          //Instead, if you return -1 from the user callback, the library will understand it should call libwebsocket_close_and_free_session() for you.
+
+          //Calling libwebsocket_close_and_free_session() from outside the callback made trouble, because it frees the struct libwebsocket while the library may still hold pointers.
+
+            //libwebsocket_close_and_free_session(context, conn->ws, LWS_CLOSE_STATUS_NORMAL);
+            closeAndFree = true;
         }
     }
 
@@ -48,7 +56,10 @@ namespace ofxLibwebsockets {
         if (context != NULL)
         {
             waitForThread(true);
-            libwebsocket_context_destroy(context);
+			// on windows the app does crash if the context is destroyed
+			// while the thread or the library still might hold pointers
+			// better to live with non deleted memory, or?
+            //libwebsocket_context_destroy(context);
             context = NULL;
         }
     }
@@ -74,11 +85,11 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     unsigned int
-    Reactor::_allow(Protocol* const protocol, const long fd){
+    Reactor::_allow(struct libwebsocket *ws, Protocol* const protocol, const long fd){
         std::string client_ip(128, 0);
         std::string client_name(128, 0);
         
-        libwebsockets_get_peer_addresses((int)fd,
+        libwebsockets_get_peer_addresses(context, ws, (int)fd,
                                          &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
         return protocol->_allowClient(client_name, client_ip);
@@ -96,6 +107,11 @@ namespace ofxLibwebsockets {
                 ofLog(OF_LOG_WARNING, "protocol is null"); 
             }
             return 1;
+        }
+
+        if (closeAndFree){
+          closeAndFree = false;
+          return -1;
         }
         
         std::string message;
@@ -154,11 +170,11 @@ namespace ofxLibwebsockets {
             ofNotifyEvent(conn->protocol->onidleEvent, args);
             
             // only notify if we have a complete message
-        } else if (reason==LWS_CALLBACK_BROADCAST && (!bReceivingLargeMessage || bFinishedReceiving) ){
+        }/* else if (reason==LWS_CALLBACK_BROADCAST && (!bReceivingLargeMessage || bFinishedReceiving) ){
             ofNotifyEvent(conn->protocol->onbroadcastEvent, args);
             
         // only notify if we have a complete message
-        } else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE) && (!bReceivingLargeMessage || bFinishedReceiving)){
+        }*/ else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE) && (!bReceivingLargeMessage || bFinishedReceiving)){
             ofNotifyEvent(conn->protocol->onmessageEvent, args);
         }
         
@@ -193,7 +209,7 @@ namespace ofxLibwebsockets {
         if (ext == "css")
             mimetype = "text/css";
         
-        if (libwebsockets_serve_http_file(ws, file.c_str(), mimetype.c_str())){
+        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str())){
             ofLog( OF_LOG_WARNING, "Failed to send HTTP file "+ file + " for "+ url);
         }
 			return 0;

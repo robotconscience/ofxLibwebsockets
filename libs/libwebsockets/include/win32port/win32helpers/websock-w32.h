@@ -1,11 +1,37 @@
 #ifndef __WEB_SOCK_W32_H__
 #define __WEB_SOCK_W32_H__
 
+#include <WinSock2.h>
+
 // Windows uses _DEBUG and NDEBUG
 #ifdef _DEBUG
 #undef DEBUG
 #define DEBUG 1
 #endif
+
+#if !defined(POLLERR)
+/* Event flag definitions for WSAPoll(). */
+#define POLLRDNORM  0x0100
+#define POLLRDBAND  0x0200
+#define POLLIN      (POLLRDNORM | POLLRDBAND)
+#define POLLPRI     0x0400
+
+#define POLLWRNORM  0x0010
+#define POLLOUT     (POLLWRNORM)
+#define POLLWRBAND  0x0020
+
+#define POLLERR     0x0001
+#define POLLHUP     0x0002
+#define POLLNVAL    0x0004
+
+typedef struct pollfd {
+    SOCKET  fd;
+    SHORT   events;
+    SHORT   revents;
+
+} WSAPOLLFD, *PWSAPOLLFD, FAR *LPWSAPOLLFD;
+
+#endif /* !defined(POLLERR) */
 
 #pragma warning(disable : 4996)
 

@@ -48,6 +48,7 @@ namespace ofxLibwebsockets {
         std::string getClientIP();
         std::string getClientName();
         
+        libwebsocket_context* context;
         libwebsocket* ws;
         Reactor*  reactor;
         Protocol* protocol;

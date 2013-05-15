@@ -70,6 +70,7 @@ license you like.
 
 
 #include <json.h>
+#include <ofMain.h>
 
 
 // //////////////////////////////////////////////////////////////////////
@@ -2202,6 +2203,7 @@ Value::asString() const
    case booleanValue:
       return value_.bool_ ? "true" : "false";
    case intValue:
+      return ofToString(value_.int_);
    case uintValue:
    case realValue:
    case arrayValue:
@@ -2241,6 +2243,7 @@ Value::asInt() const
    case booleanValue:
       return value_.bool_ ? 1 : 0;
    case stringValue:
+      return ofToInt(value_.string_);
    case arrayValue:
    case objectValue:
       JSON_FAIL_MESSAGE( "Type is not convertible to int" );
@@ -2411,6 +2414,7 @@ Value::asFloat() const
    case booleanValue:
       return value_.bool_ ? 1.0f : 0.0f;
    case stringValue:
+      return ofToFloat(value_.string_);
    case arrayValue:
    case objectValue:
       JSON_FAIL_MESSAGE( "Type is not convertible to float" );

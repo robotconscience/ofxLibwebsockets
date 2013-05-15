@@ -16,6 +16,7 @@ namespace ofxLibwebsockets {
     Connection::Connection(Reactor* const _reactor, Protocol* const _protocol, const bool _supportsBinary)
     : reactor(_reactor)
     , protocol(_protocol)
+    , context(NULL)
     , ws(NULL)
     , session(NULL)
     , supportsBinary(_supportsBinary)
@@ -59,7 +60,7 @@ namespace ofxLibwebsockets {
         client_ip.resize(128);
         client_name.resize(128);
         
-        libwebsockets_get_peer_addresses(fd, &client_name[0], client_name.size(),
+        libwebsockets_get_peer_addresses(context, ws, fd, &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
     }
 

@@ -94,7 +94,8 @@ namespace ofxLibwebsockets {
         if (reactor != NULL)
         {
             memcpy(p, message.c_str(), message.size());
-            int n = libwebsockets_broadcast(&reactor->lws_protocols[idx], p, message.size());
+            //int n = libwebsockets_broadcast(&reactor->lws_protocols[idx], p, message.size());
+            int n = libwebsocket_callback_on_writable_all_protocol(&reactor->lws_protocols[idx]);
             if (n < 0)
                 fprintf(stderr, "ERROR writing to socket");
         }
