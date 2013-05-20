@@ -25,7 +25,8 @@ namespace ofxLibwebsockets {
         void exit();
         
         // methods
-        void close(Connection* const conn);
+        virtual void close() = 0; // close main ws connection (or close server)
+        void close(Connection* const conn); // close a specific connection
         void registerProtocol(const std::string& name, Protocol& protocol);
         
         // parse JSON automatically? (true by default)

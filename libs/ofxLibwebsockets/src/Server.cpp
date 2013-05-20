@@ -119,10 +119,10 @@ namespace ofxLibwebsockets {
         }
     }
     
-//	void Server::close() {
-//		cout << "server close" << endl; 
-//		waitForThread(true);
-//	}
+    //--------------------------------------------------------------
+	void Server::close() {
+		waitForThread(true);
+	}
 
     //--------------------------------------------------------------
     void Server::broadcast( string message ){
