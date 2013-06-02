@@ -120,8 +120,8 @@ namespace ofxLibwebsockets {
     }
     
 	void Server::close() {
-		cout << "server close" << endl; 
 		waitForThread(true);
+		libwebsocket_context_destroy(context);
 	}
 
     //--------------------------------------------------------------
