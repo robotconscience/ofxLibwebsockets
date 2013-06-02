@@ -122,6 +122,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
 	void Server::close() {
 		waitForThread(true);
+		libwebsocket_context_destroy(context);
 	}
 
     //--------------------------------------------------------------
