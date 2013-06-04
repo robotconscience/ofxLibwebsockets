@@ -183,7 +183,9 @@ namespace ofxLibwebsockets {
             }
             if (context != NULL && lwsconnection != NULL){
                 //libwebsocket_callback_on_writable(context, lwsconnection);
+                lock();
                 int n = libwebsocket_service(context, waitMillis);
+                unlock();
             } else {
 				stopThread();
 				if ( context != NULL ){
