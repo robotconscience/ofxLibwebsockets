@@ -51,7 +51,7 @@ namespace ofxLibwebsockets {
     protected:
         std::string     document_root;
         unsigned int    waitMillis;
-        std::string     interface;
+        std::string     interfaceStr;
         
         bool            bReceivingLargeMessage;
         std::string     largeMessage;
