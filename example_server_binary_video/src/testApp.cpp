@@ -35,7 +35,7 @@ void testApp::setup(){
 void testApp::update(){
     video.update();
     if ( bVideoSetup && video.isFrameNew() ){
-        server.send( ofToString(video.width) +":"+ ofToString( video.height ) +":"+ ofToString( 1 ) );
+//        server.send( ofToString(video.width) +":"+ ofToString( video.height ) +":"+ ofToString( 1 ) );
         server.sendBinary( video );
         //messages.push_back( "Sending image" );
     }

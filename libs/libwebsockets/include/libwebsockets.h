@@ -27,6 +27,8 @@ extern "C" {
 #include <cstddef>
 #endif
 
+#ifdef WIN32
+
 #if !defined(WSAAPI)
 #ifdef __cplusplus
 	
@@ -43,9 +45,7 @@ extern "C" {
 #include <ws2tcpip.h>
 #endif
 #endif
-
-#ifdef WIN32
-
+    
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif

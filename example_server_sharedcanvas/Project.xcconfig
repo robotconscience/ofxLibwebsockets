@@ -5,16 +5,13 @@ OF_PATH = ../../..
 //THIS HAS ALL THE HEADER AND LIBS FOR OF CORE
 #include "../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig"
 
-// INCLUDE OFX_LIBWEBSOCKETS
-// 1: DEFINE WHERE IT LIVES; only change this if you have installed elsewhere or changed the name!
-OFX_LWS_PATH = "$(OF_PATH)/addons/ofxLibwebsockets"
+//ICONS - NEW IN 0072 
+ICON_NAME_DEBUG = icon-debug.icns
+ICON_NAME_RELEASE = icon.icns
+ICON_FILE_PATH = $(OF_PATH)/libs/openFrameworksCompiled/project/osx/
 
-// 2: INCLUDE OFX_LIBWEBSOCKETS XCCONFIG (make sure you change the path if you've installed elsewhere!)
-#include "../../../addons/ofxLibwebsockets/ofxLibwebsockets.xcconfig"
+//IF YOU WANT AN APP TO HAVE A CUSTOM ICON - PUT THEM IN YOUR DATA FOLDER AND CHANGE ICON_FILE_PATH to:
+//ICON_FILE_PATH = bin/data/
 
-// 3: ADD TO OR REPLACE EXISTING VARS
-
-OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OFX_LWS_LIBS)
-HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) 
-USER_HEADER_SEARCH_PATHS = $(OFX_LWS_INCLUDES)
-LIBRARY_SEARCH_PATHS = $(inherited) $(OFX_LWS_SEARCH)
+OTHER_LDFLAGS = $(OF_CORE_LIBS) 
+HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS)

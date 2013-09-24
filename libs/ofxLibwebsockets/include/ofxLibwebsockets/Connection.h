@@ -11,6 +11,7 @@
 //#include "ofMain.h"
 #include <libwebsockets.h>
 
+#include <iostream.h>
 #include <vector>
 #include <string>
 
