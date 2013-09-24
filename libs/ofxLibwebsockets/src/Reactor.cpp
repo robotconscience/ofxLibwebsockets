@@ -151,6 +151,9 @@ namespace ofxLibwebsockets {
                 args.json = Json::Value( Json::nullValue );
             }
         }
+
+		
+			cout <<  reason <<endl;
         
         if (reason==LWS_CALLBACK_ESTABLISHED || reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
             connections.push_back( conn );
@@ -174,9 +177,11 @@ namespace ofxLibwebsockets {
             ofNotifyEvent(conn->protocol->onbroadcastEvent, args);
             
         // only notify if we have a complete message
-        }*/ else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE) && (!bReceivingLargeMessage || bFinishedReceiving)){
+        }*/ else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE_PONG) && (!bReceivingLargeMessage || bFinishedReceiving)){
             ofNotifyEvent(conn->protocol->onmessageEvent, args);
-        }
+        } else {
+			cout <<  reason <<endl;
+		}
         
         return 0;
     }

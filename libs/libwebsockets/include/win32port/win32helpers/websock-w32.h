@@ -1,6 +1,10 @@
 #ifndef __WEB_SOCK_W32_H__
 #define __WEB_SOCK_W32_H__
 
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x500
+#endif
+
 #include <WinSock2.h>
 
 // Windows uses _DEBUG and NDEBUG

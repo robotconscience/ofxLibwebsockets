@@ -29,6 +29,10 @@ extern "C" {
 
 #if !defined(WSAAPI)
 #ifdef __cplusplus
+	
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x500
+#endif
 	extern "C++"
 	{
 #include <winsock2.h>
@@ -44,6 +48,10 @@ extern "C" {
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
+	
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x500
 #endif
 #include <winsock2.h>
 #include <ws2tcpip.h>

@@ -125,7 +125,7 @@ namespace ofxLibwebsockets {
             //if (*conn_ptr != NULL)
             //delete *conn_ptr;
         }
-        
+
         switch (reason)
         {
             case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
@@ -145,6 +145,8 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_CLOSED:
             case LWS_CALLBACK_SERVER_WRITEABLE:
             case LWS_CALLBACK_RECEIVE:
+			case LWS_CALLBACK_CLIENT_RECEIVE:
+			case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
             //case LWS_CALLBACK_BROADCAST:
             //In the current git version, All of the broadcast proxy stuff is removed: data must now be sent from the callback only
             // http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/commit/test-server/test-server.c?id=6f520a5195defcb7fc69c669218a8131a5f35efb

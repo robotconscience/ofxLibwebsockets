@@ -14,8 +14,7 @@
 
 #pragma once
 
-#include "ofThread.h"
-#include "ofEvents.h"
+#include "ofMain.h"
 
 #include <libwebsockets.h>
 
@@ -112,7 +111,7 @@ namespace ofxLibwebsockets {
         bool    usingSSL();
         
     protected:
-        std::string interface;
+        std::string interfaceStr;
         ServerOptions defaultOptions;
         
     private:

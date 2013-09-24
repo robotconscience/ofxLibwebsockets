@@ -12,7 +12,6 @@ void testApp::setup(){
     
     ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
     options.port = 9092; 
-    options.protocol = "of-protocol";
     bool connected = client.connect( options );
     
     
@@ -62,7 +61,7 @@ void testApp::onBroadcast( ofxLibwebsockets::Event& args ){
 void testApp::keyPressed(int key){
 
     client.send("Hello");
-
+	cout << "sending hello" <<endl;
 }
 
 //--------------------------------------------------------------

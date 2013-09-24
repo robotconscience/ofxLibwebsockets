@@ -1,5 +1,9 @@
 #define FD_SETSIZE 256
 
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x500
+#endif
+
 #include <WinSock2.h>
 #include <stdlib.h>
 #include <errno.h>

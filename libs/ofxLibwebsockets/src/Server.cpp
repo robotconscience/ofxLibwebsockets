@@ -54,7 +54,7 @@ namespace ofxLibwebsockets {
 			LLL_COUNT = 10 
 		};
 		*/
-		lws_set_log_level(LLL_ERR, NULL);
+		lws_set_log_level(LLL_WARN, NULL);
 
         defaultOptions = options;
         

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "ofMain.h"
+//#include "ofMain.h"
 #include <libwebsockets.h>
 
 #include <vector>
