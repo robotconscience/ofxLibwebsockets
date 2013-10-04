@@ -11,7 +11,7 @@
 //#include "ofMain.h"
 #include <libwebsockets.h>
 
-#include <iostream.h>
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -36,7 +36,7 @@ namespace ofxLibwebsockets {
         template <class T> 
         void sendBinary( T& image ){
             int size = image.width * image.height * image.getPixelsRef().getNumChannels();
-            cout<< size << endl;
+            std::cout<< size << std::endl;
             sendBinary( (unsigned char *) image.getPixels(), size );
         }
         
