@@ -34,21 +34,23 @@ ADDING TO PROJECTS
 			* add the ofxLibwebsockets source files:
 			
 			```
-			..\..\..\addons\ofxLibwebsockets\libs\jsonpp
-			..\..\..\addons\ofxLibwebsockets\libs\jsonpp\json
-			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include
-			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port
-			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include
-			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src
+			..\..\..\addons\ofxLibwebsockets\libs\jsoncpp
+			..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json
+			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\
 			..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl
+			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include
+			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets
+			..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src
 			..\..\..\addons\ofxLibwebsockets\src
+			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port
+			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port\win32helpers
 ```
 
 
 		2. Add the ofxLibwebsockets paths to the "Additional Library Directories":
 			* right click on project in the solution explorer, click "Properties", Go down to Linker > General
 			* click the arrow at the right of "Additional Library Directories" and select "edit"
-			* add ```..\..\..\addons/ofxLibwebsockets\libs\libwebsockets\libs\libwebsockets\lib\win32``` and ```..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\libs\openssl\lib\win32```
+			* add ```..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release``` and ```..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\libs\openssl\lib\win32```
 		3. Now go down to Linker > Input; open the editor "Additional dependencies" the same way
 			* In your debug scheme, add libwebsocketswin32d.lib, libeay32.lib, and ssleay32.lib
 			* In your release scheme, add libwebsocketswin32.lib, libeay32.lib, and ssleay32.lib
