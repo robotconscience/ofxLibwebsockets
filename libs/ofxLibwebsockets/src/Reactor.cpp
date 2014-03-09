@@ -177,7 +177,7 @@ namespace ofxLibwebsockets {
         }*/ else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE_PONG) && (!bReceivingLargeMessage || bFinishedReceiving)){
             ofNotifyEvent(conn->protocol->onmessageEvent, args);
         } else {
-			cout <<  reason <<endl;
+			ofLogVerbose() << "ofxLibwebsockets: received unknown event "<< reason <<endl;
 		}
         
         return 0;

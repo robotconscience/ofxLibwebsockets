@@ -75,7 +75,7 @@ namespace ofxLibwebsockets {
         while(message.size() > bufsize){
             bufsize = bufsize+1024;
             buf = (unsigned char*)realloc(buf, bufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
-            ofLog( OF_LOG_VERBOSE, "Connection -- received large message, resizing buffer to " + ofToString( bufsize ) );
+            ofLog( OF_LOG_VERBOSE, "ofxLibwebsockets:Connection -- received large message, resizing buffer to " + ofToString( bufsize ) );
         }
         unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
         
@@ -83,7 +83,7 @@ namespace ofxLibwebsockets {
         n = libwebsocket_write(ws, p, message.size(), LWS_WRITE_TEXT);
         
         if (n < 0)
-            std::cout << "ERROR writing to socket" << std::endl;
+            ofLogError() << "ofxLibwebsockets: ERROR writing to socket" << std::endl;
     }
         
     //--------------------------------------------------------------
@@ -95,7 +95,7 @@ namespace ofxLibwebsockets {
         
         if ( supportsBinary ){
             if ( binaryBufsize < size ){
-                cout<<"realloc from "<<binaryBufsize<<" to "<<size<<endl;
+                ofLogVerbose()<<"ofxLibwebsockets: realloc from "<<binaryBufsize<<" to "<<size<<endl;
                 binaryBufsize = size;
                 binaryBuf = (unsigned char*)realloc(binaryBuf, LWS_SEND_BUFFER_PRE_PADDING+binaryBufsize+LWS_SEND_BUFFER_POST_PADDING * sizeof(unsigned char));
             }
@@ -115,7 +115,7 @@ namespace ofxLibwebsockets {
         }
         
         if (n < 0){
-            std::cout << "ERROR writing to socket" << std::endl;
+            ofLogError() << "ofxLibwebsockets: ERROR writing to socket" << std::endl;
         }
     }
     
