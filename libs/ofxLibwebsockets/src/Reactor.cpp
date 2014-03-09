@@ -151,9 +151,6 @@ namespace ofxLibwebsockets {
                 args.json = Json::Value( Json::nullValue );
             }
         }
-
-		
-			cout <<  reason <<endl;
         
         if (reason==LWS_CALLBACK_ESTABLISHED || reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
             connections.push_back( conn );
