@@ -24,8 +24,8 @@ namespace ofxLibwebsockets {
     {
         if (_protocol != NULL){
             binary = _protocol->binary;
-            bufsize = 1024;
-            binaryBufsize = 1024;
+            bufsize = _protocol->rx_buffer_size;
+            binaryBufsize = _protocol->rx_buffer_size;
             buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
             binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
         }
@@ -74,8 +74,8 @@ namespace ofxLibwebsockets {
         }*/
         while(message.size() > bufsize){
             bufsize = bufsize+1024;
+            ofLogVerbose()<<"ofxLibwebsockets:Connection -- received large message, resizing buffer to "<<bufsize;
             buf = (unsigned char*)realloc(buf, bufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
-            ofLog( OF_LOG_VERBOSE, "ofxLibwebsockets:Connection -- received large message, resizing buffer to " + ofToString( bufsize ) );
         }
         unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
         
@@ -107,7 +107,7 @@ namespace ofxLibwebsockets {
             }
         } else {
             unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
-            int encoded_len = lws_b64_encode_string((char *) data, size, (char*)p, bufsize-LWS_SEND_BUFFER_PRE_PADDING-LWS_SEND_BUFFER_POST_PADDING);
+            int encoded_len = 0;//lws_b64_encode_string((char *) data, size, (char*)p, bufsize-LWS_SEND_BUFFER_PRE_PADDING-LWS_SEND_BUFFER_POST_PADDING);
             
             if (encoded_len > 0){
                 n = libwebsocket_write(ws, p, encoded_len, LWS_WRITE_TEXT);
@@ -127,7 +127,7 @@ namespace ofxLibwebsockets {
         // to detect binary support, we should use it
         if (binary && !supportsBinary)
         {
-            int decoded_len = lws_b64_decode_string(message.c_str(), &decoded[0], message.size());
+            int decoded_len = 0;//lws_b64_decode_string(message.c_str(), &decoded[0], message.size());
             decoded.resize(decoded_len);
         }
         

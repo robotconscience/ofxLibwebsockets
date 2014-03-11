@@ -28,6 +28,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     void Reactor::registerProtocol(const std::string& name, Protocol& protocol){
         protocol.idx = protocols.size();
+        protocol.rx_buffer_size = OFX_LWS_MAX_BUFFER;
         protocol.reactor = this;
         protocols.push_back(make_pair(name, &protocol));
     }

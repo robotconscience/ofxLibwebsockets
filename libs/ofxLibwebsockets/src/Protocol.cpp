@@ -21,6 +21,7 @@ namespace ofxLibwebsockets {
         ofAddListener(onmessageEvent,      this, &Protocol::_onmessage);
         ofAddListener(onbroadcastEvent,    this, &Protocol::_onbroadcast);
         binary = false;
+        rx_buffer_size = OFX_LWS_MAX_BUFFER;
     }
 
     //--------------------------------------------------------------
@@ -32,6 +33,7 @@ namespace ofxLibwebsockets {
         ofRemoveListener(onmessageEvent,   this, &Protocol::_onmessage);
         ofRemoveListener(onbroadcastEvent, this, &Protocol::_onbroadcast);
         binary = false;
+        rx_buffer_size = OFX_LWS_MAX_BUFFER;
     }
 
     //--------------------------------------------------------------
