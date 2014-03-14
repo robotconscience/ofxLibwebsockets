@@ -53,6 +53,7 @@ void testApp::draw(){
         y += font.stringHeight( messages[i] ) + font.getSize();
     }
     if (currentImage.bAllocated()) currentImage.draw(0,0);
+    ofDrawBitmapString("Drag an image onto the window to send!\nOpen your browser to localhost:9093 to receive", 20,20);
 }
 
 //--------------------------------------------------------------
