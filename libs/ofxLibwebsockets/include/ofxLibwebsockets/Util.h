@@ -19,9 +19,8 @@ namespace ofxLibwebsockets {
         
     class Client;
     class Server;
-        
-    static string getServerCallbackReason( int reason );
-    static string getClientCallbackReason( int reason );
+    
+    static string getCallbackReason( int reason );
     static void dump_handshake_info(struct lws_tokens *lwst);
 
     // CLIENT CALLBACK
@@ -48,7 +47,7 @@ namespace ofxLibwebsockets {
             }
         }
         
-        ofLog( OF_LOG_VERBOSE, getClientCallbackReason(reason) );
+        ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
         
         if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
             libwebsocket_callback_on_writable(context, ws);
@@ -122,7 +121,7 @@ namespace ofxLibwebsockets {
             }
         }
         
-        ofLog( OF_LOG_VERBOSE, getServerCallbackReason(reason) );
+        ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
         
         if (reason == LWS_CALLBACK_ESTABLISHED){
             libwebsocket_callback_on_writable(context, ws);
@@ -218,85 +217,43 @@ namespace ofxLibwebsockets {
     }
     
     
-    static string getClientCallbackReason( int reason ){
+    static string getCallbackReason( int reason ){
         switch (reason){
-            case 0 : return "LWS_CALLBACK_ESTABLISHED";
-			case 1 : return "LWS_CALLBACK_CLIENT_CONNECTION_ERROR";
-			case 2 : return "LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH";
-			case 3 : return "LWS_CALLBACK_CLIENT_ESTABLISHED";
-			case 4 : return "LWS_CALLBACK_CLOSED";
-			case 5 : return "LWS_CALLBACK_CLOSED_HTTP";
-			case 6 : return "LWS_CALLBACK_RECEIVE";
-			case 7 : return "LWS_CALLBACK_CLIENT_RECEIVE";
-			case 8 : return "LWS_CALLBACK_CLIENT_RECEIVE_PONG";
-			case 9 : return "LWS_CALLBACK_CLIENT_WRITEABLE";
-			case 10 : return "LWS_CALLBACK_SERVER_WRITEABLE";
+            case LWS_CALLBACK_ESTABLISHED : return "LWS_CALLBACK_ESTABLISHED";
+			case LWS_CALLBACK_CLIENT_CONNECTION_ERROR : return "LWS_CALLBACK_CLIENT_CONNECTION_ERROR";
+			case LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH : return "LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH";
+			case LWS_CALLBACK_CLIENT_ESTABLISHED : return "LWS_CALLBACK_CLIENT_ESTABLISHED";
+			case LWS_CALLBACK_CLOSED : return "LWS_CALLBACK_CLOSED";
+			case LWS_CALLBACK_CLOSED_HTTP : return "LWS_CALLBACK_CLOSED_HTTP";
+			case LWS_CALLBACK_RECEIVE : return "LWS_CALLBACK_RECEIVE";
+			case LWS_CALLBACK_CLIENT_RECEIVE : return "LWS_CALLBACK_CLIENT_RECEIVE";
+			case LWS_CALLBACK_CLIENT_RECEIVE_PONG : return "LWS_CALLBACK_CLIENT_RECEIVE_PONG";
+			case LWS_CALLBACK_CLIENT_WRITEABLE : return "LWS_CALLBACK_CLIENT_WRITEABLE";
+			case LWS_CALLBACK_SERVER_WRITEABLE : return "LWS_CALLBACK_SERVER_WRITEABLE";
 
-			case 11 : return "LWS_CALLBACK_HTTP";
-			case 12 : return "LWS_CALLBACK_HTTP_FILE_COMPLETION";
-			case 13 : return "LWS_CALLBACK_HTTP_WRITEABLE";
-			case 14 : return "LWS_CALLBACK_FILTER_NETWORK_CONNECTION";
-			case 15 : return "LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION";
-			case 16 : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS";
-			case 17 : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS";
-			case 18 : return "LWS_CALLBACK_OPENSSL_PERFORM_CLIENT_CERT_VERIFICATION";
-			case 19 : return "LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER";
-			case 20 : return "LWS_CALLBACK_CONFIRM_EXTENSION_OKAY";
+			case LWS_CALLBACK_HTTP : return "LWS_CALLBACK_HTTP";
+			case LWS_CALLBACK_HTTP_FILE_COMPLETION : return "LWS_CALLBACK_HTTP_FILE_COMPLETION";
+			case LWS_CALLBACK_HTTP_WRITEABLE : return "LWS_CALLBACK_HTTP_WRITEABLE";
+			case LWS_CALLBACK_FILTER_NETWORK_CONNECTION : return "LWS_CALLBACK_FILTER_NETWORK_CONNECTION";
+			case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION : return "LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION";
+			case LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS";
+			case LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS";
+			case LWS_CALLBACK_OPENSSL_PERFORM_CLIENT_CERT_VERIFICATION : return "LWS_CALLBACK_OPENSSL_PERFORM_CLIENT_CERT_VERIFICATION";
+			case LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER : return "LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER";
+			case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY : return "LWS_CALLBACK_CONFIRM_EXTENSION_OKAY";
 	
-			case 21 : return "LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED";
-			case 22 : return "LWS_CALLBACK_PROTOCOL_INIT";
-			case 23 : return "LWS_CALLBACK_PROTOCOL_DESTROY";
-			/* external poll() management support */
-			case 24 : return "LWS_CALLBACK_ADD_POLL_FD";
-			case 25 : return "LWS_CALLBACK_DEL_POLL_FD";
-			case 26 : return "LWS_CALLBACK_SET_MODE_POLL_FD";
-			case 27 : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
+			case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED : return "LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED";
+			case LWS_CALLBACK_PROTOCOL_INIT : return "LWS_CALLBACK_PROTOCOL_INIT";
+			case LWS_CALLBACK_PROTOCOL_DESTROY : return "LWS_CALLBACK_PROTOCOL_DESTROY";
+			case LWS_CALLBACK_ADD_POLL_FD : return "LWS_CALLBACK_ADD_POLL_FD";
+			case LWS_CALLBACK_DEL_POLL_FD : return "LWS_CALLBACK_DEL_POLL_FD";
+			case LWS_CALLBACK_SET_MODE_POLL_FD : return "LWS_CALLBACK_SET_MODE_POLL_FD";
+			case LWS_CALLBACK_CLEAR_MODE_POLL_FD : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
 
 			default: 
 				std::stringstream r;
 				r << "Unknown callback reason id: " << reason;	
 				return r.str();    
         }
-    }
-    
-    static string getServerCallbackReason( int reason ){
-        switch (reason){
-            case 0 : return "LWS_CALLBACK_ESTABLISHED";
-			case 1 : return "LWS_CALLBACK_CLIENT_CONNECTION_ERROR";
-			case 2 : return "LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH";
-			case 3 : return "LWS_CALLBACK_CLIENT_ESTABLISHED";
-			case 4 : return "LWS_CALLBACK_CLOSED";
-			case 5 : return "LWS_CALLBACK_CLOSED_HTTP";
-			case 6 : return "LWS_CALLBACK_RECEIVE";
-			case 7 : return "LWS_CALLBACK_CLIENT_RECEIVE";
-			case 8 : return "LWS_CALLBACK_CLIENT_RECEIVE_PONG";
-			case 9 : return "LWS_CALLBACK_CLIENT_WRITEABLE";
-			case 10 : return "LWS_CALLBACK_SERVER_WRITEABLE";
-                
-			case 11 : return "LWS_CALLBACK_HTTP";
-			case 12 : return "LWS_CALLBACK_HTTP_FILE_COMPLETION";
-			case 13 : return "LWS_CALLBACK_HTTP_WRITEABLE";
-			case 14 : return "LWS_CALLBACK_FILTER_NETWORK_CONNECTION";
-			case 15 : return "LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION";
-			case 16 : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS";
-			case 17 : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS";
-			case 18 : return "LWS_CALLBACK_OPENSSL_PERFORM_CLIENT_CERT_VERIFICATION";
-			case 19 : return "LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER";
-			case 20 : return "LWS_CALLBACK_CONFIRM_EXTENSION_OKAY";
-                
-			case 21 : return "LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED";
-			case 22 : return "LWS_CALLBACK_PROTOCOL_INIT";
-			case 23 : return "LWS_CALLBACK_PROTOCOL_DESTROY";
-                /* external poll() management support */
-			case 24 : return "LWS_CALLBACK_ADD_POLL_FD";
-			case 25 : return "LWS_CALLBACK_DEL_POLL_FD";
-			case 26 : return "LWS_CALLBACK_SET_MODE_POLL_FD";
-			case 27 : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
-
-			default: 
-				std::stringstream r;
-				r << "Unknown callback reason id: " << reason;	
-				return r.str();               
-        };
     }
 }
