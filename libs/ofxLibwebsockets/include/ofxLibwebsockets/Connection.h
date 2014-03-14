@@ -32,6 +32,7 @@ namespace ofxLibwebsockets {
     struct BinaryPacket {
         unsigned char * data;
         unsigned int size;
+        int index = 0;
     };
     
     class Connection {
