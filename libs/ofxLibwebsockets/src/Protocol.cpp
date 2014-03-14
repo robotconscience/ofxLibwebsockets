@@ -22,6 +22,7 @@ namespace ofxLibwebsockets {
         ofAddListener(onbroadcastEvent,    this, &Protocol::_onbroadcast);
         binary = false;
         rx_buffer_size = OFX_LWS_MAX_BUFFER;
+        idle = false;
     }
 
     //--------------------------------------------------------------
@@ -34,6 +35,7 @@ namespace ofxLibwebsockets {
         ofRemoveListener(onbroadcastEvent, this, &Protocol::_onbroadcast);
         binary = false;
         rx_buffer_size = OFX_LWS_MAX_BUFFER;
+        idle = false;
     }
 
     //--------------------------------------------------------------
@@ -72,7 +74,14 @@ namespace ofxLibwebsockets {
     void Protocol::onclose(Event&args){}
 
     //--------------------------------------------------------------
-    void Protocol::_onidle(Event& args){ onidle(args); }
+    void Protocol::isIdle(){
+        return idle;
+    }
+    
+    void Protocol::_onidle(Event& args){
+        idle = true;
+        onidle(args);
+    }
 
     void Protocol::onidle(Event&args){}
 

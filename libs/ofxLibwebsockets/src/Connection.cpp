@@ -27,7 +27,7 @@ namespace ofxLibwebsockets {
             bufsize = _protocol->rx_buffer_size;
             binaryBufsize = _protocol->rx_buffer_size;
             buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
-            binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
+            binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+binaryBufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
         }
     }
 
@@ -69,18 +69,23 @@ namespace ofxLibwebsockets {
     {
         if ( message.size() == 0 ) return;
         int n = 0;
-        /*if(message.size() > 4096){
-            return;
-        }*/
-        while(message.size() > bufsize){
-            bufsize = bufsize+1024;
-            ofLogVerbose()<<"ofxLibwebsockets:Connection -- received large message, resizing buffer to "<<bufsize;
-            buf = (unsigned char*)realloc(buf, bufsize + LWS_SEND_BUFFER_PRE_PADDING + LWS_SEND_BUFFER_POST_PADDING*sizeof(unsigned char));
-        }
-        unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
         
-        memcpy(p, message.c_str(), message.size());
-        n = libwebsocket_write(ws, p, message.size(), LWS_WRITE_TEXT);
+        // size packet based on either binaryBufSize (max) or passed 'size' (whichever is smaller)
+        int dataSize = bufsize > message.size() ? message.size() : bufsize;
+        memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], message.c_str(), dataSize );
+        
+        // we have a big frame, so we need to send a few times
+        if ( bufsize < message.size() ){
+            // need to jump into thread
+            TextPacket tp;
+            tp.message = message;
+            messages_text.push_back(tp);
+            //if (!isThreadRunning()) startThread();
+            
+        // we have a nice small frame, just send it
+        } else {
+            n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], message.size(), LWS_WRITE_TEXT);
+        }
         
         if (n < 0)
             ofLogError() << "ofxLibwebsockets: ERROR writing to socket" << std::endl;
@@ -94,16 +99,25 @@ namespace ofxLibwebsockets {
         // for now we are assuming that if you send binary your client supports it
         
         if ( supportsBinary ){
-            if ( binaryBufsize < size ){
-                ofLogVerbose()<<"ofxLibwebsockets: realloc from "<<binaryBufsize<<" to "<<size<<endl;
-                binaryBufsize = size;
-                binaryBuf = (unsigned char*)realloc(binaryBuf, LWS_SEND_BUFFER_PRE_PADDING+binaryBufsize+LWS_SEND_BUFFER_POST_PADDING * sizeof(unsigned char));
-            }
-            
-            memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, size );
-            
-            if ( ws != NULL && binaryBuf ){  
-                n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], size, LWS_WRITE_BINARY);
+            if ( ws != NULL && binaryBuf ){
+                // size binary packet based on either binaryBufSize (max) or passed 'size' (whichever is smaller)
+                int dataSize = binaryBufsize > size ? size : binaryBufsize;
+                memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, dataSize );
+                
+                // we have a big frame, so we need to send a few times
+                if ( binaryBufsize < size ){
+                    
+                    // need to jump into thread
+                    BinaryPacket bp;
+                    bp.data = data;
+                    bp.size = size;
+                    messages_binary.push_back(bp);
+                    //if (!isThreadRunning()) startThread();
+                    
+                // we have a nice small frame, just send it
+                } else {
+                    n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
+                }
             }
         } else {
             unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
@@ -114,8 +128,94 @@ namespace ofxLibwebsockets {
             }
         }
         
+        cout << "remains "<< n << endl;
+        
         if (n < 0){
             ofLogError() << "ofxLibwebsockets: ERROR writing to socket" << std::endl;
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Connection::update(){
+        // process standard ws messages
+        if ( messages_text.size() > 0 && protocol->idle ){
+            TextPacket & packet = messages_text[0];
+            
+            if ( packet.index == 0 ){
+                int dataSize = bufsize > packet.message.size() ? packet.message.size() : bufsize;
+                memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], packet.message.c_str(), dataSize );
+                
+                int writeMode = LWS_WRITE_TEXT;
+                writeMode |= LWS_WRITE_NO_FIN; // add "we're not finished" flag
+                
+                protocol->idle = false;
+                
+                int n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+                libwebsocket_callback_on_writable(context, ws);
+                packet.index = dataSize;
+                
+            } else {
+                // continue to send large message in chunks
+                int dataSize = bufsize > packet.message.size() ? packet.message.size() : binaryBufsize;
+                int writeMode = LWS_WRITE_CONTINUATION;
+                writeMode |= LWS_WRITE_NO_FIN;
+                
+                bool bDone = false;
+                if ( packet.index + dataSize >= packet.message.size() ){
+                    dataSize = packet.message.size() - packet.index;
+                    writeMode = LWS_WRITE_CONTINUATION;
+                    bDone = true;
+                }
+                
+                memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], packet.message.c_str() + packet.index, dataSize );
+                protocol->idle = false;
+                int n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+                libwebsocket_callback_on_writable(context, ws);
+                packet.index += dataSize;
+                
+                if ( bDone ){
+                    messages_text.erase(messages_text.begin());
+                }
+            }
+        }  else if ( messages_text.size() > 0 && messages_text[0].index ){
+            libwebsocket_callback_on_writable(context, ws);
+        }
+        
+        // process binary messages
+        if ( messages_binary.size() > 0 ){
+            BinaryPacket tosend = messages_binary[0];
+            messages_binary.erase(messages_binary.begin());
+            
+            int dataSize = binaryBufsize > tosend.size ? tosend.size : binaryBufsize;
+            memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], tosend.data, dataSize );
+            
+            int writeMode = LWS_WRITE_BINARY;
+            writeMode |= LWS_WRITE_NO_FIN;
+            
+            protocol->idle = false;
+            int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+            int index = dataSize;
+            writeMode = LWS_WRITE_CONTINUATION;
+            writeMode |= LWS_WRITE_NO_FIN;
+            
+            while ( true ){
+                bool bNeedToReturn = false;
+                if ( index + dataSize >= tosend.size ){
+                    dataSize = tosend.size - index;
+                    cout << dataSize << endl;
+                    writeMode = LWS_WRITE_CONTINUATION;
+                    bNeedToReturn = true;
+                }
+                // wait until we receive 'writable'
+                while (!protocol->idle) {}
+                
+                memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], tosend.data + index, dataSize );
+                protocol->idle = false;
+                n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+                index += dataSize;
+                if ( bNeedToReturn ) break;
+            }
+
         }
     }
     

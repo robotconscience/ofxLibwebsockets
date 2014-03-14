@@ -14,7 +14,7 @@
 #include "ofMain.h"
 #include "ofxLibwebsockets/Events.h"
 
-#define OFX_LWS_MAX_BUFFER 4096 * 4
+#define OFX_LWS_MAX_BUFFER 2048
 
 namespace ofxLibwebsockets {
     
@@ -27,6 +27,7 @@ namespace ofxLibwebsockets {
         friend class Reactor;
         friend class Server;
         friend class Client;
+        friend class Connection;
         
     public:
         Protocol();
@@ -36,6 +37,8 @@ namespace ofxLibwebsockets {
                                  const std::string ip) const;
         
         void broadcast(const std::string& message);
+        
+        void isIdle();
         
         unsigned int idx;
         unsigned int rx_buffer_size;
@@ -62,6 +65,8 @@ namespace ofxLibwebsockets {
         std::map<std::string, bool> allowRules;
         
         Reactor* reactor;
+        
+        bool idle;
         
     private:
         void _onconnect   (Event& args);

@@ -40,6 +40,9 @@ namespace ofxLibwebsockets {
                 reactor =  reactors[i];
                 protocol = reactor->protocol(idx);
                 conn = ((Client*) reactor)->getConnection();
+                if (conn){
+                    conn->context = context;
+                }
                 break;
             } else {
             }
@@ -48,6 +51,7 @@ namespace ofxLibwebsockets {
         ofLog( OF_LOG_VERBOSE, getClientCallbackReason(reason) );
         
         if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
+            libwebsocket_callback_on_writable(context, ws);
         } else if (reason == LWS_CALLBACK_CLOSED){
         }
         
@@ -76,7 +80,10 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
                 if ( reactor != NULL ){
                     //conn = *(Connection**)user;
-                    if (conn && conn->ws != ws) conn->ws = ws;
+                    if (conn && conn->ws != ws){
+                        conn->ws = ws;
+                        conn->context = context;
+                    }
                     return reactor->_notify(conn, reason, (char*)data, len);
                 } else {
                     return 0;
@@ -118,6 +125,8 @@ namespace ofxLibwebsockets {
         ofLog( OF_LOG_VERBOSE, getServerCallbackReason(reason) );
         
         if (reason == LWS_CALLBACK_ESTABLISHED){
+            libwebsocket_callback_on_writable(context, ws);
+            
             if ( reactor != NULL ){
                 *conn_ptr = new Connection(reactor, protocol);
             }
@@ -152,7 +161,7 @@ namespace ofxLibwebsockets {
             // http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/commit/test-server/test-server.c?id=6f520a5195defcb7fc69c669218a8131a5f35efb
                 conn = *(Connection**)user;
                 
-                if (conn && conn->ws != ws){
+                if (conn && (conn->ws != ws || conn->ws == NULL) ){
                     conn->context = context;
                     conn->ws = ws;
                     conn->setupAddress();

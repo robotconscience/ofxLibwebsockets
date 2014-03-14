@@ -8,7 +8,7 @@
 
 #pragma once
 
-//#include "ofMain.h"
+#include "ofMain.h"
 #include <libwebsockets.h>
 
 #include <iostream>
@@ -24,6 +24,16 @@ namespace ofxLibwebsockets {
         public:
     };
     
+    struct TextPacket {
+        string message;
+        int index = 0;
+    };
+    
+    struct BinaryPacket {
+        unsigned char * data;
+        unsigned int size;
+    };
+    
     class Connection {
         friend class Reactor;
     public:
@@ -36,7 +46,6 @@ namespace ofxLibwebsockets {
         template <class T> 
         void sendBinary( T& image ){
             int size = image.width * image.height * image.getPixelsRef().getNumChannels();
-            std::cout<< size << std::endl;
             sendBinary( (unsigned char *) image.getPixels(), size );
         }
         
@@ -58,6 +67,9 @@ namespace ofxLibwebsockets {
         bool operator==( const Connection &other );
         bool operator!=( const Connection &other );
         
+        // MUST be called from main thread (e.g. client or server)
+        void update();
+        
     protected:
         Session*  session;
         
@@ -72,6 +84,10 @@ namespace ofxLibwebsockets {
         int bufsize;
         int binaryBufsize;
         //std::vector<unsigned char> buf;
+        
+        // threading stuff
+        vector<TextPacket> messages_text;
+        vector<BinaryPacket> messages_binary;
     };
     
 

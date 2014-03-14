@@ -167,7 +167,7 @@ namespace ofxLibwebsockets {
             }
             
             ofNotifyEvent(conn->protocol->oncloseEvent, args);
-        } else if (reason==LWS_CALLBACK_SERVER_WRITEABLE){
+        } else if (reason==LWS_CALLBACK_SERVER_WRITEABLE || reason==LWS_CALLBACK_CLIENT_WRITEABLE){
             ofNotifyEvent(conn->protocol->onidleEvent, args);
             
             // only notify if we have a complete message
@@ -212,7 +212,7 @@ namespace ofxLibwebsockets {
         if (ext == "css")
             mimetype = "text/css";
         
-        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str())){
+        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str()) < 0){
             ofLog( OF_LOG_WARNING, "Failed to send HTTP file "+ file + " for "+ url);
         }
 			return 0;

@@ -79,7 +79,8 @@ namespace ofxLibwebsockets {
             struct libwebsocket_protocols lws_protocol = {
                 ( protocols[i].first == "NULL" ? NULL : protocols[i].first.c_str() ),
                 lws_callback,
-                sizeof(Connection)
+                protocols[i].second->rx_buffer_size,
+                protocols[i].second->rx_buffer_size
             };
             lws_protocols.push_back(lws_protocol);
         }
