@@ -88,7 +88,7 @@ namespace ofxLibwebsockets {
         }
         
         if (n < 0)
-            ofLogError() << "ofxLibwebsockets: ERROR writing to socket" << std::endl;
+            ofLogError() << "[ofxLibwebsockets]  ERROR writing to socket" << std::endl;
     }
         
     //--------------------------------------------------------------
@@ -116,7 +116,6 @@ namespace ofxLibwebsockets {
                 
             // we have a nice small frame, just send it
             } else {
-                cout << "sending small frame" << endl;
                 n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
             }
         } else {
@@ -129,7 +128,7 @@ namespace ofxLibwebsockets {
         }
         
         if (n < 0){
-            ofLogError() << "ofxLibwebsockets: ERROR writing to socket" << std::endl;
+            ofLogError() << "[ofxLibwebsockets]  ERROR writing to socket" << std::endl;
         }
     }
     
@@ -184,8 +183,6 @@ namespace ofxLibwebsockets {
             BinaryPacket & packet = messages_binary[0];
             
             if ( packet.index == 0 ){
-                cout << "begin"<<endl;
-                
                 // write beginning of packet
                 int dataSize = binaryBufsize;
                 memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data, dataSize );

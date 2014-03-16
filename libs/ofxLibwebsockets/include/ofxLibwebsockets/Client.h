@@ -38,8 +38,12 @@ namespace ofxLibwebsockets {
     public:  
         
         Client();
+        ~Client();
         
-        bool connect ( string _address = "localhost", bool bUseSSL=false );
+        // Note: the boolean returned here == libwebsockets setup success
+        // You will receive an "onOpen" event on successful connect
+        // and "onClose" on unsuccessful
+        bool connect ( string _address, bool bUseSSL=false );
         bool connect ( string _address, int _port, bool bUseSSL=false );
         bool connect ( ClientOptions options );
         

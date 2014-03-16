@@ -31,7 +31,7 @@ namespace ofxLibwebsockets {
         defaultOptions.bUseSSL  = bUseSSL;
         
         if ( defaultOptions.port == 80 && defaultOptions.bUseSSL == true ){
-            ofLog( OF_LOG_WARNING, "SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!");
+            ofLog( OF_LOG_WARNING, "[ofxLibwebsockets] SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!");
         }
         
         return setup( defaultOptions );
@@ -108,11 +108,9 @@ namespace ofxLibwebsockets {
         info.options = opts;
 
         context = libwebsocket_create_context(&info);
-
-        //context = libwebsocket_create_context( port, NULL, &lws_protocols[0], libwebsocket_internal_extensions, sslCert, sslKey, /*"",*/ -1, -1, opts, NULL);
         
         if (context == NULL){
-            std::cerr << "libwebsocket init failed" << std::endl;
+            ofLogError() << "[ofxLibwebsockets] libwebsockets init failed";
             return false;
         } else {
             startThread(true, false); // blocking, non-verbose        
@@ -163,7 +161,7 @@ namespace ofxLibwebsockets {
                 }
             }
         }
-        if ( !bFound ) ofLog( OF_LOG_ERROR, "Connection not found!" );
+        if ( !bFound ) ofLog( OF_LOG_ERROR, "[ofxLibwebsockets] Connection not found at this IP!" );
     }
     
     //getters

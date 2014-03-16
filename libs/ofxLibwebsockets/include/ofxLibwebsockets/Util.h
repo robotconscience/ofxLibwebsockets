@@ -55,7 +55,7 @@ namespace ofxLibwebsockets {
         }
         
         switch (reason)
-        {            
+        {
             case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
                 return 0;
                 
@@ -72,11 +72,14 @@ namespace ofxLibwebsockets {
                     return 0;
                 }
                 
-            case LWS_CALLBACK_CLIENT_WRITEABLE:
-            case LWS_CALLBACK_CLIENT_ESTABLISHED:
-            case LWS_CALLBACK_CLOSED:
-            case LWS_CALLBACK_CLIENT_RECEIVE:
-            case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
+            // we're not really worried about this at the moment
+            case LWS_CALLBACK_ADD_POLL_FD:
+			case LWS_CALLBACK_DEL_POLL_FD:
+			case LWS_CALLBACK_SET_MODE_POLL_FD:
+			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
+                return;
+                
+            default:
                 if ( reactor != NULL ){
                     //conn = *(Connection**)user;
                     if (conn && conn->ws != ws){
@@ -87,8 +90,6 @@ namespace ofxLibwebsockets {
                 } else {
                     return 0;
                 }
-            default:
-                return 0;
         }
         
         return 1; // FAIL (e.g. unhandled case/break in switch)

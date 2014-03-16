@@ -23,6 +23,12 @@ namespace ofxLibwebsockets {
         ofAddListener( clientProtocol.oncloseEvent, this, &Client::onClose);
     }
 
+    
+    //--------------------------------------------------------------
+    Client::~Client(){
+        exit();
+    }
+    
     //--------------------------------------------------------------
     bool Client::connect ( string _address, bool bUseSSL ){
         defaultOptions.host     = _address;
@@ -43,7 +49,7 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     bool Client::connect ( ClientOptions options ){
-        ofLog( OF_LOG_VERBOSE, "connect: "+options.host+":"+ofToString(options.port)+options.channel+":"+ofToString(options.bUseSSL) );
+        ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] connect: "+options.host+":"+ofToString(options.port)+options.channel+":"+ofToString(options.bUseSSL) );
         address = options.host;
         port    = options.port;  
         channel = options.channel;
@@ -99,17 +105,17 @@ namespace ofxLibwebsockets {
         //                                      &lws_protocols[0], libwebsocket_internal_extensions,
         //                                      NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
         if (context == NULL){
-            std::cerr << "libwebsocket init failed" << std::endl;
+            ofLogError() << "[ofxLibwebsockets] libwebsocket init failed";
             return false;
-        } else {      
-            std::cerr << "libwebsocket init success" << std::endl;  
+        } else {
+            ofLogVerbose() << "[ofxLibwebsockets] libwebsocket init success";
             
             string host = options.host +":"+ ofToString( options.port );
             
             // register with or without a protocol
             if ( options.protocol == "NULL"){
                 lwsconnection = libwebsocket_client_connect( context, 
-                                                            options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ), 
+                                                            options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ),
                                                             options.channel.c_str(), host.c_str(), host.c_str(), NULL, options.version);
             } else {
                 lwsconnection = libwebsocket_client_connect( context, 
@@ -118,14 +124,14 @@ namespace ofxLibwebsockets {
             }
                         
             if ( lwsconnection == NULL ){
-                std::cerr << "client connection failed" << std::endl;
+                ofLogError() << "[ofxLibwebsockets] client connection failed";
                 return false;
             } else {
                 
                 connection = new Connection( (Reactor*) &context, &clientProtocol );
                 connection->ws = lwsconnection;
-                                                
-                std::cerr << "client connection success" << std::endl;
+                
+                ofLogVerbose() << "[ofxLibwebsockets] Connection successfully created. Connecting.";
                 startThread(true, false); // blocking, non-verbose   
                 return true;
             }

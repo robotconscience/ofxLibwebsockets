@@ -103,9 +103,9 @@ namespace ofxLibwebsockets {
                                 const unsigned int len){
         if (conn == NULL || conn->protocol == NULL){
             if (conn == NULL){
-                ofLog(OF_LOG_WARNING, "connection is null");
+                ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] connection is null");
             } else {
-                ofLog(OF_LOG_WARNING, "protocol is null"); 
+                ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] protocol is null");
             }
             return 1;
         }
@@ -148,38 +148,65 @@ namespace ofxLibwebsockets {
             bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
             if ( !parsingSuccessful ){
                 // report to the user the failure and their locations in the document.
-                ofLog( OF_LOG_VERBOSE, "Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
+                ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
                 args.json = Json::Value( Json::nullValue );
             }
         }
         
-        if (reason==LWS_CALLBACK_ESTABLISHED || reason == LWS_CALLBACK_CLIENT_ESTABLISHED){
-            connections.push_back( conn );
-            ofNotifyEvent(conn->protocol->onopenEvent, args);
-        } else if (reason==LWS_CALLBACK_CLOSED){
-            
-            // erase connection from vector
-            for (int i=0; i<connections.size(); i++){
-                if ( connections[i] == conn ){
-                    connections.erase( connections.begin() + i );
-                    break;
+        switch (reason) {
+            // connection was not successful
+            case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
+                ofLogError()<<"[ofxLibwebsockets] Connection error";
+                //TODO: add error event!
+                
+                for (int i=0; i<connections.size(); i++){
+                    if ( connections[i] == conn ){
+                        connections.erase( connections.begin() + i );
+                        break;
+                    }
                 }
-            }
+                
+                ofNotifyEvent(conn->protocol->oncloseEvent, args);
+                break;
             
-            ofNotifyEvent(conn->protocol->oncloseEvent, args);
-        } else if (reason==LWS_CALLBACK_SERVER_WRITEABLE || reason==LWS_CALLBACK_CLIENT_WRITEABLE){
-            ofNotifyEvent(conn->protocol->onidleEvent, args);
-            
-            // only notify if we have a complete message
-        }/* else if (reason==LWS_CALLBACK_BROADCAST && (!bReceivingLargeMessage || bFinishedReceiving) ){
-            ofNotifyEvent(conn->protocol->onbroadcastEvent, args);
-            
-        // only notify if we have a complete message
-        }*/ else if ((reason==LWS_CALLBACK_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE || reason == LWS_CALLBACK_CLIENT_RECEIVE_PONG) && (!bReceivingLargeMessage || bFinishedReceiving)){
-            ofNotifyEvent(conn->protocol->onmessageEvent, args);
-        } else {
-			ofLogVerbose() << "ofxLibwebsockets: received unknown event "<< reason <<endl;
-		}
+            case LWS_CALLBACK_ESTABLISHED:
+            case LWS_CALLBACK_CLIENT_ESTABLISHED:
+                connections.push_back( conn );
+                ofNotifyEvent(conn->protocol->onopenEvent, args);
+                break;
+                
+            case LWS_CALLBACK_CLOSED:
+                // erase connection from vector
+                for (int i=0; i<connections.size(); i++){
+                    if ( connections[i] == conn ){
+                        connections.erase( connections.begin() + i );
+                        break;
+                    }
+                }
+                
+                ofNotifyEvent(conn->protocol->oncloseEvent, args);
+                break;
+                
+            case LWS_CALLBACK_SERVER_WRITEABLE:
+            case LWS_CALLBACK_CLIENT_WRITEABLE:
+                // idle is good! means you can write again
+                ofNotifyEvent(conn->protocol->onidleEvent, args);
+                break;
+                
+            case LWS_CALLBACK_RECEIVE:
+            case LWS_CALLBACK_CLIENT_RECEIVE:
+            case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
+                
+                // only notify if we have a complete message
+                if (!bReceivingLargeMessage || bFinishedReceiving){
+                    ofNotifyEvent(conn->protocol->onmessageEvent, args);
+                }
+                break;
+                
+            default:
+                ofLogVerbose() << "[ofxLibwebsockets] received unknown event "<< reason <<endl;
+                break;
+        }
         
         return 0;
     }
@@ -213,7 +240,7 @@ namespace ofxLibwebsockets {
             mimetype = "text/css";
         
         if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str()) < 0){
-            ofLog( OF_LOG_WARNING, "Failed to send HTTP file "+ file + " for "+ url);
+            ofLog( OF_LOG_WARNING, "[ofxLibwebsockets] Failed to send HTTP file "+ file + " for "+ url);
         }
 			return 0;
     }
