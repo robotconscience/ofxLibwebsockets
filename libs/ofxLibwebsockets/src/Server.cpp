@@ -22,6 +22,11 @@ namespace ofxLibwebsockets {
         
         defaultOptions = defaultServerOptions();
     }
+    
+    //--------------------------------------------------------------
+    Server::~Server(){
+        exit();
+    }
 
     //--------------------------------------------------------------
     bool Server::setup( int _port, bool bUseSSL )

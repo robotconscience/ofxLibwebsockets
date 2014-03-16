@@ -38,6 +38,9 @@ namespace ofxLibwebsockets {
     }
     //--------------------------------------------------------------
     void Connection::close() {
+        // delete all pending frames
+        messages_binary.clear();
+        messages_text.clear();
         if (reactor != NULL){
             reactor->close(this);
         }
@@ -174,52 +177,55 @@ namespace ofxLibwebsockets {
                     messages_text.erase(messages_text.begin());
                 }
             }
-        }  else if ( messages_text.size() > 0 && messages_text[0].index ){
+        } else if ( messages_text.size() > 0 && messages_text[0].index ){
             libwebsocket_callback_on_writable(context, ws);
         }
         
         // process binary messages
-        if ( messages_binary.size() > 0 ){
-            BinaryPacket & packet = messages_binary[0];
-            
-            if ( packet.index == 0 ){
-                // write beginning of packet
-                int dataSize = binaryBufsize;
-                memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data, dataSize );
+        if ( messages_binary.size() > 0 && protocol->idle ){
+            if ( messages_binary.size() > 0 ){
+                BinaryPacket & packet = messages_binary[0];
                 
-                int writeMode = LWS_WRITE_BINARY;
-                writeMode |= LWS_WRITE_NO_FIN;
-                
-                protocol->idle = false;
-                int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
-                libwebsocket_callback_on_writable(context, ws);
-                packet.index += dataSize;
-                
-            } else {
-                // continue to send large message in chunks
-                int dataSize = binaryBufsize > packet.size ? packet.size : binaryBufsize;
-                int writeMode = LWS_WRITE_CONTINUATION;
-                writeMode |= LWS_WRITE_NO_FIN;
-                
-                bool bDone = false;
-                if ( packet.index + dataSize >= packet.size ){
-                    dataSize = packet.size - packet.index;
-                    writeMode = LWS_WRITE_CONTINUATION;
-                    bDone = true;
-                }
-                
-                memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data + packet.index, dataSize );
-                
-                // this sets the protocol to wait until "idle"
-                protocol->idle = false; // todo: this should be automatic on write!
-                int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
-                libwebsocket_callback_on_writable(context, ws);
-                packet.index += dataSize;
-                
-                if ( bDone ){
-                    messages_binary.erase(messages_binary.begin());
+                if ( packet.index == 0 ){
+                    // write beginning of packet
+                    int dataSize = binaryBufsize;
+                    memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data, dataSize );
+                    
+                    int writeMode = LWS_WRITE_BINARY;
+                    writeMode |= LWS_WRITE_NO_FIN;
+                    
+                    protocol->idle = false;
+                    int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+                    libwebsocket_callback_on_writable(context, ws);
+                    packet.index += dataSize;
+                } else {
+                    // continue to send large message in chunks
+                    int dataSize = binaryBufsize > packet.size ? packet.size : binaryBufsize;
+                    int writeMode = LWS_WRITE_CONTINUATION;
+                    writeMode |= LWS_WRITE_NO_FIN;
+                    
+                    bool bDone = false;
+                    if ( packet.index + dataSize >= packet.size ){
+                        dataSize = packet.size - packet.index;
+                        writeMode = LWS_WRITE_CONTINUATION;
+                        bDone = true;
+                    }
+                    
+                    memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data + packet.index, dataSize );
+                    
+                    // this sets the protocol to wait until "idle"
+                    protocol->idle = false; // todo: this should be automatic on write!
+                    int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+                    libwebsocket_callback_on_writable(context, ws);
+                    packet.index += dataSize;
+                    
+                    if ( bDone ){
+                        messages_binary.erase(messages_binary.begin());
+                    }
                 }
             }
+        } else if ( messages_text.size() > 0 && messages_text[0].index ){
+            libwebsocket_callback_on_writable(context, ws);
         }
     }
     

@@ -53,6 +53,7 @@ namespace ofxLibwebsockets {
         
     public:
         Server();
+        ~Server();
         
         bool setup( int _port = 80, bool bUseSSL = false );
         bool setup( ServerOptions options );
