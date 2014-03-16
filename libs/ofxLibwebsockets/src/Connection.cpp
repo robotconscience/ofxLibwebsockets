@@ -83,7 +83,6 @@ namespace ofxLibwebsockets {
             TextPacket tp;
             tp.message = message;
             messages_text.push_back(tp);
-            //if (!isThreadRunning()) startThread();
             
         // we have a nice small frame, just send it
         } else {
@@ -109,10 +108,14 @@ namespace ofxLibwebsockets {
             // we have a big frame, so we need to send a few times
             if ( binaryBufsize < size ){
                 
-                // need to jump into thread
+                // need to split into packets
                 BinaryPacket bp;
-                bp.data = data;
                 bp.size = size;
+                
+                // copy data into array, in case user frees it
+                bp.data = (unsigned char*)calloc(size, sizeof(unsigned char));
+                memcpy(bp.data, data, size);
+                
                 messages_binary.push_back(bp);
                 
                 n = 0;

@@ -137,6 +137,8 @@ namespace ofxLibwebsockets {
 
         switch (reason)
         {
+            // we may use these in the future!
+            case LWS_CALLBACK_PROTOCOL_INIT:
             case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
                 return 0;
                 
@@ -150,15 +152,15 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_HTTP:
                 return reactor->_http(ws, (char*)data);
                 
-            case LWS_CALLBACK_ESTABLISHED:
-            case LWS_CALLBACK_CLOSED:
-            case LWS_CALLBACK_SERVER_WRITEABLE:
-            case LWS_CALLBACK_RECEIVE:
-			case LWS_CALLBACK_CLIENT_RECEIVE:
-			case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
-            //case LWS_CALLBACK_BROADCAST:
-            //In the current git version, All of the broadcast proxy stuff is removed: data must now be sent from the callback only
-            // http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/commit/test-server/test-server.c?id=6f520a5195defcb7fc69c669218a8131a5f35efb
+                // we're not really worried about this at the moment
+            case LWS_CALLBACK_ADD_POLL_FD:
+			case LWS_CALLBACK_DEL_POLL_FD:
+			case LWS_CALLBACK_SET_MODE_POLL_FD:
+			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
+                return;
+                
+            default:
+                cout <<getCallbackReason(reason)<<endl;
                 conn = *(Connection**)user;
                 
                 if (conn && (conn->ws != ws || conn->ws == NULL) ){
@@ -171,9 +173,6 @@ namespace ofxLibwebsockets {
                 } else {
                     return 0;
                 }
-                
-            default:
-                return 0;
         }
         
         return 1; // FAIL (e.g. unhandled case/break in switch)
