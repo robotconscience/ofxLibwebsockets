@@ -2,18 +2,10 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    
-    // connect to websocket.org's echo server on default port
-    //bool connected = client.connect( "ws://echo.websocket.org", true );
-    //bool connected = client.connect( "echo.websocket.org" );
-    
-    // Uncomment this to connect to the server example!
-    
-    
-    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
-    options.port = 9092; 
-    bool connected = client.connect( options );
-    
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    client.connect("echo.websocket.org");
+//    client.connect("echo.websocket.org", true); // optionally use SSL
+    ofSetLogLevel(OF_LOG_ERROR);
     
     client.addListener(this);
     ofSetFrameRate(60);

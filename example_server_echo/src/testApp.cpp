@@ -4,14 +4,12 @@
 void testApp::setup(){
     // setup a server with default options on port 9092
     // - pass in true after port to set up with SSL
-    //bConnected = server.setup( 9093 );
+    //bSetup = server.setup( 9093 );
 
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9092;
-	options.bUseSSL = false; //ssl not working on Win right now!
-    bConnected = server.setup( options );
-    
-	cout << "CONNECTED? "<<bConnected<<endl;
+	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
+    bSetup = server.setup( options );
     
     // this adds your app as a listener for the server
     server.addListener(this);
@@ -26,7 +24,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    if ( bConnected ){
+    if ( bSetup ){
         ofDrawBitmapString("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL"), 20, 20);
         
         ofSetColor(150);

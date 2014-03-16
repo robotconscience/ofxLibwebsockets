@@ -25,7 +25,7 @@ class testApp : public ofBaseApp{
 		
         ofxLibwebsockets::Server server;
     
-        bool bConnected;
+        bool bSetup;
     
         //queue of rec'd messages
         vector<string> messages;

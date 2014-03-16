@@ -6,8 +6,8 @@ void testApp::setup(){
     ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
     options.port = 9092; 
     options.protocol = "of-protocol";
-    bConnected = client.connect( options );
-    
+    client.connect( options );
+    bConnected = false;
     
     client.addListener(this);
 
@@ -25,7 +25,7 @@ void testApp::draw(){
     if ( bConnected ){
         ofDrawBitmapString("WebSocket client connected" , 20, 20);
     } else {
-        ofDrawBitmapString("WebSocket setup failed :(", 20,20);
+        ofDrawBitmapString("WebSocket not connected", 20,20);
     }
     
     map<int, Drawing*>::iterator it = drawings.begin();
@@ -51,6 +51,7 @@ void testApp::onConnect( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
+    bConnected = true;
     cout<<"new connection open"<<endl;
     cout<<args.conn.getClientIP()<< endl;
     
@@ -68,6 +69,7 @@ void testApp::onOpen( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::onClose( ofxLibwebsockets::Event& args ){
+    bConnected = false;
     cout<<"on close"<<endl;
     // remove from color map
     
@@ -182,6 +184,7 @@ void testApp::mousePressed(int x, int y, int button){
 
     ofPoint p(x,y);
     map<int, Drawing*>::iterator it = drawings.find(id);
+    if ( it == drawings.end() ) return;
     Drawing * d = it->second;
     d->addPoint(p);
     client.send( "{\"id\":"+ ofToString(id) + ",\"point\":{\"x\":\""+ ofToString(x)+"\",\"y\":\""+ofToString(y)+"\"}," + d->getColorJSON() +"}");

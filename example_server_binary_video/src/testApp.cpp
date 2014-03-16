@@ -35,7 +35,6 @@ void testApp::setup(){
 void testApp::update(){
     video.update();
     if ( bVideoSetup && video.isFrameNew() ){
-//        server.send( ofToString(video.width) +":"+ ofToString( video.height ) +":"+ ofToString( 1 ) );
         server.sendBinary( video );
         //messages.push_back( "Sending image" );
     }
@@ -51,6 +50,7 @@ void testApp::draw(){
         y += font.stringHeight( messages[i] ) + font.getSize();
     }
     if ( bVideoSetup ) video.draw(0,0);
+    ofDrawBitmapString("Click anywhere to launch the browser companion to this demo!", 20,20);
 }
 
 //--------------------------------------------------------------
@@ -62,6 +62,9 @@ void testApp::onConnect( ofxLibwebsockets::Event& args ){
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"new connection open"<<endl;
     messages.push_back("New connection from " + args.conn.getClientIP() );
+    
+    // send video data
+    args.conn.send( ofToString(video.width) +":"+ ofToString( video.height ) +":"+ ofToString( 1 ) );
 }
 
 //--------------------------------------------------------------
@@ -72,7 +75,7 @@ void testApp::onClose( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::onIdle( ofxLibwebsockets::Event& args ){
-    cout<<"on idle"<<endl;
+//    cout<<"on idle"<<endl;
 }
 
 //--------------------------------------------------------------
@@ -119,7 +122,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+    ofLaunchBrowser("http://localhost:9093");
 }
 
 //--------------------------------------------------------------

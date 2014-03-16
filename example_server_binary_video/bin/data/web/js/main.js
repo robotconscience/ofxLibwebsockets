@@ -5,7 +5,7 @@ var ctx;
 
 var canvasData;
 var data;
-var type;
+var type = 2;
 
 //----------------------------------------------------------------------------------------------------------------
 // ON READY, SETUP SOCKET!
@@ -71,8 +71,8 @@ function onMessage( messageEvent ){
 			}
 		// rgba
 		} else {
-			console.log( bytearray.length );
-			console.log( data.length );
+			//console.log( bytearray.length );
+			//console.log( data.length );
 			for (var i = 0; i < bytearray.length; i++) {
 	            data[i] = bytearray[i]
 			}
