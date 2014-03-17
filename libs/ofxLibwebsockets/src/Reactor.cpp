@@ -16,6 +16,8 @@ namespace ofxLibwebsockets {
         reactors.push_back(this);
         bParseJSON = true;
         largeMessage = "";
+        largeBinaryMessage  = NULL;
+        largeBinarySize     = 0;
         bReceivingLargeMessage  = false;
         closeAndFree = false;
     }
@@ -116,42 +118,7 @@ namespace ofxLibwebsockets {
         }
         
         std::string message;
-        
-        if (_message != NULL && len > 0){
-            message = std::string(_message, len);
-        }
-        
-        // decide if this is part of a larger message or not
-        size_t bytesLeft = libwebsockets_remaining_packet_payload( conn->ws );
-        if ( !bReceivingLargeMessage && bytesLeft > 0 ){
-            bReceivingLargeMessage = true;
-        }
-        bool bFinishedReceiving = false;
-        
-        if ( bReceivingLargeMessage){
-            largeMessage += message;
-            if ( bytesLeft == 0 ){
-                message = largeMessage;
-                bFinishedReceiving      = true;
-                bReceivingLargeMessage  = false;
-                largeMessage = "";
-            }
-        }
-        
         Event args(*conn, message);
-        
-        if (_message != NULL && len > 0 && (!bReceivingLargeMessage || bFinishedReceiving) ){
-            args.json = Json::Value( Json::nullValue );
-            
-            args.message = args.conn.recv(args.message);
-            
-            bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
-            if ( !parsingSuccessful ){
-                // report to the user the failure and their locations in the document.
-                ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
-                args.json = Json::Value( Json::nullValue );
-            }
-        }
         
         switch (reason) {
             // connection was not successful
@@ -196,10 +163,82 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_RECEIVE:
             case LWS_CALLBACK_CLIENT_RECEIVE:
             case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
-                
-                // only notify if we have a complete message
-                if (!bReceivingLargeMessage || bFinishedReceiving){
-                    ofNotifyEvent(conn->protocol->onmessageEvent, args);
+                {
+                    
+                    bool bFinishedReceiving = false;
+                    
+                    // decide if this is part of a larger message or not
+                    size_t bytesLeft = libwebsockets_remaining_packet_payload( conn->ws );
+                    
+                    if ( !bReceivingLargeMessage && (bytesLeft > 0 || !libwebsocket_is_final_fragment( conn->ws )) ){
+                        bReceivingLargeMessage = true;
+                    }
+                    
+                    // text or binary?
+                    int isBinary = lws_frame_is_binary(conn->ws);
+                    
+                    if (isBinary == 1 ){
+                        // set binary flag on event
+                        args.isBinary = true;
+                        
+                        if ( bReceivingLargeMessage){
+                            // need to allocate data...
+                            if ( largeBinaryMessage == NULL ){
+                                largeBinaryMessage = (unsigned char *)calloc(len, sizeof(unsigned char));
+                                memcpy(largeBinaryMessage, _message, len);
+                                largeBinarySize = len;
+                            } else {
+                                largeBinarySize += len;
+                                largeBinaryMessage = (unsigned char*)realloc(largeBinaryMessage, largeBinarySize * sizeof(unsigned char));
+                                memcpy(largeBinaryMessage + len, _message, len);
+                            }
+                            
+                            if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
+                                // copy into event
+                                args.data = (unsigned char *)calloc(largeBinarySize, sizeof(unsigned char));
+                                memcpy(args.data, largeBinaryMessage, largeBinarySize);
+                                
+                                args.size = largeBinarySize;
+                                
+                                bFinishedReceiving      = true;
+                                bReceivingLargeMessage  = false;
+                                largeBinaryMessage      = NULL;
+                            }
+                        } else {
+                            
+                        }
+                    } else {
+                        if (_message != NULL && len > 0){
+                            args.message = std::string(_message, len);
+                        }
+                        
+                        if ( bReceivingLargeMessage){
+                            largeMessage += args.message;
+                            if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
+                                args.message = largeMessage;
+                                bFinishedReceiving      = true;
+                                bReceivingLargeMessage  = false;
+                                largeMessage = "";
+                            }
+                        }
+                        
+                        if (_message != NULL && len > 0 && (!bReceivingLargeMessage || bFinishedReceiving) ){
+                            args.json = Json::Value( Json::nullValue );
+                            //args.message = args.conn.recv(args.message);
+                            
+                            bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
+                            if ( !parsingSuccessful ){
+                                // report to the user the failure and their locations in the document.
+                                ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
+                                args.json = Json::Value( Json::nullValue );
+                            }
+                        }
+                    }
+                    
+                    // only notify if we have a complete message
+                    if (!bReceivingLargeMessage || bFinishedReceiving){
+                        ofNotifyEvent(conn->protocol->onmessageEvent, args);
+                    }
                 }
                 break;
                 

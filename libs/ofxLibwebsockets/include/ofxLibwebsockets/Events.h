@@ -17,11 +17,16 @@ namespace ofxLibwebsockets {
 
     class Event {
     public:
-        Event(Connection& _conn, std::string& _message);
+        Event(Connection& _conn, std::string& _message, bool isBinary=false);
         
         Connection& conn;
         std::string& message;
         Json::Value json;
+        
+        // binary data
+        bool isBinary;
+        unsigned char * data;
+        int size;
     };
 };
 

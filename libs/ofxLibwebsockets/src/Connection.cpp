@@ -223,6 +223,7 @@ namespace ofxLibwebsockets {
                     packet.index += dataSize;
                     
                     if ( bDone ){
+                        free(packet.data);
                         messages_binary.erase(messages_binary.begin());
                     }
                 }

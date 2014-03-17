@@ -160,7 +160,6 @@ namespace ofxLibwebsockets {
                 return;
                 
             default:
-                cout <<getCallbackReason(reason)<<endl;
                 conn = *(Connection**)user;
                 
                 if (conn && (conn->ws != ws || conn->ws == NULL) ){
