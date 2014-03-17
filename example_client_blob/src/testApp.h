@@ -2,15 +2,14 @@
 
 #include "ofMain.h"
 
+#include "ofxLibwebsockets.h"
+
 // To set this up (note - 2 onward are already done in this app!)
 // 1 - Clone https://github.com/robotconscience/ofxTurboJpeg into addons/ofxTurboJpeg
 // 2 - Add "Copy files build phase" in the 'targets->build phases menu'
 // 3 - Add ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib to the phase
 // 4 - Make sure the dylib is copied to the "executables" directory!
 #include "ofxTurboJpeg.h"
-#include "ofxLibwebsockets.h"
-
-#define NUM_MESSAGES 20 // how many past messages we want to keep
 
 class testApp : public ofBaseApp{
 
@@ -29,15 +28,13 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-        ofxLibwebsockets::Server server;
-        
-        bool bVideoSetup;
-        ofVideoGrabber video;
-        ofxTurboJpeg turbo;
+        ofxLibwebsockets::Client client;
     
-        //queue of rec'd messages
-        ofTrueTypeFont font;
-        vector<string> messages;
+        ofxTurboJpeg turbo;
+        ofImage incoming;
+    
+        bool needToLoad, locked;
+        ofBuffer buff;
     
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );

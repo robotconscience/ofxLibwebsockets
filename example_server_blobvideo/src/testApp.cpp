@@ -80,7 +80,7 @@ void testApp::onClose( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void testApp::onIdle( ofxLibwebsockets::Event& args ){
-    cout<<"on idle"<<endl;
+//    cout<<"on idle"<<endl;
 }
 
 //--------------------------------------------------------------
