@@ -8,7 +8,7 @@
 
 #pragma once 
 
-#include <string>
+#include "ofMain.h"
 #include "json.h"
 
 namespace ofxLibwebsockets {
@@ -25,8 +25,7 @@ namespace ofxLibwebsockets {
         
         // binary data
         bool isBinary;
-        unsigned char * data;
-        int size;
+        ofBuffer data;
     };
 };
 

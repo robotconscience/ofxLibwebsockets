@@ -16,7 +16,7 @@ namespace ofxLibwebsockets {
         reactors.push_back(this);
         bParseJSON = true;
         largeMessage = "";
-        largeBinaryMessage  = NULL;
+        largeBinaryMessage.clear();
         largeBinarySize     = 0;
         bReceivingLargeMessage  = false;
         closeAndFree = false;
@@ -183,26 +183,22 @@ namespace ofxLibwebsockets {
                         
                         if ( bReceivingLargeMessage){
                             // need to allocate data...
-                            if ( largeBinaryMessage == NULL ){
-                                largeBinaryMessage = (unsigned char *)calloc(len, sizeof(unsigned char));
-                                memcpy(largeBinaryMessage, _message, len);
+                            if ( largeBinarySize == 0 ){
+                                largeBinaryMessage.set( _message, len );
                                 largeBinarySize = len;
                             } else {
                                 largeBinarySize += len;
-                                largeBinaryMessage = (unsigned char*)realloc(largeBinaryMessage, largeBinarySize * sizeof(unsigned char));
-                                memcpy(largeBinaryMessage + len, _message, len);
+                                largeBinaryMessage.append(_message, len);
                             }
                             
                             if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
                                 // copy into event
-                                args.data = (unsigned char *)calloc(largeBinarySize, sizeof(unsigned char));
-                                memcpy(args.data, largeBinaryMessage, largeBinarySize);
-                                
-                                args.size = largeBinarySize;
+                                args.data.set(largeBinaryMessage.getBinaryBuffer(), largeBinaryMessage.size());
                                 
                                 bFinishedReceiving      = true;
                                 bReceivingLargeMessage  = false;
-                                largeBinaryMessage      = NULL;
+                                largeBinaryMessage.clear();
+                                largeBinarySize = 0;
                             }
                         } else {
                             

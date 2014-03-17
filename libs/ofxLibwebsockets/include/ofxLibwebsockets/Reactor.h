@@ -57,7 +57,7 @@ namespace ofxLibwebsockets {
         std::string     largeMessage;
         
         unsigned int    largeBinarySize;
-        unsigned char * largeBinaryMessage;
+        ofBuffer        largeBinaryMessage;
 
         bool closeAndFree;
         
