@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		013561C318D65848000826E8 /* libturbojpeg.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 013561C018D6583A000826E8 /* libturbojpeg.a */; };
 		013561C518D65853000826E8 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 013561C118D6583A000826E8 /* libturbojpeg.dylib */; };
 		34A1CD0B670B0A4266464779 /* ofxTurboJpeg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7594CA5E21F32F237CA87E /* ofxTurboJpeg.cpp */; };
 		6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232A9453E355593EF36ADA7 /* Reactor.cpp */; };
@@ -63,7 +62,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				013561C318D65848000826E8 /* libturbojpeg.a in CopyFiles */,
 				013561C518D65853000826E8 /* libturbojpeg.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,7 +79,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		013561C018D6583A000826E8 /* libturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libturbojpeg.a; sourceTree = "<group>"; };
 		013561C118D6583A000826E8 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
 		2232A9453E355593EF36ADA7 /* Reactor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Reactor.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Reactor.cpp; sourceTree = SOURCE_ROOT; };
 		34A70E2C091020EE93F6B1CE /* Events.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Events.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Events.cpp; sourceTree = SOURCE_ROOT; };
@@ -159,7 +156,6 @@
 		013561BF18D6583A000826E8 /* osx */ = {
 			isa = PBXGroup;
 			children = (
-				013561C018D6583A000826E8 /* libturbojpeg.a */,
 				013561C118D6583A000826E8 /* libturbojpeg.dylib */,
 			);
 			path = osx;
@@ -503,7 +499,6 @@
 					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
-					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.a",
 					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib",
 				);
 				SDKROOT = macosx;
@@ -560,7 +555,6 @@
 					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
 					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
-					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.a",
 					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib",
 				);
 				SDKROOT = macosx;
@@ -648,6 +642,13 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
+					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
 			};
@@ -732,6 +733,13 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+				);
+				OTHER_LDFLAGS = (
+					"$(OF_CORE_LIBS)",
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx/libwebsockets.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libcrypto.a,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx/libssl.a,
+					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

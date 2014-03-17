@@ -36,11 +36,16 @@ class testApp : public ofBaseApp{
         ofTrueTypeFont font;
         vector<string> messages;
     
+        // incoming images
+        ofImage incoming;
+        bool needToLoad, locked;
+        ofBuffer buff;
+    
         string  toLoad;
         bool    bSendImage;
     
         // compression + sending
-        ofImage * currentImage;
+        ofImage currentImage;
         ofxTurboJpeg turbo;
     
         // websocket methods
