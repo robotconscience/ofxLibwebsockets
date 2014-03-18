@@ -50,7 +50,9 @@ function onMessage( messageEvent ){
     if (messageEvent.data instanceof Blob) {
 		URL.revokeObjectURL(prevBlob);
 		prevBlob = URL.createObjectURL(messageEvent.data);
-		$("#incoming").attr("src", prevBlob);
+		// just set image.src to the blob URL, then you're all good!
+		$("#loadintome").attr("src",prevBlob);
+		console.log(prevBlob);
 	}
 }
 
@@ -65,7 +67,7 @@ function setupSocket(){
 		socket.binaryType = "blob";
 	} else {
 		//socket = new WebSocket( get_appropriate_ws_url(), "of-protocol");
-        socket = new WebSocket( 'ws://127.0.0.1:9093', "of-protocol");
+        socket = new WebSocket( get_appropriate_ws_url(), "of-protocol");
 		socket.binaryType = "blob";
 	}
 	

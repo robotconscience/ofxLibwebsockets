@@ -1,10 +1,6 @@
 // GLOBAL VARS
 var socket;
-var canvas;
-var ctx;
 
-var canvasData;
-var data;
 var type;
 var stats;
 var URL = window.URL ? window.URL : window.webkitURL;
@@ -14,11 +10,6 @@ var URL = window.URL ? window.URL : window.webkitURL;
 //----------------------------------------------------------------------------------------------------------------
 
 $(document).ready( function() {
-	canvas 		= document.getElementById('contourCanvas');
-	ctx			= canvas.getContext('2d');
-
-    canvasData = ctx.getImageData(0,0,canvas.width, canvas.height);
-    data = canvasData.data;
 
 	document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
 		+ BrowserDetect.version +" " + BrowserDetect.OS +" ";
@@ -63,14 +54,10 @@ var prevBlob;
 function onMessage( messageEvent ){
     stats.end();
     if (messageEvent.data instanceof Blob) {
-      //blob:blobinternals created automatically by Chrome are not cleared
-       URL.revokeObjectURL(prevBlob);
-		image = new Image();
-		image.onload = function () {
-            ctx.drawImage(image, 0, 0);
-        }
-        prevBlob = URL.createObjectURL(messageEvent.data);
-        image.src = prevBlob;
+      URL.revokeObjectURL(prevBlob);
+      prevBlob = URL.createObjectURL(messageEvent.data);
+      // just set image.src to the blob URL, then you're all good!
+      $("#loadintome").attr("src",prevBlob);
 	}
     stats.begin();
 }
@@ -85,8 +72,7 @@ function setupSocket(){
 		socket = new MozWebSocket( get_appropriate_ws_url(), "of-protocol" );
 		socket.binaryType = "blob";
 	} else {
-		//socket = new WebSocket( get_appropriate_ws_url(), "of-protocol");
-        socket = new WebSocket( 'ws://127.0.0.1:9093', "of-protocol");
+        socket = new WebSocket( get_appropriate_ws_url(), "of-protocol");
 		socket.binaryType = "blob";
 	}
 	

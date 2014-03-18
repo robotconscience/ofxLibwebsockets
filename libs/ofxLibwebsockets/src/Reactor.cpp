@@ -105,7 +105,7 @@ namespace ofxLibwebsockets {
                                 const unsigned int len){
         if (conn == NULL || conn->protocol == NULL){
             if (conn == NULL){
-                ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] connection is null");
+                ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] connection is null ");
             } else {
                 ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] protocol is null");
             }

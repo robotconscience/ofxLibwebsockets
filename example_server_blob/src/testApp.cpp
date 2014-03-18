@@ -1,5 +1,11 @@
 #include "testApp.h"
 
+// utils for gettin' IP address
+#include <ifaddrs.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <arpa/inet.h>
+
 //--------------------------------------------------------------
 void testApp::setup(){
     // setup a server with default options on port 9092
@@ -52,8 +58,6 @@ void testApp::update(){
         //        test.writeFromBuffer(buff);
         //        test.close();
         
-        cout << "load "<<buff.size()<<endl;
-        
         turbo.load(buff, incoming);
         needToLoad = false;
         locked = false;
@@ -70,14 +74,69 @@ void testApp::draw(){
         //font.drawString( messages[i], x, y );
         y += font.stringHeight( messages[i] ) + font.getSize();
     }
-    if (currentImage.bAllocated()) currentImage.draw(0,0);
-    if ( incoming.bAllocated() ){
-        int y = 0;
-        if ( currentImage.bAllocated() ){
-            y += currentImage.height;
-        }
-        incoming.draw(0,y);
+    
+    // image loaded from drag-and-drop
+    if (currentImage.bAllocated()){
+        // draw loaded image either at scale or 1/2 the size of window
+        // (whichever is smaller)
+        float scale = currentImage.height > ofGetHeight()/2.0 ? (float) ofGetHeight()/2.0/currentImage.height : 1.0;
+        currentImage.draw(0,0, currentImage.width * scale, currentImage.height * scale);
     }
+    
+    // image loaded from incoming binary
+    if ( incoming.bAllocated() ){
+        // draw image from mobile device either at scale or 1/2 the size of window
+        // (whichever is smaller)
+        float scale = incoming.height > ofGetHeight()/2.0 ? (float) ofGetHeight()/2.0/incoming.height : 1.0;
+        incoming.draw(0,ofGetHeight()/2.0, incoming.width * scale, incoming.height * scale);
+    }
+    
+    string toDraw = "Drag an image onto the window to send!";
+    toDraw += "\nOpen your browser to localhost:9093 to receive\n";
+    toDraw += "\nIf you're on the same network, open this URL on your mobile device:";
+    
+    // Below is just me being tricky to make a nice text output.
+    // It's from a stack overflow post, of course:
+    // http://stackoverflow.com/questions/212528/get-the-ip-address-of-the-machine
+    // It's NOT NECESSARY to run this example!
+    
+    static bool bGotIP = false;
+    static string myIPaddress = "";
+
+    if ( !bGotIP ){
+        bGotIP = true;
+        
+        struct ifaddrs * ifAddrStruct=NULL;
+        struct ifaddrs * ifa=NULL;
+        void * tmpAddrPtr=NULL;
+        getifaddrs(&ifAddrStruct);
+        for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
+            if (ifa ->ifa_addr->sa_family==AF_INET) { // check it is IP4
+                // is a valid IP4 Address
+                tmpAddrPtr=&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
+                char addressBuffer[INET_ADDRSTRLEN];
+                inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+                printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
+                
+                string addressString = ofToString( addressBuffer);
+                if ( addressString != "127.0.0.1"){
+                    myIPaddress += "\nhttp://" + addressString +":9093/mobile/index.html";
+                }
+            } else if (ifa->ifa_addr->sa_family==AF_INET6) { // check it is IP6
+                // is a valid IP6 Address
+                tmpAddrPtr=&((struct sockaddr_in6 *)ifa->ifa_addr)->sin6_addr;
+                char addressBuffer[INET6_ADDRSTRLEN];
+                inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
+                printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
+            }
+        }
+        if (ifAddrStruct!=NULL) freeifaddrs(ifAddrStruct);
+    }
+    
+    toDraw += myIPaddress;
+    // end unnecessary but cool IP address stuff
+    
+    ofDrawBitmapString(toDraw, 20,20);
 }
 
 //--------------------------------------------------------------
@@ -113,7 +172,6 @@ void testApp::onIdle( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void testApp::onMessage( ofxLibwebsockets::Event& args ){
     if ( args.isBinary ){
-        cout << "BINARY! "<<locked<<endl;
         if ( locked ) return;
         // need to load this next frame!
         buff.clear();

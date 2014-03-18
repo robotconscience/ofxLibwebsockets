@@ -75,8 +75,7 @@ function setupSocket(){
 		socket = new MozWebSocket( get_appropriate_ws_url());
 		socket.binaryType = "blob";
 	} else {
-		//socket = new WebSocket( get_appropriate_ws_url(), "of-protocol");
-        socket = new WebSocket( 'ws://127.0.0.1:9093');
+        socket = new WebSocket( get_appropriate_ws_url());
 		socket.binaryType = "blob";
 	}
 	

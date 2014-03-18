@@ -140,6 +140,7 @@ namespace ofxLibwebsockets {
             // we may use these in the future!
             case LWS_CALLBACK_PROTOCOL_INIT:
             case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
+            case LWS_CALLBACK_HTTP_FILE_COMPLETION:
                 return 0;
                 
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
