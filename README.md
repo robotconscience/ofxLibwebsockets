@@ -75,9 +75,13 @@
 			* right click on project in the solution explorer, click "Properties", Go down to Linker > General
 			* click the arrow at the right of "Additional Library Directories" and select "edit"
 			* add 
-			```..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release```
+			```
+			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release
+			```
 			and
-			```..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\libs\openssl\lib\win32```
+			```
+			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\libs\openssl\lib\win32
+			```
 		3. Now go down to Linker > Input; open the editor "Additional dependencies" the same way
 			* In your debug scheme, add libwebsocketswin32d.lib, libeay32.lib, and ssleay32.lib
 			* In your release scheme, add libwebsocketswin32.lib, libeay32.lib, and ssleay32.lib
