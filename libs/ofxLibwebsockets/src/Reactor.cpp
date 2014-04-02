@@ -182,6 +182,7 @@ namespace ofxLibwebsockets {
                         args.isBinary = true;
                         
                         if ( bReceivingLargeMessage){
+                            cout << "Getting large message "<<endl;
                             // need to allocate data...
                             if ( largeBinarySize == 0 ){
                                 largeBinaryMessage.set( _message, len );
@@ -192,6 +193,7 @@ namespace ofxLibwebsockets {
                             }
                             
                             if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
+                                cout << "Last fragment "<<endl;
                                 // copy into event
                                 args.data.set(largeBinaryMessage.getBinaryBuffer(), largeBinaryMessage.size());
                                 
@@ -201,7 +203,12 @@ namespace ofxLibwebsockets {
                                 largeBinarySize = 0;
                             }
                         } else {
+                            args.data.set(_message, len);
                             
+                            bFinishedReceiving      = true;
+                            bReceivingLargeMessage  = false;
+                            largeBinaryMessage.clear();
+                            largeBinarySize = 0;
                         }
                     } else {
                         if (_message != NULL && len > 0){
