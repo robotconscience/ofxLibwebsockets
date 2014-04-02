@@ -1,11 +1,35 @@
-ofxLibwebsockets
-------------
+#ofxLibwebsockets
+* Add the power of [WebSockets](http://www.websocket.org/) to your openFrameworks project!
 * openframeworks wrapper for libwebsockets (http://git.warmcat.com/cgi-bin/cgit/libwebsockets/) 
 * implements both client and server functionality of libwebsockets
+* includes support for sending text (strings) and binary data
 * based on Paul Reimer's work on ofxWebUI (https://github.com/paulreimer/ofxWebUI) and jason vancleave's ofxLibWebSockets (https://github.com/jvcleave/ofxLibWebSockets)
 
-ADDING TO PROJECTS
-------------
+##Examples: Basic
+* example_client_hello_world
+	* The simplest example: open up a Websocket to echo.websocket.org and say "hello"!
+* example_server_echo
+	* A basic Websocket server you can connect to from your browser (http://localhost:9092) to send messages back and forth
+	* Includes a simple javascript example that is hosted by the app
+	* Can also connect to example_client_hello_world
+* shared canvas
+	* example_server_sharedcanvas + example_client_sharedcanvas
+	* Clients in openFrameworks and javascript can collaboratively draw on a canvas
+
+##Examples: Advanced
+* basic binary
+	* example_server_binary and example_server_binaryvideo
+	* demonstrates a custom binary setup, sending the raw pixels from OF to javascript
+	* requires a bit of processing on the javascript side, please see the code in data/web
+* optimized binary
+	* example_server_blob, example_client_blob, example_server_blobvideo
+	* requires my fork of [ofxTurboJpeg](https://github.com/robotconscience/ofxTurboJpeg)
+	* demonstrates how to send true binary data (i.e. a file) via ofxLibwebsockets
+		* check out the javascript code in example_server_blob/bin/data/web
+		* example_client_blob can connect to either server!
+	* thanks to @zebradog for the start of these examples!
+
+##Adding to Projects
 * OS X
 	* Via OF Project Generator:
 		1. Delete ofxLibwebsockets/libs/libwebsockets/include/win32port
@@ -66,16 +90,17 @@ ADDING TO PROJECTS
 			```
 			
 * Linux
-	* 64-bit static version of libwebsockets is included; please let us know if you can contribute a 32 bit version!
+	* Linux support is offline until the library is recompiled. Please submit me a PR!!!
 
-STATUS
-------------
-* Server example currently works with Chrome, and Safari (need to test FF)
-* Server and Client both support SSL, message sending/receiving, broadcasting, protocols and channels
-* Client example currently tested with server example, echo.websockets.org (with and without SSL), local Autobahn ws server
-
-TO-DO
-------------
-* Add functionality to examples
-* More fun examples
-* Compile for 32-bit linux
+#STATUS
+* Version 0.8.1 (current)
+	* Overhauled all messaging, supporting senging/receiving string and binary messages of indefinite size via continuation frames
+	* Added examples from @zebradog of sending Blob data over websockets: way faster, way cleaner!
+	* Lots of cleanup of excessive logging, possible crashes on sending
+	* Updated to latest libwebsockets on Mac and Windows
+	* Cleaned up and fixed up Windows support
+	* Tested on OF 0.8.0, 0.8.1 on Mac and Windows
+	* Removed RPi and Linux64 until someone recompiles libwebsockets!!!
+* Version 0.8.0
+	* Basic support for binary data
+	* Updated to latest libwebsockets
