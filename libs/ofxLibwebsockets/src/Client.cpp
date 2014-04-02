@@ -179,6 +179,35 @@ namespace ofxLibwebsockets {
     }
 
     //--------------------------------------------------------------
+    template <class T>
+    void Client::sendBinary( T& image ){
+        if ( connection != NULL ){
+            connection->sendBinary(image);
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Client::sendBinary( ofBuffer buffer ){
+        if ( connection != NULL){
+            connection->sendBinary(buffer);
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Client::sendBinary( unsigned char * data, int size ){
+        if ( connection != NULL){
+            connection->sendBinary(data,size);
+        }
+    }
+    
+    //--------------------------------------------------------------
+    void Client::sendBinary( char * data, int size ){
+        if ( connection != NULL){
+            connection->sendBinary(data,size);
+        }
+    }
+    
+    //--------------------------------------------------------------
     void Client::threadedFunction(){
         while ( isThreadRunning() ){
             for (int i=0; i<protocols.size(); ++i){

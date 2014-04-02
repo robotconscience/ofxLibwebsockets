@@ -52,6 +52,15 @@ namespace ofxLibwebsockets {
         
         void send( string message );
         
+        // send anything that has pixels
+        template <class T>
+        void sendBinary( T& image );
+        
+        // send any binary data
+        void sendBinary( ofBuffer buffer );
+        void sendBinary( unsigned char * data, int size );
+        void sendBinary( char * data, int size );
+        
         template<class T>
         void addListener(T * app){
             ofAddListener( clientProtocol.onconnectEvent, app, &T::onConnect); 
