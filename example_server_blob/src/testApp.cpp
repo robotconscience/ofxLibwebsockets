@@ -1,10 +1,12 @@
 #include "testApp.h"
 
 // utils for gettin' IP address
+#ifdef TARGET_OSX
 #include <ifaddrs.h>
 #include <netinet/in.h>
 #include <string.h>
 #include <arpa/inet.h>
+#endif
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -95,6 +97,7 @@ void testApp::draw(){
     toDraw += "\nOpen your browser to localhost:9093 to receive\n";
     toDraw += "\nIf you're on the same network, open this URL on your mobile device:";
     
+#ifdef TARGET_OSX
     // Below is just me being tricky to make a nice text output.
     // It's from a stack overflow post, of course:
     // http://stackoverflow.com/questions/212528/get-the-ip-address-of-the-machine
@@ -135,6 +138,8 @@ void testApp::draw(){
     
     toDraw += myIPaddress;
     // end unnecessary but cool IP address stuff
+	
+#endif
     
     ofDrawBitmapString(toDraw, 20,20);
 }
