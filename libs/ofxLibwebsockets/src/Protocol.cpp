@@ -74,7 +74,7 @@ namespace ofxLibwebsockets {
     void Protocol::onclose(Event&args){}
 
     //--------------------------------------------------------------
-    void Protocol::isIdle(){
+    bool Protocol::isIdle(){
         return idle;
     }
     

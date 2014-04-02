@@ -77,7 +77,7 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_DEL_POLL_FD:
 			case LWS_CALLBACK_SET_MODE_POLL_FD:
 			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
-                return;
+                return 1;
                 
             default:
                 if ( reactor != NULL ){
@@ -158,7 +158,7 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_DEL_POLL_FD:
 			case LWS_CALLBACK_SET_MODE_POLL_FD:
 			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
-                return;
+                return 0;
                 
             default:
                 conn = *(Connection**)user;

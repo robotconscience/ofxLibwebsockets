@@ -22,11 +22,6 @@
 #ifndef LIBWEBSOCKET_H_3060898B846849FF9F88F5DB59B5950C
 #define LIBWEBSOCKET_H_3060898B846849FF9F88F5DB59B5950C
 
-#ifdef __cplusplus
-extern "C" {
-#include <cstddef>
-#endif
-
 #ifdef WIN32
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -66,6 +61,11 @@ typedef int ssize_t;
 #define LWS_VISIBLE
 #endif
 
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#include <cstddef>
 #endif
 
 #include <assert.h>

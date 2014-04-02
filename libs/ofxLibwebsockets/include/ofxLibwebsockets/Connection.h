@@ -26,13 +26,13 @@ namespace ofxLibwebsockets {
     
     struct TextPacket {
         string message;
-        int index = 0;
+        int index;
     };
     
     struct BinaryPacket {
         unsigned char * data;
         unsigned int size;
-        int index = 0;
+        int index;
     };
     
     class Connection {

@@ -38,7 +38,7 @@ namespace ofxLibwebsockets {
         
         void broadcast(const std::string& message);
         
-        void isIdle();
+        bool isIdle();
         
         unsigned int idx;
         unsigned int rx_buffer_size;

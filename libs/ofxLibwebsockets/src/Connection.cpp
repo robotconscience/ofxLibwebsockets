@@ -80,6 +80,7 @@ namespace ofxLibwebsockets {
         if ( bufferSize < message.size() ){
             // need to jump into thread
             TextPacket tp;
+			tp.index = 0;
             tp.message = message;
             messages_text.push_back(tp);
             
@@ -119,6 +120,7 @@ namespace ofxLibwebsockets {
                 
                 // need to split into packets
                 BinaryPacket bp;
+				bp.index = 0;
                 bp.size = size;
                 
                 // copy data into array, in case user frees it
