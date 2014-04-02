@@ -51,6 +51,18 @@
 			```
 
 * Windows
+	* Via OF Project Generator
+		1. Add ofxLibwebsockets to your addons
+		2. Open your new project
+		3. Set a Preprocessor definition for libwebsockets
+			* right click on your project in the solution explorer, click "Properties"
+			* go to C/C++ > Preprocessor in the list on the right
+			* Make sure you're editing "All Configurations", not just Debug or Release (drop down at the top left)
+			* Click the drop down next to "Preprocessor Definitions" and select <Edit>
+			* In the text box that pops up, paste
+			```
+			_WIN32_WINNT=0x500
+			```
 	* Adding to new/existing project: 
 		1. Add the ofxLibwebsockets source files to the C++ Linker
 			* right click on project in the solution explorer, click "Properties", Go down to C++ > General
