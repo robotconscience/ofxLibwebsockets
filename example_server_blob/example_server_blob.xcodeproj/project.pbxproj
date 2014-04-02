@@ -80,6 +80,13 @@
 
 /* Begin PBXFileReference section */
 		013561C118D6583A000826E8 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
+		013E862518EC53BA00F914A7 /* Client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		013E862618EC53BA00F914A7 /* Connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		013E862718EC53BA00F914A7 /* Events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
+		013E862818EC53BA00F914A7 /* Protocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
+		013E862918EC53BA00F914A7 /* Reactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
+		013E862A18EC53BA00F914A7 /* Server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		013E862B18EC53BA00F914A7 /* Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		2232A9453E355593EF36ADA7 /* Reactor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Reactor.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Reactor.cpp; sourceTree = SOURCE_ROOT; };
 		34A70E2C091020EE93F6B1CE /* Events.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Events.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Events.cpp; sourceTree = SOURCE_ROOT; };
 		57EEFEC8B85F7C3B15DD45A4 /* Protocol.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Protocol.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Protocol.cpp; sourceTree = SOURCE_ROOT; };
@@ -161,6 +168,29 @@
 			path = osx;
 			sourceTree = "<group>";
 		};
+		013E862318EC53BA00F914A7 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				013E862418EC53BA00F914A7 /* ofxLibwebsockets */,
+			);
+			name = include;
+			path = ../libs/ofxLibwebsockets/include;
+			sourceTree = "<group>";
+		};
+		013E862418EC53BA00F914A7 /* ofxLibwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				013E862518EC53BA00F914A7 /* Client.h */,
+				013E862618EC53BA00F914A7 /* Connection.h */,
+				013E862718EC53BA00F914A7 /* Events.h */,
+				013E862818EC53BA00F914A7 /* Protocol.h */,
+				013E862918EC53BA00F914A7 /* Reactor.h */,
+				013E862A18EC53BA00F914A7 /* Server.h */,
+				013E862B18EC53BA00F914A7 /* Util.h */,
+			);
+			path = ofxLibwebsockets;
+			sourceTree = "<group>";
+		};
 		08C878D8130FA00DA64C30AC /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +258,7 @@
 		AB97697EC6F10E7234EFF261 /* ofxLibwebsockets */ = {
 			isa = PBXGroup;
 			children = (
+				013E862318EC53BA00F914A7 /* include */,
 				213FDE476BBC2B9B0347CC2F /* src */,
 			);
 			name = ofxLibwebsockets;

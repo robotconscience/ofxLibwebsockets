@@ -23,7 +23,6 @@ void testApp::update(){
         turbo.load(buff, incoming);
         needToLoad = false;
         locked = false;
-
     }
 }
 
@@ -36,22 +35,22 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::onConnect( ofxLibwebsockets::Event& args ){
-    cout<<"on connected"<<endl;
+    ofLogVerbose()<<"on connected";
 }
 
 //--------------------------------------------------------------
 void testApp::onOpen( ofxLibwebsockets::Event& args ){
-    cout<<"on open"<<endl;
+    ofLogVerbose()<<"on open";
 }
 
 //--------------------------------------------------------------
 void testApp::onClose( ofxLibwebsockets::Event& args ){
-    cout<<"on close"<<endl;
+    ofLogVerbose()<<"on close";
 }
 
 //--------------------------------------------------------------
 void testApp::onIdle( ofxLibwebsockets::Event& args ){
-    cout<<"on idle"<<endl;
+    ofLogVerbose()<<"on idle";
 }
 
 //--------------------------------------------------------------

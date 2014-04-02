@@ -47,12 +47,12 @@ namespace ofxLibwebsockets {
         template <class T> 
         void sendBinary( T& image ){
             int size = image.width * image.height * image.getPixelsRef().getNumChannels();
-            sendBinary( (unsigned char *) image.getPixels(), size );
+            sendBinary( (char *) image.getPixels(), size );
         }
         
+        void sendBinary( ofBuffer buffer );
         void sendBinary( unsigned char * data, unsigned int size );
-        
-        const std::string recv(const std::string& message);  
+        void sendBinary( char * data, unsigned int size );
         
         void setupAddress();
         
@@ -79,11 +79,10 @@ namespace ofxLibwebsockets {
         
         bool binary;            // is this connection sending / receiving binary?
         bool supportsBinary;    // does this connection support binary?
-        int buffersize;
+        
+        int bufferSize;
         unsigned char* buf;
         unsigned char* binaryBuf;
-        int bufsize;
-        int binaryBufsize;
         //std::vector<unsigned char> buf;
         
         // threading stuff

@@ -24,10 +24,9 @@ namespace ofxLibwebsockets {
     {
         if (_protocol != NULL){
             binary = _protocol->binary;
-            bufsize = _protocol->rx_buffer_size;
-            binaryBufsize = _protocol->rx_buffer_size;
-            buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
-            binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+binaryBufsize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
+            bufferSize = _protocol->rx_buffer_size;
+            buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufferSize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
+            binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufferSize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
         }
     }
 
@@ -73,12 +72,12 @@ namespace ofxLibwebsockets {
         if ( message.size() == 0 ) return;
         int n = 0;
         
-        // size packet based on either binaryBufSize (max) or passed 'size' (whichever is smaller)
-        int dataSize = bufsize > message.size() ? message.size() : bufsize;
+        // size packet based on either bufferSize (max) or passed 'size' (whichever is smaller)
+        int dataSize = bufferSize > message.size() ? message.size() : bufferSize;
         memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], message.c_str(), dataSize );
         
         // we have a big frame, so we need to send a few times
-        if ( bufsize < message.size() ){
+        if ( bufferSize < message.size() ){
             // need to jump into thread
             TextPacket tp;
             tp.message = message;
@@ -92,21 +91,31 @@ namespace ofxLibwebsockets {
         if (n < 0)
             ofLogError() << "[ofxLibwebsockets]  ERROR writing to socket" << std::endl;
     }
-        
+    
+    //--------------------------------------------------------------
+    void Connection::sendBinary( ofBuffer buffer ){
+        sendBinary(buffer.getBinaryBuffer(), buffer.size());
+    }
+    
     //--------------------------------------------------------------
     void Connection::sendBinary( unsigned char * data, unsigned int size ){
+        sendBinary(reinterpret_cast<char *>(data), size);
+    }
+    
+    //--------------------------------------------------------------
+    void Connection::sendBinary( char * data, unsigned int size ){
         int n = -1;
         
         // TODO: when libwebsockets has an API supporting something this, we should use it
         // for now we are assuming that if you send binary your client supports it
         
         if ( supportsBinary ){
-            // size binary packet based on either binaryBufSize (max) or passed 'size' (whichever is smaller)
-            int dataSize = binaryBufsize > size ? size : binaryBufsize;
+            // size binary packet based on either bufferSize (max) or passed 'size' (whichever is smaller)
+            int dataSize = bufferSize > size ? size : bufferSize;
             memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, dataSize );
             
             // we have a big frame, so we need to send a few times
-            if ( binaryBufsize < size ){
+            if ( bufferSize < size ){
                 
                 // need to split into packets
                 BinaryPacket bp;
@@ -124,13 +133,6 @@ namespace ofxLibwebsockets {
             } else {
                 n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
             }
-        } else {
-            unsigned char *p = &buf[LWS_SEND_BUFFER_PRE_PADDING];
-            int encoded_len = 0;//lws_b64_encode_string((char *) data, size, (char*)p, bufsize-LWS_SEND_BUFFER_PRE_PADDING-LWS_SEND_BUFFER_POST_PADDING);
-            
-            if (encoded_len > 0){
-                n = libwebsocket_write(ws, p, encoded_len, LWS_WRITE_TEXT);
-            }
         }
         
         if (n < 0){
@@ -145,7 +147,7 @@ namespace ofxLibwebsockets {
             TextPacket & packet = messages_text[0];
             
             if ( packet.index == 0 ){
-                int dataSize = bufsize > packet.message.size() ? packet.message.size() : bufsize;
+                int dataSize = bufferSize > packet.message.size() ? packet.message.size() : bufferSize;
                 memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], packet.message.c_str(), dataSize );
                 
                 int writeMode = LWS_WRITE_TEXT;
@@ -159,7 +161,7 @@ namespace ofxLibwebsockets {
                 
             } else {
                 // continue to send large message in chunks
-                int dataSize = bufsize > packet.message.size() ? packet.message.size() : bufsize;
+                int dataSize = bufferSize > packet.message.size() ? packet.message.size() : bufferSize;
                 int writeMode = LWS_WRITE_CONTINUATION;
                 writeMode |= LWS_WRITE_NO_FIN;
                 
@@ -191,7 +193,7 @@ namespace ofxLibwebsockets {
                 
                 if ( packet.index == 0 ){
                     // write beginning of packet
-                    int dataSize = binaryBufsize;
+                    int dataSize = bufferSize;
                     memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data, dataSize );
                     
                     int writeMode = LWS_WRITE_BINARY;
@@ -203,7 +205,7 @@ namespace ofxLibwebsockets {
                     packet.index += dataSize;
                 } else {
                     // continue to send large message in chunks
-                    int dataSize = binaryBufsize > packet.size ? packet.size : binaryBufsize;
+                    int dataSize = bufferSize > packet.size ? packet.size : bufferSize;
                     int writeMode = LWS_WRITE_CONTINUATION;
                     writeMode |= LWS_WRITE_NO_FIN;
                     
@@ -231,21 +233,6 @@ namespace ofxLibwebsockets {
         } else if ( messages_text.size() > 0 && messages_text[0].index ){
             libwebsocket_callback_on_writable(context, ws);
         }
-    }
-    
-    //--------------------------------------------------------------
-    const std::string Connection::recv(const std::string& message) {
-        std::string decoded = message;
-        
-        //TODO: when libwebsockets has an API
-        // to detect binary support, we should use it
-        if (binary && !supportsBinary)
-        {
-            int decoded_len = 0;//lws_b64_decode_string(message.c_str(), &decoded[0], message.size());
-            decoded.resize(decoded_len);
-        }
-        
-        return decoded;
     }
     
     //--------------------------------------------------------------

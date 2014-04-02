@@ -81,7 +81,9 @@ namespace ofxLibwebsockets {
         }
         
         // send any binary data to all connections
+        void sendBinary( ofBuffer buffer );
         void sendBinary( unsigned char * data, int size );
+        void sendBinary( char * data, int size );
         
         // send to a specific connection
         void send( string message, string ip );

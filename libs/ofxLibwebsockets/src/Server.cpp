@@ -147,7 +147,17 @@ namespace ofxLibwebsockets {
     }
     
     //--------------------------------------------------------------
+    void Server::sendBinary( ofBuffer buffer ){
+        sendBinary(buffer.getBinaryBuffer(), buffer.size());
+    }
+    
+    //--------------------------------------------------------------
     void Server::sendBinary( unsigned char * data, int size ){
+        sendBinary(reinterpret_cast<char *>(data), size);
+    }
+    
+    //--------------------------------------------------------------
+    void Server::sendBinary( char * data, int size ){
         for (int i=0; i<connections.size(); i++){
             if ( connections[i] ){
                 connections[i]->sendBinary( data, size );

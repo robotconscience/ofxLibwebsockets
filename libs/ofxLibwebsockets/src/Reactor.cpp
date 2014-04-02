@@ -220,7 +220,6 @@ namespace ofxLibwebsockets {
                         
                         if (_message != NULL && len > 0 && (!bReceivingLargeMessage || bFinishedReceiving) ){
                             args.json = Json::Value( Json::nullValue );
-                            //args.message = args.conn.recv(args.message);
                             
                             bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
                             if ( !parsingSuccessful ){
