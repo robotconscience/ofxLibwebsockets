@@ -158,6 +158,7 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_DEL_POLL_FD:
 			case LWS_CALLBACK_SET_MODE_POLL_FD:
 			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
+            case LWS_CALLBACK_PROTOCOL_DESTROY:
                 return 0;
                 
             default:
