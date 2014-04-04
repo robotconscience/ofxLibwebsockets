@@ -42,11 +42,18 @@ common:
 	# to include files in different places or a different set of files per platform
 	# they can be specified here
 	ADDON_SOURCES = libs/jsoncpp/jsoncpp.cpp
+	ADDON_SOURCES += libs/ofxLibwebsockets/src/ofxLibwebsockets.h
+	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Server.h
 	ADDON_SOURCES += libs/ofxLibwebsockets/src/Server.cpp
+	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Reactor.h
 	ADDON_SOURCES += libs/ofxLibwebsockets/src/Reactor.cpp
+	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Protocol.h
 	ADDON_SOURCES += libs/ofxLibwebsockets/src/Protocol.cpp
+	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Events.h
 	ADDON_SOURCES += libs/ofxLibwebsockets/src/Events.cpp
+	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Connection.h
 	ADDON_SOURCES += libs/ofxLibwebsockets/src/Connection.cpp
+	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Client.h
 	ADDON_SOURCES += libs/ofxLibwebsockets/src/Client.cpp
 
 	# some addons need resources to be copied to the bin/data folder of the project
