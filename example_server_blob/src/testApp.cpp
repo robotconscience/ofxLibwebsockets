@@ -45,7 +45,7 @@ void testApp::update(){
     if ( bSendImage && toLoad != "" ){
         turbo.load( toLoad, currentImage );
         unsigned long size;
-        unsigned char * compressed = turbo.compress(&currentImage,100,&size);
+        unsigned char * compressed = turbo.compress(currentImage,100,&size);
         server.sendBinary(compressed, size);
         free(compressed);
         messages.push_back( "Sending image" );
@@ -157,7 +157,7 @@ void testApp::onOpen( ofxLibwebsockets::Event& args ){
     // send the latest image if there is one!
     if ( currentImage.bAllocated() ){
         unsigned long size;
-        unsigned char * compressed = turbo.compress(&currentImage,100,&size);
+        unsigned char * compressed = turbo.compress(currentImage,100,&size);
         args.conn.sendBinary(compressed, size);
         free(compressed);
     }

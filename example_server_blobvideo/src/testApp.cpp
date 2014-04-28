@@ -42,7 +42,7 @@ void testApp::update(){
         // the second param == quality. play with this to get a better framerate
         // you can also try resizing your image!
         //currentImage.resize(160, 120);
-        unsigned char * compressed = turbo.compress(&currentImage,50,&size);
+        unsigned char * compressed = turbo.compress(currentImage,50,&size);
         server.sendBinary(compressed, size);
         free(compressed);
     }
