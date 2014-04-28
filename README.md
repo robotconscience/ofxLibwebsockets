@@ -28,6 +28,9 @@
 		* check out the javascript code in example_server_blob/bin/data/web
 		* example_client_blob can connect to either server!
 	* thanks to @zebradog for the start of these examples!
+* screen syncing via binary
+	* example_particles_server and example_particles_client
+		* demonstrates how to sync GPU particles (from the OF GPU particle example) via binary websockets
 
 ##Adding to Projects
 * OS X
