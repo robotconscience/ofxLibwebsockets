@@ -41,20 +41,20 @@ common:
 	# in the src folders in libs and the root of the addon. if your addon needs
 	# to include files in different places or a different set of files per platform
 	# they can be specified here
-	ADDON_SOURCES = libs/jsoncpp/jsoncpp.cpp
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/ofxLibwebsockets.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Server.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/Server.cpp
-	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Reactor.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/Reactor.cpp
-	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Protocol.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/Protocol.cpp
-	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Events.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/Events.cpp
-	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Connection.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/Connection.cpp
-	ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Client.h
-	ADDON_SOURCES += libs/ofxLibwebsockets/src/Client.cpp
+	# ADDON_SOURCES = libs/jsoncpp/jsoncpp.cpp
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/ofxLibwebsockets.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Server.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/Server.cpp
+	# ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Reactor.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/Reactor.cpp
+	# ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Protocol.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/Protocol.cpp
+	# ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Events.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/Events.cpp
+	# ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Connection.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/Connection.cpp
+	# ADDON_SOURCES += libs/ofxLibwebsockets/include/ofxLibwebsockets/Client.h
+	# ADDON_SOURCES += libs/ofxLibwebsockets/src/Client.cpp
 
 	# some addons need resources to be copied to the bin/data folder of the project
 	# specify here any files that need to be copied, you can use wildcards like * and ?
@@ -97,7 +97,7 @@ vs:
 
 linuxarmv6l:
 	ADDON_LDFLAGS = -lssl
-	
+	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
 	ADDON_LIBS = libs/libwebsockets/lib/linuxarmv6l/libwebsockets.a
 linuxarmv7l:
 	#nothing yet

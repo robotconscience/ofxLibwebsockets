@@ -117,16 +117,28 @@
 ## Building libwebockets
 ### OS X
 * Clone libwebsockets
-``` Cd /path/to/libwebsockets
-	mkdir build
-	cd build
-	cmake "-DCMAKE_OSX_ARCHITECTURES=x86_64;i386" ..
-	make
-	cmake -DCMAKE_INSTALL_PREFIX:PATH=./install . && make install``` 
-
+``` 
+cd /path/to/libwebsockets
+mkdir build
+cd build
+cmake "-DCMAKE_OSX_ARCHITECTURES=x86_64;i386" ..
+make
+cmake -DCMAKE_INSTALL_PREFIX:PATH=./install . && make install
+``` 
+### Raspberry Pi
+* Clone libwebsockets
+``` 
+cd /path/to/libwebsockets
+mkdir build
+cd build
+cmake .. -DLWS_IPV6=OFF
+make
+```  
 
 #STATUS
-* Version 0.8.1 (current)
+* Version 0.8.4 (current)
+	* Added PRi libraries
+* Version 0.8.1 
 	* Overhauled all messaging, supporting senging/receiving string and binary messages of indefinite size via continuation frames
 	* Added examples from @zebradog of sending Blob data over websockets: way faster, way cleaner!
 	* Lots of cleanup of excessive logging, possible crashes on sending
