@@ -58,6 +58,7 @@ namespace ofxLibwebsockets {
         {
             case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
             case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
+            case LWS_CALLBACK_PROTOCOL_INIT:
                 return 0;
                 
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
