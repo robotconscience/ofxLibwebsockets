@@ -114,6 +114,17 @@
 * Linux
 	* Linux support is offline until the library is recompiled. Please submit me a PR!!!
 
+## Building libwebockets
+### OS X
+* Clone libwebsockets
+``` Cd /path/to/libwebsockets
+	mkdir build
+	cd build
+	cmake "-DCMAKE_OSX_ARCHITECTURES=x86_64;i386" ..
+	make
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=./install . && make install``` 
+
+
 #STATUS
 * Version 0.8.1 (current)
 	* Overhauled all messaging, supporting senging/receiving string and binary messages of indefinite size via continuation frames
