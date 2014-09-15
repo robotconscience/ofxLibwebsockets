@@ -142,11 +142,19 @@ namespace ofxLibwebsockets {
         switch (reason)
         {
             // we may use these in the future!
+            case LWS_CALLBACK_WSI_CREATE:
             case LWS_CALLBACK_PROTOCOL_INIT:
+                
             case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
+            case LWS_CALLBACK_HTTP_BODY_COMPLETION:
             case LWS_CALLBACK_HTTP_FILE_COMPLETION:
+            case LWS_CALLBACK_HTTP_WRITEABLE:
+            case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
+            
+            case LWS_CALLBACK_SERVER_NEW_CLIENT_INSTANTIATED:
                 return 0;
                 
+            case LWS_CALLBACK_FILTER_HTTP_CONNECTION:
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
                 if (protocol != NULL ){
                     return reactor->_allow(ws, protocol, (int)(long)user)? 0 : 1;
@@ -159,14 +167,19 @@ namespace ofxLibwebsockets {
                 
                 // we're not really worried about this at the moment
             case LWS_CALLBACK_ADD_POLL_FD:
-			case LWS_CALLBACK_DEL_POLL_FD:
+            case LWS_CALLBACK_DEL_POLL_FD:
+            case LWS_CALLBACK_LOCK_POLL:
+            case LWS_CALLBACK_UNLOCK_POLL:
 			case LWS_CALLBACK_CHANGE_MODE_POLL_FD:
             case LWS_CALLBACK_PROTOCOL_DESTROY:
+            case LWS_CALLBACK_GET_THREAD_ID:
+            case LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH:
                 return 0;
                 
             default:
-                conn = *(Connection**)user;
-                
+                if ( user != NULL ){
+                    conn = *(Connection**)user;
+                }
                 if (conn && (conn->ws != ws || conn->ws == NULL) ){
                     conn->context = context;
                     conn->ws = ws;
@@ -220,7 +233,6 @@ namespace ofxLibwebsockets {
         }
     }
     
-    
     static string getCallbackReason( int reason ){
         switch (reason){
             case LWS_CALLBACK_ESTABLISHED : return "LWS_CALLBACK_ESTABLISHED";
@@ -234,6 +246,7 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_CLIENT_RECEIVE_PONG : return "LWS_CALLBACK_CLIENT_RECEIVE_PONG";
 			case LWS_CALLBACK_CLIENT_WRITEABLE : return "LWS_CALLBACK_CLIENT_WRITEABLE";
 			case LWS_CALLBACK_SERVER_WRITEABLE : return "LWS_CALLBACK_SERVER_WRITEABLE";
+            case LWS_CALLBACK_SERVER_NEW_CLIENT_INSTANTIATED: return "LWS_CALLBACK_SERVER_NEW_CLIENT_INSTANTIATED";
 
 			case LWS_CALLBACK_HTTP : return "LWS_CALLBACK_HTTP";
             case LWS_CALLBACK_HTTP_BODY: return "LWS_CALLBACK_HTTP_BODY";
@@ -241,6 +254,7 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_HTTP_FILE_COMPLETION : return "LWS_CALLBACK_HTTP_FILE_COMPLETION";
 			case LWS_CALLBACK_HTTP_WRITEABLE : return "LWS_CALLBACK_HTTP_WRITEABLE";
 			case LWS_CALLBACK_FILTER_NETWORK_CONNECTION : return "LWS_CALLBACK_FILTER_NETWORK_CONNECTION";
+            case LWS_CALLBACK_FILTER_HTTP_CONNECTION: return "LWS_CALLBACK_FILTER_HTTP_CONNECTION";
 			case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION : return "LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION";
 			case LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS";
 			case LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS : return "LWS_CALLBACK_OPENSSL_LOAD_EXTRA_SERVER_VERIFY_CERTS";
@@ -260,8 +274,10 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_CHANGE_MODE_POLL_FD : return "LWS_CALLBACK_CHANGE_MODE_POLL_FD";
             case LWS_CALLBACK_LOCK_POLL: return "LWS_CALLBACK_LOCK_POLL";
             case LWS_CALLBACK_UNLOCK_POLL: return "LWS_CALLBACK_UNLOCK_POLL";
+            
+            case LWS_CALLBACK_USER: return "LWS_CALLBACK_USER";
 
-			default: 
+			default:
 				std::stringstream r;
 				r << "Unknown callback reason id: " << reason;	
 				return r.str();    
