@@ -57,6 +57,7 @@ namespace ofxLibwebsockets {
         switch (reason)
         {
             case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
+            case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
                 return 0;
                 
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
@@ -75,14 +76,17 @@ namespace ofxLibwebsockets {
             // we're not really worried about this at the moment
             case LWS_CALLBACK_ADD_POLL_FD:
 			case LWS_CALLBACK_DEL_POLL_FD:
-			case LWS_CALLBACK_SET_MODE_POLL_FD:
-			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
+			case LWS_CALLBACK_CHANGE_MODE_POLL_FD:
+            case LWS_CALLBACK_LOCK_POLL:
+            case LWS_CALLBACK_UNLOCK_POLL:
+            case LWS_CALLBACK_GET_THREAD_ID:
+            case LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH:
                 return 1;
                 
             default:
                 if ( reactor != NULL ){
                     //conn = *(Connection**)user;
-                    if (conn && conn->ws != ws){
+                    if (conn && conn->ws != ws && ws != NULL){
                         conn->ws = ws;
                         conn->context = context;
                     }
@@ -156,8 +160,7 @@ namespace ofxLibwebsockets {
                 // we're not really worried about this at the moment
             case LWS_CALLBACK_ADD_POLL_FD:
 			case LWS_CALLBACK_DEL_POLL_FD:
-			case LWS_CALLBACK_SET_MODE_POLL_FD:
-			case LWS_CALLBACK_CLEAR_MODE_POLL_FD:
+			case LWS_CALLBACK_CHANGE_MODE_POLL_FD:
             case LWS_CALLBACK_PROTOCOL_DESTROY:
                 return 0;
                 
@@ -233,6 +236,8 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_SERVER_WRITEABLE : return "LWS_CALLBACK_SERVER_WRITEABLE";
 
 			case LWS_CALLBACK_HTTP : return "LWS_CALLBACK_HTTP";
+            case LWS_CALLBACK_HTTP_BODY: return "LWS_CALLBACK_HTTP_BODY";
+            case LWS_CALLBACK_HTTP_BODY_COMPLETION: return "LWS_CALLBACK_HTTP_BODY_COMPLETION";
 			case LWS_CALLBACK_HTTP_FILE_COMPLETION : return "LWS_CALLBACK_HTTP_FILE_COMPLETION";
 			case LWS_CALLBACK_HTTP_WRITEABLE : return "LWS_CALLBACK_HTTP_WRITEABLE";
 			case LWS_CALLBACK_FILTER_NETWORK_CONNECTION : return "LWS_CALLBACK_FILTER_NETWORK_CONNECTION";
@@ -246,10 +251,15 @@ namespace ofxLibwebsockets {
 			case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED : return "LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED";
 			case LWS_CALLBACK_PROTOCOL_INIT : return "LWS_CALLBACK_PROTOCOL_INIT";
 			case LWS_CALLBACK_PROTOCOL_DESTROY : return "LWS_CALLBACK_PROTOCOL_DESTROY";
+            case LWS_CALLBACK_WSI_CREATE: return "LWS_CALLBACK_WSI_CREATE";
+            case LWS_CALLBACK_WSI_DESTROY: return "LWS_CALLBACK_WSI_DESTROY";
+            case LWS_CALLBACK_GET_THREAD_ID: return "LWS_CALLBACK_GET_THREAD_ID";
+                
 			case LWS_CALLBACK_ADD_POLL_FD : return "LWS_CALLBACK_ADD_POLL_FD";
 			case LWS_CALLBACK_DEL_POLL_FD : return "LWS_CALLBACK_DEL_POLL_FD";
-			case LWS_CALLBACK_SET_MODE_POLL_FD : return "LWS_CALLBACK_SET_MODE_POLL_FD";
-			case LWS_CALLBACK_CLEAR_MODE_POLL_FD : return "LWS_CALLBACK_CLEAR_MODE_POLL_FD";
+			case LWS_CALLBACK_CHANGE_MODE_POLL_FD : return "LWS_CALLBACK_CHANGE_MODE_POLL_FD";
+            case LWS_CALLBACK_LOCK_POLL: return "LWS_CALLBACK_LOCK_POLL";
+            case LWS_CALLBACK_UNLOCK_POLL: return "LWS_CALLBACK_UNLOCK_POLL";
 
 			default: 
 				std::stringstream r;

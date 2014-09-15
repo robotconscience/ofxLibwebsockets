@@ -132,7 +132,7 @@ namespace ofxLibwebsockets {
                 connection->ws = lwsconnection;
                 
                 ofLogVerbose() << "[ofxLibwebsockets] Connection successfully created. Connecting.";
-                startThread(true, false); // blocking, non-verbose   
+                startThread();   
                 return true;
             }
         }
