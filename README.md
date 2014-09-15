@@ -89,20 +89,23 @@
 		2. Add the ofxLibwebsockets paths to the "Additional Library Directories":
 			* right click on project in the solution explorer, click "Properties", Go down to Linker > General
 			* click the arrow at the right of "Additional Library Directories" and select "edit"
-			* add 
-			```
-			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release
-			```
-			and
-			```
-			..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\libs\openssl\lib\win32
-			```
+			* In your debug scheme, add
+
+			`..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Debug`
+			* In your release scheme, add
+
+			`..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release`
+			
+			* and if you need to use OpenSSL, add:
+			
+			`..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\libs\openssl\lib\win32`
+
 		3. Now go down to Linker > Input; open the editor "Additional dependencies" the same way
-			* In your debug scheme, add libwebsocketswin32d.lib, libeay32.lib, and ssleay32.lib
-			* In your release scheme, add libwebsocketswin32.lib, libeay32.lib, and ssleay32.lib
+			* Add websockets_static.lib and ZLIB.lib
+			* If you need to use OpenSSL, add libeay32.lib and ssleay32.lib
 		4. Finally, go to C/C++ > Preprocessor
 			* Make sure you're editing "All Configurations", not just Debug or Release (drop down at the top left)
-			* Click the drop down next to "Preprocessor Definitions" and select <Edit>
+			* Click the drop down next to "Preprocessor Definitions" and select *Edit*
 			* In the text box that pops up, paste
 			```
 			_WIN32_WINNT=0x500
