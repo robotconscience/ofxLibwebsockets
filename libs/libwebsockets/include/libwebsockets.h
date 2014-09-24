@@ -22,15 +22,6 @@
 #ifndef LIBWEBSOCKET_H_3060898B846849FF9F88F5DB59B5950C
 #define LIBWEBSOCKET_H_3060898B846849FF9F88F5DB59B5950C
 
-#ifdef __cplusplus
-extern "C" {
-#include <cstddef>
-#endif
-	
-#ifdef CMAKE_BUILD
-#include "lws_config.h"
-#endif
-
 #if defined(WIN32) || defined(_WIN32)
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -67,6 +58,15 @@ extern "C" {
 #define LWS_VISIBLE
 #endif
 
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#include <cstddef>
+#endif
+	
+#ifdef CMAKE_BUILD
+#include "lws_config.h"
 #endif
 
 #ifdef LWS_USE_LIBEV
