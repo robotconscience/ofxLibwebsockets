@@ -181,7 +181,7 @@ namespace ofxLibwebsockets {
                 if ( user != NULL ){
                     conn = *(Connection**)user;
                 }
-                if (conn && (conn->ws != ws || conn->ws == NULL) ){
+                if (conn != NULL && (conn->ws != ws || conn->ws == NULL) ){
                     conn->context = context;
                     conn->ws = ws;
                     conn->setupAddress();
