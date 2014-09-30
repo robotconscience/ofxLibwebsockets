@@ -59,6 +59,7 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
             case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
             case LWS_CALLBACK_PROTOCOL_INIT:
+            case LWS_CALLBACK_WSI_CREATE:
                 return 0;
                 
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
@@ -82,6 +83,7 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_UNLOCK_POLL:
             case LWS_CALLBACK_GET_THREAD_ID:
             case LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH:
+            case LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER:
                 return 1;
                 
             default:
