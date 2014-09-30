@@ -32,6 +32,10 @@
 	* example_particles_server and example_particles_client
 		* demonstrates how to sync GPU particles (from the OF GPU particle example) via binary websockets
 
+##A note on license
+* libwebsockets is released under a LGPL v2.1, with a special rider that programs that link against a statically built version of the library do not count as derivative, and are not bound to the LGPL v2.1 license conditions. Thus this addon comes with statically built libraries to provide the flexibility of the MIT license.
+* https://github.com/warmcat/libwebsockets/blob/master/LICENSE
+
 ##Adding to Projects
 * OS X
 	* Via OF Project Generator:
@@ -138,8 +142,11 @@ make
 #STATUS
 * Version 0.8.4 (current)
 	* Added PRi libraries
+	* Updated to latest version of libwebsockets
+	* Bug fixes for newest version
+	* testApp changed to ofApp
 * Version 0.8.1 
-	* Overhauled all messaging, supporting senging/receiving string and binary messages of indefinite size via continuation frames
+	* Overhauled all messaging, supporting sending/receiving string and binary messages of indefinite size via continuation frames
 	* Added examples from @zebradog of sending Blob data over websockets: way faster, way cleaner!
 	* Lots of cleanup of excessive logging, possible crashes on sending
 	* Updated to latest libwebsockets on Mac and Windows
