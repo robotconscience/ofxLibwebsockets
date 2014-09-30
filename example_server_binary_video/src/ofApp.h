@@ -4,9 +4,9 @@
 
 #include "ofxLibwebsockets.h"
 
-#define NUM_MESSAGES 30 // how many past messages we want to keep
+#define NUM_MESSAGES 20 // how many past messages we want to keep
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -24,14 +24,13 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
         ofxLibwebsockets::Server server;
-    
-        bool bSetup;
+        
+        bool bVideoSetup;
+        ofVideoGrabber video;
     
         //queue of rec'd messages
+        ofTrueTypeFont font;
         vector<string> messages;
-    
-        //string to send to clients
-        string toSend;
     
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );

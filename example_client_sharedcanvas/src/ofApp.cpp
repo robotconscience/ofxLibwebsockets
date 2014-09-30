@@ -1,7 +1,7 @@
-#include "testApp.h"
+#include "ofApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){
+void ofApp::setup(){
    
     ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
     options.port = 9092; 
@@ -17,11 +17,11 @@ void testApp::setup(){
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update(){
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void ofApp::draw(){
     if ( bConnected ){
         ofDrawBitmapString("WebSocket client connected" , 20, 20);
     } else {
@@ -45,12 +45,12 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::onConnect( ofxLibwebsockets::Event& args ){
+void ofApp::onConnect( ofxLibwebsockets::Event& args ){
     cout<<"on connected"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onOpen( ofxLibwebsockets::Event& args ){
+void ofApp::onOpen( ofxLibwebsockets::Event& args ){
     bConnected = true;
     cout<<"new connection open"<<endl;
     cout<<args.conn.getClientIP()<< endl;
@@ -68,7 +68,7 @@ void testApp::onOpen( ofxLibwebsockets::Event& args ){
 }
 
 //--------------------------------------------------------------
-void testApp::onClose( ofxLibwebsockets::Event& args ){
+void ofApp::onClose( ofxLibwebsockets::Event& args ){
     bConnected = false;
     cout<<"on close"<<endl;
     // remove from color map
@@ -86,12 +86,12 @@ void testApp::onClose( ofxLibwebsockets::Event& args ){
 }
 
 //--------------------------------------------------------------
-void testApp::onIdle( ofxLibwebsockets::Event& args ){
+void ofApp::onIdle( ofxLibwebsockets::Event& args ){
     cout<<"on idle"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onMessage( ofxLibwebsockets::Event& args ){
+void ofApp::onMessage( ofxLibwebsockets::Event& args ){
   try{
     cout<<"got message "<<args.message<<endl;
     // trace out string messages or JSON messages!
@@ -149,26 +149,26 @@ void testApp::onMessage( ofxLibwebsockets::Event& args ){
 }
 
 //--------------------------------------------------------------
-void testApp::onBroadcast( ofxLibwebsockets::Event& args ){
+void ofApp::onBroadcast( ofxLibwebsockets::Event& args ){
     cout<<"got broadcast "<<args.message<<endl;    
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){
+void ofApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+void ofApp::keyReleased(int key){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseMoved(int x, int y ){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseDragged(int x, int y, int button){
     ofPoint p(x,y);
     
     map<int, Drawing*>::iterator it = drawings.find(id);
@@ -180,7 +180,7 @@ void testApp::mouseDragged(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void ofApp::mousePressed(int x, int y, int button){
 
     ofPoint p(x,y);
     map<int, Drawing*>::iterator it = drawings.find(id);
@@ -191,21 +191,21 @@ void testApp::mousePressed(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+void ofApp::mouseReleased(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+void ofApp::windowResized(int w, int h){
 
 }
 
 //--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
+void ofApp::gotMessage(ofMessage msg){
 
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }

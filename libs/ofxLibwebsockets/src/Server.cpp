@@ -118,7 +118,7 @@ namespace ofxLibwebsockets {
             ofLogError() << "[ofxLibwebsockets] libwebsockets init failed";
             return false;
         } else {
-            startThread(true, false); // blocking, non-verbose        
+            startThread(); // blocking, non-verbose        
             return true;
         }
     }

@@ -4,9 +4,9 @@
 
 #include "ofxLibwebsockets.h"
 
-#include "Drawing.h"
+#define NUM_MESSAGES 30 // how many past messages we want to keep
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -23,13 +23,15 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-        ofxLibwebsockets::Client client;
-        bool bConnected;
+        ofxLibwebsockets::Server server;
     
-        // drawing stuff
-        map<int, Drawing *> drawings;
-        int             id;
-        ofColor color;
+        bool bSetup;
+    
+        //queue of rec'd messages
+        vector<string> messages;
+    
+        //string to send to clients
+        string toSend;
     
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );

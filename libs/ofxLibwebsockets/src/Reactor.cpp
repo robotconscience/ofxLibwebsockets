@@ -123,6 +123,7 @@ namespace ofxLibwebsockets {
         switch (reason) {
             // connection was not successful
             case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
+            case LWS_CALLBACK_WSI_DESTROY:
                 ofLogError()<<"[ofxLibwebsockets] Connection error";
                 //TODO: add error event!
                 

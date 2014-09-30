@@ -4,14 +4,9 @@
 
 #include "ofxLibwebsockets.h"
 
-// To set this up (note - 2 onward are already done in this app!)
-// 1 - Clone https://github.com/robotconscience/ofxTurboJpeg into addons/ofxTurboJpeg
-// 2 - Add "Copy files build phase" in the 'targets->build phases menu'
-// 3 - Add ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib to the phase
-// 4 - Make sure the dylib is copied to the "executables" directory!
-#include "ofxTurboJpeg.h"
+#include "Drawing.h"
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -29,12 +24,12 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
         ofxLibwebsockets::Client client;
+        bool bConnected;
     
-        ofxTurboJpeg turbo;
-        ofImage incoming;
-    
-        bool needToLoad, locked;
-        ofBuffer buff;
+        // drawing stuff
+        map<int, Drawing *> drawings;
+        int             id;
+        ofColor color;
     
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );

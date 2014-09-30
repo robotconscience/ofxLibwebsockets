@@ -4,7 +4,9 @@
 
 #include "ofxLibwebsockets.h"
 
-class testApp : public ofBaseApp{
+#include "Drawing.h"
+
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -21,7 +23,12 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-        ofxLibwebsockets::Client client;
+        ofxLibwebsockets::Server server;
+        bool bConnected;
+    
+        // drawing stuff
+        map<int, Drawing *> drawings;
+        int             canvasID;
     
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );

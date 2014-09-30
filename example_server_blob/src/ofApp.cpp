@@ -1,4 +1,4 @@
-#include "testApp.h"
+#include "ofApp.h"
 
 // utils for gettin' IP address
 #ifdef TARGET_OSX
@@ -9,7 +9,7 @@
 #endif
 
 //--------------------------------------------------------------
-void testApp::setup(){
+void ofApp::setup(){
     // setup a server with default options on port 9092
     // - pass in true after port to set up with SSL
     //bool connected = server.setup( 9092 );
@@ -41,7 +41,7 @@ void testApp::setup(){
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update(){
     if ( bSendImage && toLoad != "" ){
         turbo.load( toLoad, currentImage );
         unsigned long size;
@@ -68,7 +68,7 @@ void testApp::update(){
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void ofApp::draw(){
     int x = font.getSize();
     int y = font.getSize()*2;
     ofSetColor(255);
@@ -145,12 +145,12 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::onConnect( ofxLibwebsockets::Event& args ){
+void ofApp::onConnect( ofxLibwebsockets::Event& args ){
     cout<<"on connected"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onOpen( ofxLibwebsockets::Event& args ){
+void ofApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"new connection open"<<endl;
     messages.push_back("New connection from " + args.conn.getClientIP() );
     
@@ -164,18 +164,18 @@ void testApp::onOpen( ofxLibwebsockets::Event& args ){
 }
 
 //--------------------------------------------------------------
-void testApp::onClose( ofxLibwebsockets::Event& args ){
+void ofApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
     messages.push_back("Connection closed");
 }
 
 //--------------------------------------------------------------
-void testApp::onIdle( ofxLibwebsockets::Event& args ){
+void ofApp::onIdle( ofxLibwebsockets::Event& args ){
 //    cout<<"on idle"<<endl;
 }
 
 //--------------------------------------------------------------
-void testApp::onMessage( ofxLibwebsockets::Event& args ){
+void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     if ( args.isBinary ){
         if ( locked ) return;
         // need to load this next frame!
@@ -202,36 +202,36 @@ void testApp::onMessage( ofxLibwebsockets::Event& args ){
 }
 
 //--------------------------------------------------------------
-void testApp::onBroadcast( ofxLibwebsockets::Event& args ){
+void ofApp::onBroadcast( ofxLibwebsockets::Event& args ){
     cout<<"got broadcast "<<args.message<<endl;    
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){}
+void ofApp::keyPressed(int key){}
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){}
+void ofApp::keyReleased(int key){}
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){}
+void ofApp::mouseMoved(int x, int y ){}
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){}
+void ofApp::mouseDragged(int x, int y, int button){}
 
 //-----------------------------------------------------------   ---
-void testApp::mousePressed(int x, int y, int button){}
+void ofApp::mousePressed(int x, int y, int button){}
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){}
+void ofApp::mouseReleased(int x, int y, int button){}
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){}
+void ofApp::windowResized(int w, int h){}
 
 //--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){}
+void ofApp::gotMessage(ofMessage msg){}
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){ 
     for (int i=0; i<dragInfo.files.size(); i++){
         string file = dragInfo.files[i];
         ofFile f(file); 

@@ -2,11 +2,17 @@
 
 #include "ofMain.h"
 
+// To set this up (note - 2 onward are already done in this app!)
+// 1 - Clone https://github.com/robotconscience/ofxTurboJpeg into addons/ofxTurboJpeg
+// 2 - Add "Copy files build phase" in the 'targets->build phases menu'
+// 3 - Add ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib to the phase
+// 4 - Make sure the dylib is copied to the "executables" directory!
+#include "ofxTurboJpeg.h"
 #include "ofxLibwebsockets.h"
 
 #define NUM_MESSAGES 20 // how many past messages we want to keep
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -27,6 +33,7 @@ class testApp : public ofBaseApp{
         
         bool bVideoSetup;
         ofVideoGrabber video;
+        ofxTurboJpeg turbo;
     
         //queue of rec'd messages
         ofTrueTypeFont font;
