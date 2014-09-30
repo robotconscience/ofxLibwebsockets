@@ -4,7 +4,7 @@ ofFloatPixels sendPixels;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetVerticalSync(true);
+	ofSetFrameRate(60);
     // setup default servar @ port 9093
     server.setup(9093);
     
@@ -52,10 +52,15 @@ void ofApp::setupGPUParticles(){
     updateVel.load("",shadersFolder+"/velUpdate.frag");// shader for updating the texture that store the particles velocity on RG channels
     
     // Frag, Vert and Geo shaders for the rendering process of the spark image
+
+#ifndef TARGET_WIN32
     updateRender.setGeometryInputType(GL_POINTS);
 	updateRender.setGeometryOutputType(GL_TRIANGLE_STRIP);
 	updateRender.setGeometryOutputCount(6);
-    updateRender.load(shadersFolder+"/render.vert",shadersFolder+"/render.frag",shadersFolder+"/render.geom");
+    updateRender.load("shaders/render.vert","shaders/render.frag","shaders/render.geom");
+#else
+    updateRender.load("shaders/render.vert","shaders/render.frag");
+#endif
     
     // Seting the textures where the information ( position and velocity ) will be
     textureRes = (int)sqrt((float)numParticles);

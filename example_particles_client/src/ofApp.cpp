@@ -20,7 +20,9 @@ void ofApp::update(){
     if ( buff.size() != 0 ){
         mutex.lock();
         
-        float incoming[ buff.size() ];
+		int size = buff.size();
+
+        float * incoming = new float[size ];
         memcpy(incoming, buff.getBinaryBuffer(), buff.size());
         
         posFBO.getTextureReference().loadData(incoming, textureRes, textureRes, GL_RGB);
@@ -84,10 +86,14 @@ void ofApp::setupGPUParticles(){
     height = ofGetWindowHeight();
     
     // Frag, Vert and Geo shaders for the rendering process of the spark image
+#ifndef TARGET_WIN32
     updateRender.setGeometryInputType(GL_POINTS);
 	updateRender.setGeometryOutputType(GL_TRIANGLE_STRIP);
 	updateRender.setGeometryOutputCount(6);
     updateRender.load("shaders/render.vert","shaders/render.frag","shaders/render.geom");
+#else
+    updateRender.load("shaders/render.vert","shaders/render.frag");
+#endif
     
     // Seting the textures where the information ( position and velocity ) will be
     textureRes = (int)sqrt((float)numParticles);
