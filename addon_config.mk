@@ -109,4 +109,11 @@ android/armeabi-v7a:
 	#nothing yet
 
 osx:
-	#nothing yet
+	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port
+	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers
+
+ios:
+	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port/.*
+	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers/.*
+	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/.*
+	ADDON_LIBS = libs/libwebsockets/lib/iosarmv7/libwebsockets.a
