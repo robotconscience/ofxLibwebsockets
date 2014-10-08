@@ -2,6 +2,8 @@
 //  Util.h
 //  ofxLibwebsockets
 //
+//  This class is primarily the static callbacks needed by libwebsockets
+//
 //  Created by Brett Renfer on 4/11/12.
 //  Copyright (c) 2012 Robotconscience. All rights reserved.
 //
@@ -33,7 +35,7 @@ namespace ofxLibwebsockets {
         
         Reactor* reactor = NULL;
         Protocol* protocol;
-            
+        
         for (int i=0; i<(int)reactors.size(); i++){
             if (reactors[i]->getContext() == context){
                 reactor =  reactors[i];
@@ -47,7 +49,7 @@ namespace ofxLibwebsockets {
             }
         }
         
-        ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
+        ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] " + getCallbackReason(reason) );
         
         if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
             libwebsocket_callback_on_writable(context, ws);
@@ -56,18 +58,29 @@ namespace ofxLibwebsockets {
         
         switch (reason)
         {
+            // cases we may use in the future
             case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
             case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
-            case LWS_CALLBACK_PROTOCOL_INIT:
+            case LWS_CALLBACK_PROTOCOL_INIT: // this may be useful, says we're OK to allocate protocol data
             case LWS_CALLBACK_WSI_CREATE:
+                
+            case LWS_CALLBACK_HTTP_BODY_COMPLETION:
+            case LWS_CALLBACK_HTTP_FILE_COMPLETION:
+            case LWS_CALLBACK_HTTP_WRITEABLE:
+                
+            case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
                 return 0;
                 
+            // check if we allow this connection (default is always yes)
+            case LWS_CALLBACK_FILTER_HTTP_CONNECTION:
             case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
                 if (protocol != NULL){
                     return reactor->_allow(ws, protocol, (int)(long)user)? 0 : 1;
                 } else {
                     return 0;
                 }
+                
+            // need to serve up an HTTP file
             case LWS_CALLBACK_HTTP:
                 if ( reactor != NULL){
                     return reactor->_http(ws, (char*)data);
@@ -75,7 +88,8 @@ namespace ofxLibwebsockets {
                     return 0;
                 }
                 
-            // we're not really worried about this at the moment
+            // we're not really worried about these at the moment
+            case LWS_CALLBACK_CLOSED_HTTP:
             case LWS_CALLBACK_ADD_POLL_FD:
 			case LWS_CALLBACK_DEL_POLL_FD:
 			case LWS_CALLBACK_CHANGE_MODE_POLL_FD:
@@ -86,6 +100,13 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER:
                 return 1;
                 
+            // catch-all for most important events:
+            // LWS_CALLBACK_CLIENT_CONNECTION_ERROR
+            // LWS_CALLBACK_CLIENT_ESTABLISHED
+            // LWS_CALLBACK_RECEIVE
+            // LWS_CALLBACK_CLIENT_RECEIVE
+            // LWS_CALLBACK_CLIENT_RECEIVE_PONG
+            // LWS_CALLBACK_CLIENT_WRITEABLE
             default:
                 if ( reactor != NULL ){
                     //conn = *(Connection**)user;
@@ -129,8 +150,9 @@ namespace ofxLibwebsockets {
             }
         }
         
-        ofLog( OF_LOG_VERBOSE, getCallbackReason(reason) );
+        ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] "+ getCallbackReason(reason) );
         
+        // server completed handshake, need to ask for next "writable" callback
         if (reason == LWS_CALLBACK_ESTABLISHED){
             libwebsocket_callback_on_writable(context, ws);
             

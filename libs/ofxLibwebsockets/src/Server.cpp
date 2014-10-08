@@ -69,14 +69,10 @@ namespace ofxLibwebsockets {
         // NULL protocol is required by LWS
         struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
         
-        // NULL name = any protocol
-        struct libwebsocket_protocols null_name_protocol = { NULL, lws_callback, sizeof(Connection) };
-        
         //setup protocols
         lws_protocols.clear();
         
         //register main protocol
-        serverProtocol.binary = options.bBinaryProtocol;
         registerProtocol( options.protocol, serverProtocol );
         
         //register any added protocols

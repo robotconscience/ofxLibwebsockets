@@ -28,7 +28,6 @@ namespace ofxLibwebsockets {
     struct ServerOptions {
         int     port;               
         bool    bUseSSL;            // if you use ssl, you must connect clients to wss:// instead of ws://
-        bool    bBinaryProtocol;    // only matters as far as receiving; if rec. binary & is false will try to base64 decode it
         string  protocol;           // if you specify this, you must connect with a protocol on the client side
         string  sslCertPath;        // data path to ssl certificate
         string  sslKeyPath;         // data path to ssl key
@@ -41,7 +40,6 @@ namespace ofxLibwebsockets {
         opts.port     = 80;
         opts.protocol = "NULL";
         opts.bUseSSL  = false;
-        opts.bBinaryProtocol = false;
         opts.sslCertPath = ofToDataPath("ssl/libwebsockets-test-server.pem", true);
         opts.sslKeyPath = ofToDataPath("ssl/libwebsockets-test-server.key.pem", true);
         opts.documentRoot = ofToDataPath("web", true);

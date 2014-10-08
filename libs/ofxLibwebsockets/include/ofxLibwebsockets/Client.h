@@ -22,6 +22,7 @@ namespace ofxLibwebsockets {
         int     version;
     };
     
+    // call this function to set up a vanilla client options object
     static ClientOptions defaultClientOptions(){
         ClientOptions opts;
         opts.host     = "localhost";
@@ -47,9 +48,10 @@ namespace ofxLibwebsockets {
         bool connect ( string _address, int _port, bool bUseSSL=false );
         bool connect ( ClientOptions options );
         
-        void onClose( Event& args );
+        // force close this client
         void close();
         
+        // most basic send function
         void send( string message );
         
         // send anything that has pixels
@@ -71,12 +73,14 @@ namespace ofxLibwebsockets {
             ofAddListener( clientProtocol.onbroadcastEvent, app, &T::onBroadcast);
         }
         
+        // get pointer to libwebsockets connection wrapper
         Connection * getConnection(){
             return connection;
         }
         
     protected:
         ClientOptions defaultOptions;
+        void onClose( Event& args );
         
     private:
 

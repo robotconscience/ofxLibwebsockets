@@ -20,10 +20,6 @@ namespace ofxLibwebsockets {
     class Reactor;
     class Protocol;
     
-    class Session {
-        public:
-    };
-    
     struct TextPacket {
         string message;
         int index;
@@ -38,7 +34,7 @@ namespace ofxLibwebsockets {
     class Connection {
         friend class Reactor;
     public:
-        Connection(Reactor* const _reactor=NULL, Protocol* const _protocol=NULL, const bool supportsBinary=true);
+        Connection(Reactor* const _reactor=NULL, Protocol* const _protocol=NULL);
         
         ~Connection();
         void close();
@@ -72,13 +68,10 @@ namespace ofxLibwebsockets {
         void update();
         
     protected:
-        Session*  session;
-        
         std::string client_ip;
         std::string client_name;
         
         bool binary;            // is this connection sending / receiving binary?
-        bool supportsBinary;    // does this connection support binary?
         
         int bufferSize;
         unsigned char* buf;
