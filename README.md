@@ -141,10 +141,13 @@ make
 
 #STATUS
 * Version 0.8.4 (current)
-	* Added PRi libraries
-	* Updated to latest version of libwebsockets
-	* Bug fixes for newest version
-	* testApp changed to ofApp
+	* + Added iOS library
+	* + Added RPi library (thanks to @rc1)
+	* \ Updated to latest version of libwebsockets
+		* \ Bug fixes for newest libwebsockets version
+	* \ testApp changed to ofApp
+	* \ Better comments in general
+	* \ Removed unnecessary checks for binary support (always enabled in libwebsockets)
 * Version 0.8.1 
 	* Overhauled all messaging, supporting sending/receiving string and binary messages of indefinite size via continuation frames
 	* Added examples from @zebradog of sending Blob data over websockets: way faster, way cleaner!
