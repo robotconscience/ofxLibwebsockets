@@ -42,21 +42,25 @@ namespace ofxLibwebsockets {
         
         unsigned int idx;
         unsigned int rx_buffer_size;
-        bool binary;
         
     protected:  
+        // override these methods if/when creating
+        // a custom protocol
         virtual void execute() {}
         
         virtual void onconnect  (Event& args);
         virtual void onopen     (Event& args);
         virtual void onclose    (Event& args);
+        virtual void onerror    (Event& args);
         virtual void onidle     (Event& args);
         virtual void onmessage  (Event& args);
         virtual void onbroadcast(Event& args);
         
+        // internal events: called by Reactor
         ofEvent<Event> onconnectEvent;
         ofEvent<Event> onopenEvent;
         ofEvent<Event> oncloseEvent;
+        ofEvent<Event> onerrorEvent;
         ofEvent<Event> onidleEvent;
         ofEvent<Event> onmessageEvent;
         ofEvent<Event> onbroadcastEvent;
@@ -72,6 +76,7 @@ namespace ofxLibwebsockets {
         void _onconnect   (Event& args);
         void _onopen      (Event& args);
         void _onclose     (Event& args);
+        void _onerror     (Event& args);
         void _onidle      (Event& args);
         void _onmessage   (Event& args);
         void _onbroadcast (Event& args);

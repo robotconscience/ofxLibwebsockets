@@ -13,17 +13,14 @@
 namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
-    Connection::Connection(Reactor* const _reactor, Protocol* const _protocol, const bool _supportsBinary)
+    Connection::Connection(Reactor* const _reactor, Protocol* const _protocol)
     : reactor(_reactor)
     , protocol(_protocol)
     , context(NULL)
     , ws(NULL)
-    , session(NULL)
-    , supportsBinary(_supportsBinary)
     //, buf(LWS_SEND_BUFFER_PRE_PADDING+1024+LWS_SEND_BUFFER_POST_PADDING)
     {
         if (_protocol != NULL){
-            binary = _protocol->binary;
             bufferSize = _protocol->rx_buffer_size;
             buf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufferSize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
             binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufferSize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
@@ -106,35 +103,29 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     void Connection::sendBinary( char * data, unsigned int size ){
         int n = -1;
+        // size binary packet based on either bufferSize (max) or passed 'size' (whichever is smaller)
+        int dataSize = bufferSize > size ? size : bufferSize;
+        memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, dataSize );
         
-        // TODO: when libwebsockets has an API supporting something this, we should use it
-        // for now we are assuming that if you send binary your client supports it
-        
-        if ( supportsBinary ){
-            // size binary packet based on either bufferSize (max) or passed 'size' (whichever is smaller)
-            int dataSize = bufferSize > size ? size : bufferSize;
-            memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, dataSize );
+        // we have a big frame, so we need to send a few times
+        if ( bufferSize < size ){
             
-            // we have a big frame, so we need to send a few times
-            if ( bufferSize < size ){
-                
-                // need to split into packets
-                BinaryPacket bp;
-				bp.index = 0;
-                bp.size = size;
-                
-                // copy data into array, in case user frees it
-                bp.data = (unsigned char*)calloc(size, sizeof(unsigned char));
-                memcpy(bp.data, data, size);
-                
-                messages_binary.push_back(bp);
-                
-                n = 0;
-                
-            // we have a nice small frame, just send it
-            } else {
-                n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
-            }
+            // need to split into packets
+            BinaryPacket bp;
+            bp.index = 0;
+            bp.size = size;
+            
+            // copy data into array, in case user frees it
+            bp.data = (unsigned char*)calloc(size, sizeof(unsigned char));
+            memcpy(bp.data, data, size);
+            
+            messages_binary.push_back(bp);
+            
+            n = 0;
+            
+        // we have a nice small frame, just send it
+        } else {
+            n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
         }
         
         if (n < 0){

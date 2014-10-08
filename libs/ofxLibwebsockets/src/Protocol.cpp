@@ -11,6 +11,8 @@
 
 namespace ofxLibwebsockets {
 
+#pragma mark constructor
+    
     //--------------------------------------------------------------
     Protocol::Protocol()
     : defaultAllowPolicy(true){
@@ -20,7 +22,7 @@ namespace ofxLibwebsockets {
         ofAddListener(onidleEvent,         this, &Protocol::_onidle);
         ofAddListener(onmessageEvent,      this, &Protocol::_onmessage);
         ofAddListener(onbroadcastEvent,    this, &Protocol::_onbroadcast);
-        binary = false;
+        ofAddListener(onerrorEvent,         this, &Protocol::_onerror);
         rx_buffer_size = OFX_LWS_MAX_BUFFER;
         idle = false;
     }
@@ -33,7 +35,7 @@ namespace ofxLibwebsockets {
         ofRemoveListener(onidleEvent,      this, &Protocol::_onidle);
         ofRemoveListener(onmessageEvent,   this, &Protocol::_onmessage);
         ofRemoveListener(onbroadcastEvent, this, &Protocol::_onbroadcast);
-        binary = false;
+        ofRemoveListener(onerrorEvent,         this, &Protocol::_onerror);
         rx_buffer_size = OFX_LWS_MAX_BUFFER;
         idle = false;
     }
@@ -57,6 +59,8 @@ namespace ofxLibwebsockets {
     bool Protocol::allowClient(const std::string name, const std::string ip) const {
         return defaultAllowPolicy;
     }
+    
+#pragma mark events
 
     //--------------------------------------------------------------
     void Protocol::_onconnect(Event& args){ onconnect(args); }  
@@ -72,6 +76,11 @@ namespace ofxLibwebsockets {
     void Protocol::_onclose(Event& args){ onclose(args); }
 
     void Protocol::onclose(Event&args){}
+    
+    //--------------------------------------------------------------
+    void Protocol::_onerror(Event& args){ onerror(args); }
+    
+    void Protocol::onerror(Event&args){}
 
     //--------------------------------------------------------------
     bool Protocol::isIdle(){

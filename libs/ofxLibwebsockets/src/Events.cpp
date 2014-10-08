@@ -16,6 +16,4 @@ namespace ofxLibwebsockets {
     , message(_message)
     , isBinary(isBinary)
     {}
-
-    //_Events ofxWebSocketEvents;
 }

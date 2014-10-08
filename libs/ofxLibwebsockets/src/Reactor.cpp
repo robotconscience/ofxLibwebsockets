@@ -103,6 +103,9 @@ namespace ofxLibwebsockets {
                                 enum libwebsocket_callback_reasons const reason,
                                 const char* const _message,
                                 const unsigned int len){
+        
+        // this happens with events that don't use the connection
+        // so not always a problem
         if (conn == NULL || conn->protocol == NULL){
             if (conn == NULL){
                 ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] connection is null ");
@@ -123,10 +126,19 @@ namespace ofxLibwebsockets {
         switch (reason) {
             // connection was not successful
             case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
-            case LWS_CALLBACK_WSI_DESTROY:
                 ofLogError()<<"[ofxLibwebsockets] Connection error";
-                //TODO: add error event!
                 
+                for (int i=0; i<connections.size(); i++){
+                    if ( connections[i] == conn ){
+                        connections.erase( connections.begin() + i );
+                        break;
+                    }
+                }
+                ofNotifyEvent(conn->protocol->oncloseEvent, args);
+                break;
+                
+            // last thing that happens before connection goes dark
+            case LWS_CALLBACK_WSI_DESTROY:
                 for (int i=0; i<connections.size(); i++){
                     if ( connections[i] == conn ){
                         connections.erase( connections.begin() + i );
@@ -137,8 +149,8 @@ namespace ofxLibwebsockets {
                 ofNotifyEvent(conn->protocol->oncloseEvent, args);
                 break;
             
-            case LWS_CALLBACK_ESTABLISHED:
-            case LWS_CALLBACK_CLIENT_ESTABLISHED:
+            case LWS_CALLBACK_ESTABLISHED:          // server connected with client
+            case LWS_CALLBACK_CLIENT_ESTABLISHED:   // client connected with server
                 connections.push_back( conn );
                 ofNotifyEvent(conn->protocol->onopenEvent, args);
                 break;
@@ -161,8 +173,8 @@ namespace ofxLibwebsockets {
                 ofNotifyEvent(conn->protocol->onidleEvent, args);
                 break;
                 
-            case LWS_CALLBACK_RECEIVE:
-            case LWS_CALLBACK_CLIENT_RECEIVE:
+            case LWS_CALLBACK_RECEIVE:              // server receive
+            case LWS_CALLBACK_CLIENT_RECEIVE:       // client receive
             case LWS_CALLBACK_CLIENT_RECEIVE_PONG:
                 {
                     
@@ -282,6 +294,7 @@ namespace ofxLibwebsockets {
         if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str(), "") < 0){
             ofLog( OF_LOG_WARNING, "[ofxLibwebsockets] Failed to send HTTP file "+ file + " for "+ url);
         }
-			return 0;
+        
+        return 1; // 1 will close the HTTP connection when done
     }
 }

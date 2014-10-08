@@ -20,7 +20,7 @@ namespace ofxLibwebsockets {
         Event(Connection& _conn, std::string& _message, bool isBinary=false);
         
         Connection& conn;
-        std::string& message;
+        std::string& message; // message from ws OR error message if error
         Json::Value json;
         
         // binary data
@@ -38,5 +38,4 @@ namespace ofxLibwebsockets {
  ofEvent<ofxLibwebsockets::Event> onIdle;
  ofEvent<ofxLibwebsockets::Event> onMessage;
  ofEvent<ofxLibwebsockets::Event> onBroadcast;
- };
- extern _ofxWebSocketEvents ofxWebSocketEvents;*/
+ };*/
