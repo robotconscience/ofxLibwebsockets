@@ -51,6 +51,9 @@ namespace ofxLibwebsockets {
         // force close this client
         void close();
         
+        // check if connected
+        bool isConnected();
+        
         // most basic send function
         void send( string message );
         

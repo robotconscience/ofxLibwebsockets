@@ -127,7 +127,6 @@ namespace ofxLibwebsockets {
                 ofLogError() << "[ofxLibwebsockets] client connection failed";
                 return false;
             } else {
-                
                 connection = new Connection( (Reactor*) &context, &clientProtocol );
                 connection->ws = lwsconnection;
                 
@@ -135,6 +134,18 @@ namespace ofxLibwebsockets {
                 startThread();   
                 return true;
             }
+        }
+    }
+    
+    //--------------------------------------------------------------
+    bool Client::isConnected(){
+        if ( connection == NULL || lwsconnection == NULL ){
+            return false;
+        } else {
+            // we need a better boolean switch...
+            // for now, connections vector is only populated
+            // with valid connections
+            return connections.size() > 0;
         }
     }
 
