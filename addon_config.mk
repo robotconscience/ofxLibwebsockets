@@ -16,7 +16,6 @@ common:
 	ADDON_INCLUDES = libs/jsoncpp
 	ADDON_INCLUDES += libs/jsoncpp/json
 	ADDON_INCLUDES += libs/libwebsockets/include/
-	ADDON_INCLUDES += libs/openssl/openssl
 	ADDON_INCLUDES += libs/ofxLibwebsockets/include
 	ADDON_INCLUDES += libs/ofxLibwebsockets/include/ofxLibwebsockets
 	ADDON_INCLUDES += libs/ofxLibwebsockets/src

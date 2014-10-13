@@ -13,8 +13,6 @@ void ofApp::setup(){
     
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9093;
-    options.protocol = "of-protocol";
-    options.bBinaryProtocol = true;
     
     bool connected = server.setup( options );
     
