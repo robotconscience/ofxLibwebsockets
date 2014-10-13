@@ -33,16 +33,25 @@ namespace ofxLibwebsockets {
         string  sslKeyPath;         // data path to ssl key
         
         string  documentRoot;       // where your hosted files are (libwebsockets sets up a minimal webserver)
+        
+        // advanced: timeout options
+        // names are from libwebsockets (ka == keep alive)
+        int     ka_time;        // 0 == default, no timeout; nonzero == time to wait in seconds before testing conn
+        int     ka_probes;      // # of times to test for connection; ignored if ka_time == 0
+        int     ka_interval;    // how long to wait between probes, in seconds; ignored if ka_time == 0
     };
     
     static ServerOptions defaultServerOptions(){
         ServerOptions opts;
-        opts.port     = 80;
-        opts.protocol = "NULL";
-        opts.bUseSSL  = false;
-        opts.sslCertPath = ofToDataPath("ssl/libwebsockets-test-server.pem", true);
-        opts.sslKeyPath = ofToDataPath("ssl/libwebsockets-test-server.key.pem", true);
-        opts.documentRoot = ofToDataPath("web", true);
+        opts.port           = 80;
+        opts.protocol       = "NULL"; // NULL == no protocol. most websockets behave this way.
+        opts.bUseSSL        = false;
+        opts.sslCertPath    = ofToDataPath("ssl/libwebsockets-test-server.pem", true);
+        opts.sslKeyPath     = ofToDataPath("ssl/libwebsockets-test-server.key.pem", true);
+        opts.documentRoot   = ofToDataPath("web", true);
+        opts.ka_time        = 0;
+        opts.ka_probes      = 0;
+        opts.ka_interval    = 0;
         return opts;
     }
 
@@ -53,7 +62,11 @@ namespace ofxLibwebsockets {
         Server();
         ~Server();
         
+        // setup with default options for websockets
         bool setup( int _port = 80, bool bUseSSL = false );
+        
+        // pass in ServerOptions object, which are easily instantiated
+        // with ofxLibwebsockets::defaultServerOptions()
         bool setup( ServerOptions options );
         
         // close the server

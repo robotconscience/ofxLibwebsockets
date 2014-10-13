@@ -20,6 +20,12 @@ namespace ofxLibwebsockets {
         string  channel;
         string  protocol;
         int     version;
+        
+        // advanced: timeout options
+        // names are from libwebsockets (ka == keep alive)
+        int     ka_time;        // 0 == default, no timeout; nonzero == time to wait in seconds before testing conn
+        int     ka_probes;      // # of times to test for connection; ignored if ka_time == 0
+        int     ka_interval;    // how long to wait between probes, in seconds; ignored if ka_time == 0
     };
     
     // call this function to set up a vanilla client options object
@@ -31,6 +37,10 @@ namespace ofxLibwebsockets {
         opts.channel  = "/";
         opts.protocol = "NULL";
         opts.version  = -1;     //use latest version
+        
+        opts.ka_time      = 0;
+        opts.ka_probes    = 0;
+        opts.ka_interval  = 0;
         return opts;
     };
     
