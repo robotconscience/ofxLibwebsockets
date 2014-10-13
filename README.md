@@ -144,7 +144,7 @@ make
 	* + Added iOS library
 	* + Added RPi library (thanks to @rc1)
 	* + Added libwebsockets' rudimentary keep-alive
-		* See issue #38
+		* See [issue #38](https://github.com/labatrockwell/ofxLibwebsockets/issues/38)
 	* \ Updated to latest version of libwebsockets
 		* \ Bug fixes for newest libwebsockets version
 	* \ testApp changed to ofApp
