@@ -1,5 +1,6 @@
 #CHANGELOG
 * Version 0.8.4 (current)
+  * - No longer including OpenSSL (compiled into libwebsockets) 
   * + Added iOS library
   * + Added RPi library (thanks to @rc1)
   * + Added libwebsockets' rudimentary keep-alive
