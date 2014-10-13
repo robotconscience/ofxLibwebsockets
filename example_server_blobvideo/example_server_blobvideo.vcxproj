@@ -54,11 +54,11 @@
 			<Optimization>Disabled</Optimization>
 			<MinimalRebuild>true</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_WIN32_WINNT=0x500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
 			<WarningLevel>Level3</WarningLevel>
 			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port\win32helpers;..\..\..\addons\ofxTurboJpeg\src\;..\..\..\addons\ofxTurboJpeg\libs\turbo-jpeg\include</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port\win32helpers;..\..\..\addons\ofxTurboJpeg\src\;..\..\..\addons\ofxTurboJpeg\libs\turbo-jpeg\include</AdditionalIncludeDirectories>
 			<CompileAs>CompileAsCpp</CompileAs>
 		</ClCompile>
 		<Link>
@@ -72,10 +72,10 @@
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 		<ClCompile>
 			<WholeProgramOptimization>false</WholeProgramOptimization>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_WIN32_WINNT=0x500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
 			<WarningLevel>Level3</WarningLevel>
-			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port\win32helpers;..\..\..\addons\ofxTurboJpeg\src\;..\..\..\addons\ofxTurboJpeg\libs\turbo-jpeg\include</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port\win32helpers;..\..\..\addons\ofxTurboJpeg\src\;..\..\..\addons\ofxTurboJpeg\libs\turbo-jpeg\include</AdditionalIncludeDirectories>
 			<CompileAs>CompileAsCpp</CompileAs>
 		</ClCompile>
 		<Link>
@@ -114,70 +114,6 @@
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Reactor.h" />
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Server.h" />
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Util.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\aes.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\asn1.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\asn1t.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\asn1_mac.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\bio.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\blowfish.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\bn.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\buffer.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\cast.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\comp.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\conf.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\conf_api.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\crypto.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\des.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\des_old.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\dh.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\dsa.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\dso.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ebcdic.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ec.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\engine.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\err.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\evp.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\e_os2.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\hmac.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\krb5_asn.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\kssl.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\lhash.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\md2.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\md4.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\md5.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\mdc2.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\objects.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\obj_mac.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ocsp.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\opensslconf.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\opensslv.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ossl_typ.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\pem.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\pem2.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\pkcs12.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\pkcs7.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\rand.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\rc2.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\rc4.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\rc5.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ripemd.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\rsa.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\safestack.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\sha.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ssl.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ssl2.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ssl23.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ssl3.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\stack.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\symhacks.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\tls1.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\tmdiff.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\txt_db.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ui.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\ui_compat.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\x509.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\x509v3.h" />
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\openssl\x509_vfy.h" />
 		<ClInclude Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.h" />
 	</ItemGroup>
 	<ItemGroup>
