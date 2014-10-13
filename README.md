@@ -138,3 +138,26 @@ cd build
 cmake .. -DLWS_IPV6=OFF
 make
 ```  
+### iOS
+* Clone libwebsockets
+* Clone this repo; it contains compiling resources in ofxLibwebsockets/extras/ios_libwebsockets
+	* The toolchain in this folder will allow you to create an iOS XCode project
+	* NOTE: CMake is not my specialty, so this file is currently hard-coded to use iOS 8.0... change line 89 if you'd like to use a different iOS
+* Create Xcode projects
+``` 
+cd /path/to/libwebsockets
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=/path/to/ofxLibwebsockets/extras/ios_libwebsockets/toolchain/iOS.cmake -GXcode ..
+``` 
+* Replace lws_config.h in your build folder with the one at ofxLibwebsockets/extras/ios_libwebsockets/lws_config.h
+* Open the Xcode project in your build folder
+* Select the target 'websockets' (instead of ALL_BUILD) and select iOS Device as your target
+	* Click on the scheme and select "Edit Scheme"
+	* Set the Build Configuration to "Release"
+* Build the project
+* Copy the lib into place:
+```
+cd /path/to/your/build/folder
+cp lib/Relase/libwebsockets.a /PATH/TO/OF/addons/ofxLibwebsockets/libs/libwebsockets/lib/iosarmv7/libwebsockets.a
+```
