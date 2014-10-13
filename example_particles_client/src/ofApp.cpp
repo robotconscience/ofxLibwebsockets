@@ -4,7 +4,7 @@ ofPixels sendPixels;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetVerticalSync(true);
+    ofSetFrameRate(60);
     
     // setup client @ port 9093
     client.connect("localhost", 9093);

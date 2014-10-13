@@ -6,15 +6,8 @@ void ofApp::setup(){
     // - pass in true after port to set up with SSL
     //bConnected = server.setup( 9093 );
     
-    // Uncomment this to set up a server with a protocol
-    // Right now, clients created via libwebsockets that are connecting to servers
-    // made via libwebsockets seem to want a protocol. Hopefully this gets fixed, 
-    // but until now you have to do something like this:
-
-    
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9092;
-    options.protocol = "of-protocol";
     bConnected = server.setup( options );
     
     
@@ -26,7 +19,6 @@ void ofApp::setup(){
     canvasID = 0;
     
     // OF drawing
-    
     
     Drawing * d = new Drawing();
     d->_id = canvasID++;

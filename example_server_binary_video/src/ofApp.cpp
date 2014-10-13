@@ -17,7 +17,6 @@ void ofApp::setup(){
     
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9093;
-    options.protocol = "of-protocol";
     bool connected = server.setup( options );
     
     // this adds your app as a listener for the server

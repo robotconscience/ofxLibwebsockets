@@ -21,8 +21,6 @@ void ofApp::setup(){
     
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9093;
-    options.protocol = "of-protocol";
-    options.bBinaryProtocol = true;
     
     bool connected = server.setup( options );
     
@@ -219,7 +217,14 @@ void ofApp::mouseMoved(int x, int y ){}
 void ofApp::mouseDragged(int x, int y, int button){}
 
 //-----------------------------------------------------------   ---
-void ofApp::mousePressed(int x, int y, int button){}
+void ofApp::mousePressed(int x, int y, int button){
+    string url = "http";
+    if ( server.usingSSL() ){
+        url += "s";
+    }
+    url += "://localhost:" + ofToString( server.getPort() );
+    ofLaunchBrowser(url);
+}
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){}

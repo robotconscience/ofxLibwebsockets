@@ -1,20 +1,15 @@
 #include "ofApp.h"
 
+// quality of image: higher is more readable, lower is faster!
+int jpegquality = 100;
+
 //--------------------------------------------------------------
 void ofApp::setup(){
-    // setup a server with default options on port 9092
-    // - pass in true after port to set up with SSL
-    //bool connected = server.setup( 9092 );
-    
-    // Uncomment this to set up a server with a protocol
-    // Right now, clients created via libwebsockets that are connecting to servers
-    // made via libwebsockets seem to want a protocol. Hopefully this gets fixed, 
-    // but until now you have to do something like this:
-    
     //setup video grabber
     video.listDevices();
     bVideoSetup = video.initGrabber(640,480);
     
+    // setup a server with default options on port 9093
     ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
     options.port = 9093;
     bool connected = server.setup( options );
@@ -42,7 +37,7 @@ void ofApp::update(){
         // the second param == quality. play with this to get a better framerate
         // you can also try resizing your image!
         //currentImage.resize(160, 120);
-        unsigned char * compressed = turbo.compress(currentImage,50,&size);
+        unsigned char * compressed = turbo.compress(currentImage,jpegquality,&size);
         server.sendBinary(compressed, size);
         free(compressed);
     }
@@ -59,6 +54,12 @@ void ofApp::draw(){
     }
     if ( bVideoSetup ) video.draw(0,0);
       ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
+    
+    ofSetColor(255);
+    ofDrawBitmapString("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL"), 10, 40);
+    
+    ofDrawBitmapString("Click anywhere to open up browser client", 10, 60);
+    ofDrawBitmapString("+/- changes image quality: "+ofToString(jpegquality), 10, 80);
 }
 
 //--------------------------------------------------------------
@@ -107,7 +108,13 @@ void ofApp::onBroadcast( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if ( key == '+'){
+        jpegquality ++;
+        jpegquality = jpegquality > 100 ? 100 : jpegquality;
+    } else if (key == '-'){
+        jpegquality--;
+        jpegquality = jpegquality < 0 ? 0 : jpegquality;
+    }
 }
 
 //--------------------------------------------------------------
@@ -127,7 +134,12 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    string url = "http";
+    if ( server.usingSSL() ){
+        url += "s";
+    }
+    url += "://localhost:" + ofToString( server.getPort() );
+    ofLaunchBrowser(url);
 }
 
 //--------------------------------------------------------------

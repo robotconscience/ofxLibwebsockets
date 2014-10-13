@@ -2,9 +2,33 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofBackground(0);
     ofSetLogLevel(OF_LOG_VERBOSE);
-    client.connect("echo.websocket.org");
-    //    client.connect("echo.websocket.org", true); // optionally use SSL
+    // basic connection:
+    // client.connect("echo.websocket.org");
+    // OR optionally use SSL
+    // client.connect("echo.websocket.org", true);
+    
+    // advanced: set keep-alive timeouts for events like
+    // loss of internet
+    
+    // 1 - get default options
+    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
+    
+    // 2 - set basic params
+    options.host = "echo.websocket.org";
+    
+    // 3 - set keep alive params
+    // BIG GOTCHA: on BSD systems, e.g. Mac OS X, these time params are system-wide
+    // ...so ka_time just says "check if alive when you want" instead of "check if
+    // alive after X seconds"
+    options.ka_time     = 1;
+//    options.ka_probes   = 1;
+//    options.ka_interval = 1;
+    
+    // 4 - connect
+    client.connect(options);
+    
     ofSetLogLevel(OF_LOG_ERROR);
     
     client.addListener(this);
@@ -17,6 +41,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofDrawBitmapString("Type anywhere to send 'hello' to your server\nCheck the console for output!", 10,20);
+    ofDrawBitmapString(client.isConnected() ? "Client is connected" : "Client disconnected :(", 10,50);
 }
 
 //--------------------------------------------------------------

@@ -2,11 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-   
-    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
-    options.port = 9092; 
-    options.protocol = "of-protocol";
-    client.connect( options );
+    client.connect( "localhost", 9092 );
     bConnected = false;
     
     client.addListener(this);

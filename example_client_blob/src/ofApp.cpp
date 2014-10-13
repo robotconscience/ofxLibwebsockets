@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    // connect to either the "server blob" or "server blob video" example!
     client.connect("localhost", 9093);
     
     client.addListener(this);
@@ -57,11 +58,14 @@ void ofApp::onIdle( ofxLibwebsockets::Event& args ){
 void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     if ( locked ) return;
     // need to load this next frame!
-    //cout << args.isBinary << ":" << args.size << endl;
-    buff.clear();
-    buff.set(args.data.getBinaryBuffer(), args.data.size());
-    locked = true;
-    needToLoad = true;
+    if ( args.isBinary ){
+        buff.clear();
+        buff.set(args.data.getBinaryBuffer(), args.data.size());
+        locked = true;
+        needToLoad = true;
+    } else {
+        // got a string message
+    }
 }
 
 //--------------------------------------------------------------
