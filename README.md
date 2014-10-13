@@ -143,11 +143,15 @@ make
 * Version 0.8.4 (current)
 	* + Added iOS library
 	* + Added RPi library (thanks to @rc1)
+	* + Added libwebsockets' rudimentary keep-alive
+		* See issue #38
 	* \ Updated to latest version of libwebsockets
 		* \ Bug fixes for newest libwebsockets version
 	* \ testApp changed to ofApp
 	* \ Better comments in general
 	* \ Removed unnecessary checks for binary support (always enabled in libwebsockets)
+	* \ Removed "of-protocol" protocol from examples (you don't need it!)
+	* + Added adjustable image quality to binary video example for demonstration
 * Version 0.8.1 
 	* Overhauled all messaging, supporting sending/receiving string and binary messages of indefinite size via continuation frames
 	* Added examples from @zebradog of sending Blob data over websockets: way faster, way cleaner!

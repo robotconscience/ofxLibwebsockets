@@ -97,6 +97,13 @@ namespace ofxLibwebsockets {
         info.extensions = libwebsocket_get_internal_extensions();
         info.gid = -1;
         info.uid = -1;
+        
+        if ( options.ka_time != 0 ){
+            ofLogVerbose()<<"[ofxLibwebsockets] Setting timeout "<<options.ka_time;
+            info.ka_time = options.ka_time;
+            info.ka_probes = options.ka_probes;
+            info.ka_interval = options.ka_interval;
+        }
 
         context = libwebsocket_create_context(&info);
 

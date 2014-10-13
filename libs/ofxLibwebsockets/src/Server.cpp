@@ -106,6 +106,13 @@ namespace ofxLibwebsockets {
         info.ssl_private_key_filepath = sslKey;
         info.gid = -1;
         info.uid = -1;
+        
+        if ( options.ka_time != 0 ){
+            info.ka_time = options.ka_time;
+            info.ka_probes = options.ka_probes;
+            info.ka_interval = options.ka_interval;
+        }
+        
         info.options = opts;
 
         context = libwebsocket_create_context(&info);

@@ -92,7 +92,7 @@ namespace ofxLibwebsockets {
         std::string client_ip(128, 0);
         std::string client_name(128, 0);
         
-        libwebsockets_get_peer_addresses(context, ws, (int)fd,
+        libwebsockets_get_peer_addresses(context, ws, libwebsocket_get_socket_fd(ws),
                                          &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
         return protocol->_allowClient(client_name, client_ip);
@@ -139,14 +139,18 @@ namespace ofxLibwebsockets {
                 
             // last thing that happens before connection goes dark
             case LWS_CALLBACK_WSI_DESTROY:
+            {
+                bool bFound = false;
                 for (int i=0; i<connections.size(); i++){
                     if ( connections[i] == conn ){
+                        bFound = true; // valid connection
                         connections.erase( connections.begin() + i );
                         break;
                     }
                 }
                 
-                ofNotifyEvent(conn->protocol->oncloseEvent, args);
+                if ( bFound ) ofNotifyEvent(conn->protocol->oncloseEvent, args);
+            }
                 break;
             
             case LWS_CALLBACK_ESTABLISHED:          // server connected with client

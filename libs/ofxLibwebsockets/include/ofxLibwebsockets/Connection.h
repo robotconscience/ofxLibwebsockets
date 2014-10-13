@@ -50,10 +50,14 @@ namespace ofxLibwebsockets {
         void sendBinary( unsigned char * data, unsigned int size );
         void sendBinary( char * data, unsigned int size );
         
-        void setupAddress();
-        
+        // gets IP address *relative to system*
+        // e.g. localhost could be ::1, 127.0.0.1, your IP, etc...
         std::string getClientIP();
         std::string getClientName();
+        
+        // 'private' accessor for static libwebsockets loop stuff
+        
+        void setupAddress();
         
         libwebsocket_context* context;
         libwebsocket* ws;
