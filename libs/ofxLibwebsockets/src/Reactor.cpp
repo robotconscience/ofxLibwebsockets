@@ -2,8 +2,7 @@
 //  Reactor.cpp
 //  ofxLibwebsockets
 //
-//  Created by Brett Renfer on 4/12/12.
-//  Copyright (c) 2012 Robotconscience. All rights reserved.
+//  Created by Brett Renfer on 4/12/12. 
 //
 
 #include "ofxLibwebsockets/Reactor.h"

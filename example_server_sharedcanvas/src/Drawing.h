@@ -2,8 +2,7 @@
 //  Drawing.h
 //  SharedCanvas
 //
-//  Created by Brett Renfer on 5/29/12.
-//  Copyright (c) 2012 Robotconscience. All rights reserved.
+//  Created by Brett Renfer on 5/29/12. 
 //
 
 class Drawing {

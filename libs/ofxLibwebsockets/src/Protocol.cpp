@@ -2,8 +2,7 @@
 //  Protcol.cpp
 //  ofxLibwebsockets
 //
-//  Created by Brett Renfer on 4/11/12.
-//  Copyright (c) 2012 Robotconscience. All rights reserved.
+//  Created by Brett Renfer on 4/11/12. 
 //
 
 #include "ofxLibwebsockets/Protocol.h"

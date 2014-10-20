@@ -2,14 +2,13 @@
 //  Server.h
 //  ofxLibwebsockets
 //
-//  Created by Brett Renfer on 4/11/12.
-//  Copyright (c) 2012 Robotconscience. All rights reserved.
+//  Created by Brett Renfer on 4/11/12. 
 //
 //  SETUP PROCESS:
 //  1) initialize (automatic if not a pointer)
 //  2) (optional) add protocols (e.g. server.addProtocol( "hey", myProtocol ); )
 //      - see Reactor.h
-//  3) (optional) add testApp as a listener (defaults to "" protocol, can be set in options)
+//  3) (optional) add ofApp as a listener (defaults to "" protocol, can be set in options)
 //  4) call setup( port ) or setup ( ServerOptions options )
 
 #pragma once
