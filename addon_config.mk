@@ -99,7 +99,9 @@ linuxarmv6l:
 	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
 	ADDON_LIBS = libs/libwebsockets/lib/linuxarmv6l/libwebsockets.a
 linuxarmv7l:
-	#nothing yet
+	ADDON_LDFLAGS = -lssl
+	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
+	ADDON_LIBS = libs/libwebsockets/lib/linuxarmv7l/libwebsockets.a
 	
 android/armeabi:	
 	#nothing yet
