@@ -116,9 +116,12 @@
 			```
 			
 * Linux
-	* Linux support is offline until the library is recompiled. Please submit me a PR!!!
+	* Use openFramework's projectgenerator and voilà!
 
 ## Building libwebockets
+
+ofxLibwebsockets use [libewebsockets 1.3](http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/tag/?id=v1.3-chrome37-firefox30)
+
 ### OS X
 * Clone libwebsockets
 ``` 
@@ -137,6 +140,16 @@ mkdir build
 cd build
 cmake .. -DLWS_IPV6=OFF
 make
+``` 
+### Linux
+* Clone libwebsockets
+``` 
+cd /path/to/libwebsockets
+mkdir build
+cd build
+cmake ..
+make
+cp lib/libwebsockets.a /path/to/ofxLibwebsocket/libs/libwebsockets/lib/linux64/
 ```  
 ### iOS
 * Clone libwebsockets
