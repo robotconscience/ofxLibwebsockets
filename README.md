@@ -120,7 +120,7 @@
 
 ## Building libwebockets
 
-ofxLibwebsockets use [libewebsockets 1.3](http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/tag/?id=v1.3-chrome37-firefox30)
+ofxLibwebsockets uses [libwebsockets 1.3](http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/tag/?id=v1.3-chrome37-firefox30)
 
 ### OS X
 * Clone libwebsockets
