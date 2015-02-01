@@ -21,7 +21,7 @@ void ofApp::setup(){
     
     // setup message queue
     
-    font.loadFont("myriad.ttf", 20);
+    font.load("myriad.ttf", 20);
     messages.push_back("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL") );
     
     ofBackground(0);
@@ -32,7 +32,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     if ( bSendImage && toLoad != "" ){
-        currentImage.loadImage( toLoad );
+        currentImage.load( toLoad );
         server.send( ofToString(currentImage.width) +":"+ ofToString( currentImage.height ) +":"+ ofToString( currentImage.type ) );
         server.sendBinary( currentImage );
         messages.push_back( "Sending image" );

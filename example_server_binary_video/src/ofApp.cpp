@@ -23,7 +23,7 @@ void ofApp::setup(){
     server.addListener(this);
     
     // setup message queue
-    font.loadFont("myriad.ttf", 20);
+    font.load("myriad.ttf", 20);
     messages.push_back("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL") );
     
     ofBackground(0);

@@ -209,7 +209,7 @@ namespace ofxLibwebsockets {
                             
                             if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
                                 // copy into event
-                                args.data.set(largeBinaryMessage.getBinaryBuffer(), largeBinaryMessage.size());
+                                args.data.set(largeBinaryMessage.getData(), largeBinaryMessage.size());
                                 
                                 bFinishedReceiving      = true;
                                 bReceivingLargeMessage  = false;

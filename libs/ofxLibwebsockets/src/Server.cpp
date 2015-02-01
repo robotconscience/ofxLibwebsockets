@@ -150,7 +150,7 @@ namespace ofxLibwebsockets {
     
     //--------------------------------------------------------------
     void Server::sendBinary( ofBuffer buffer ){
-        sendBinary(buffer.getBinaryBuffer(), buffer.size());
+        sendBinary(buffer.getData(), buffer.size());
     }
     
     //--------------------------------------------------------------

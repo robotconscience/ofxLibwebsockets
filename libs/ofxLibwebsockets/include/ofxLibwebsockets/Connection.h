@@ -41,8 +41,8 @@ namespace ofxLibwebsockets {
         
         template <class T> 
         void sendBinary( T& image ){
-            int size = image.width * image.height * image.getPixelsRef().getNumChannels();
-            sendBinary( (char *) image.getPixels(), size );
+            int size = image.width * image.height * image.getPixels().getNumChannels();
+            sendBinary( (char *) image.getPixels().getData(), size );
         }
         
         void sendBinary( ofBuffer buffer );

@@ -23,9 +23,9 @@ void ofApp::update(){
 		int size = buff.size();
 
         float * incoming = new float[size ];
-        memcpy(incoming, buff.getBinaryBuffer(), buff.size());
+        memcpy(incoming, buff.getData(), buff.size());
         
-        posFBO.getTextureReference().loadData(incoming, textureRes, textureRes, GL_RGB);
+        posFBO.getTexture().loadData(incoming, textureRes, textureRes, GL_RGB);
         mutex.unlock();
         updateGPUParticles();
     }

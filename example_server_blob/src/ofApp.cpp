@@ -29,7 +29,7 @@ void ofApp::setup(){
     
     // setup message queue
     
-    font.loadFont("myriad.ttf", 20);
+    font.load("myriad.ttf", 20);
     messages.push_back("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL") );
     
     ofBackground(0);
@@ -178,7 +178,7 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
         if ( locked ) return;
         // need to load this next frame!
         buff.clear();
-        buff.set(args.data.getBinaryBuffer(), args.data.size());
+        buff.set(args.data.getData(), args.data.size());
         locked = true;
         needToLoad = true;
     } else {
