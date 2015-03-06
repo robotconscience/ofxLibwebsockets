@@ -2,7 +2,7 @@
 //  Connection.cpp
 //  ofxLibwebsockets
 //
-//  Created by Brett Renfer on 4/11/12. 
+//  Created by Brett Renfer on 4/11/12.
 //
 
 #include "ofxLibwebsockets/Connection.h"
@@ -10,7 +10,7 @@
 #include "ofxLibwebsockets/Protocol.h"
 
 namespace ofxLibwebsockets {
-
+    
     //--------------------------------------------------------------
     Connection::Connection(Reactor* const _reactor, Protocol* const _protocol)
     : reactor(_reactor)
@@ -25,7 +25,7 @@ namespace ofxLibwebsockets {
             binaryBuf = (unsigned char*)calloc(LWS_SEND_BUFFER_PRE_PADDING+bufferSize+LWS_SEND_BUFFER_POST_PADDING, sizeof(unsigned char));
         }
     }
-
+    
     //--------------------------------------------------------------
     Connection::~Connection(){
         free(buf);
@@ -61,10 +61,11 @@ namespace ofxLibwebsockets {
         libwebsockets_get_peer_addresses(context, ws, fd, &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
     }
-
+    
     //--------------------------------------------------------------
     void Connection::send(const std::string& message)
     {
+        if ( ws == NULL) return;
         if ( message.size() == 0 ) return;
         int n = 0;
         
@@ -72,18 +73,20 @@ namespace ofxLibwebsockets {
         int dataSize = bufferSize > message.size() ? message.size() : bufferSize;
         memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], message.c_str(), dataSize );
         
-        // we have a big frame, so we need to send a few times
-        if ( bufferSize < message.size() ){
-            // need to jump into thread
-            TextPacket tp;
-			tp.index = 0;
-            tp.message = message;
-            messages_text.push_back(tp);
-            
+        // changed 3/6/15: buffer all messages to prevent threading errors
+        TextPacket tp;
+        tp.index = 0;
+        tp.message = message;
+        messages_text.push_back(tp);
+        
         // we have a nice small frame, just send it
-        } else {
-            n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], message.size(), LWS_WRITE_TEXT);
-        }
+        //        } else {
+        //            if ( lws_partial_buffered(ws) == 0 ){
+        //                n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], message.size(), LWS_WRITE_TEXT);
+        //            } else {
+        //                n = -1;
+        //            }
+        //        }
         
         if (n < 0)
             ofLogError() << "[ofxLibwebsockets]  ERROR writing to socket" << std::endl;
@@ -106,26 +109,28 @@ namespace ofxLibwebsockets {
         int dataSize = bufferSize > size ? size : bufferSize;
         memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], data, dataSize );
         
+        
+        // changed 3/6/15: buffer all messages to prevent threading errors
         // we have a big frame, so we need to send a few times
-        if ( bufferSize < size ){
-            
-            // need to split into packets
-            BinaryPacket bp;
-            bp.index = 0;
-            bp.size = size;
-            
-            // copy data into array, in case user frees it
-            bp.data = (unsigned char*)calloc(size, sizeof(unsigned char));
-            memcpy(bp.data, data, size);
-            
-            messages_binary.push_back(bp);
-            
-            n = 0;
-            
-        // we have a nice small frame, just send it
-        } else {
-            n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
-        }
+        //        if ( bufferSize < size ){
+        
+        // need to split into packets
+        BinaryPacket bp;
+        bp.index = 0;
+        bp.size = size;
+        
+        // copy data into array, in case user frees it
+        bp.data = (unsigned char*)calloc(size, sizeof(unsigned char));
+        memcpy(bp.data, data, size);
+        
+        messages_binary.push_back(bp);
+        
+        n = 0;
+        
+        //        // we have a nice small frame, just send it
+        //        } else {
+        //            n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, LWS_WRITE_BINARY);
+        //        }
         
         if (n < 0){
             ofLogError() << "[ofxLibwebsockets]  ERROR writing to socket" << std::endl;
@@ -148,6 +153,11 @@ namespace ofxLibwebsockets {
                 protocol->idle = false;
                 
                 int n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+                
+                if ( n < -1 ){
+                    ofLogError()<<"[ofxLibwebsockets] ERROR writing to socket";
+                }
+                
                 libwebsocket_callback_on_writable(context, ws);
                 packet.index = dataSize;
                 
