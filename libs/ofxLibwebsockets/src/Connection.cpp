@@ -148,7 +148,14 @@ namespace ofxLibwebsockets {
                 memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], packet.message.c_str(), dataSize );
                 
                 int writeMode = LWS_WRITE_TEXT;
-                writeMode |= LWS_WRITE_NO_FIN; // add "we're not finished" flag
+                bool bDone = false;
+                
+                if ( packet.index + dataSize >= packet.message.size() ){
+                    dataSize = packet.message.size() - packet.index;
+                    bDone = true;
+                } else {
+                    writeMode |= LWS_WRITE_NO_FIN; // add "we're not finished" flag
+                }
                 
                 protocol->idle = false;
                 
@@ -160,6 +167,10 @@ namespace ofxLibwebsockets {
                 
                 libwebsocket_callback_on_writable(context, ws);
                 packet.index = dataSize;
+                
+                if ( bDone ){
+                    messages_text.erase(messages_text.begin());
+                }
                 
             } else {
                 // continue to send large message in chunks
@@ -195,16 +206,28 @@ namespace ofxLibwebsockets {
                 
                 if ( packet.index == 0 ){
                     // write beginning of packet
-                    int dataSize = bufferSize;
+                    int dataSize = bufferSize > packet.size ? packet.size : bufferSize;
                     memcpy(&binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], packet.data, dataSize );
                     
                     int writeMode = LWS_WRITE_BINARY;
-                    writeMode |= LWS_WRITE_NO_FIN;
+                    
+                    bool bDone = false;
+                    if ( packet.index + dataSize >= packet.size ){
+                        bDone = true;
+                    } else {
+                        writeMode |= LWS_WRITE_NO_FIN;
+                    }
                     
                     protocol->idle = false;
                     int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
                     libwebsocket_callback_on_writable(context, ws);
                     packet.index += dataSize;
+                    
+                    if ( bDone ){
+                        free(packet.data);
+                        messages_binary.erase(messages_binary.begin());
+                    }
+                    
                 } else {
                     // continue to send large message in chunks
                     int dataSize = bufferSize > packet.size ? packet.size : bufferSize;
