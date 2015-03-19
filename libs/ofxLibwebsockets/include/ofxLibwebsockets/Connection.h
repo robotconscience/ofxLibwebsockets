@@ -82,8 +82,8 @@ namespace ofxLibwebsockets {
         //std::vector<unsigned char> buf;
         
         // threading stuff
-        vector<TextPacket> messages_text;
-        vector<BinaryPacket> messages_binary;
+        std::deque<TextPacket> messages_text;
+        std::deque<BinaryPacket> messages_binary;
     };
     
 
