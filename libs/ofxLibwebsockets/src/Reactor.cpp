@@ -173,7 +173,7 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_SERVER_WRITEABLE:
             case LWS_CALLBACK_CLIENT_WRITEABLE:
                 // idle is good! means you can write again
-                ofNotifyEvent(conn->protocol->onidleEvent, args);
+                conn->setIdle();
                 break;
                 
             case LWS_CALLBACK_RECEIVE:              // server receive

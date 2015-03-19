@@ -70,6 +70,8 @@ namespace ofxLibwebsockets {
         // MUST be called from main thread (e.g. client or server)
         void update();
         
+        bool isIdle();
+        
     protected:
         std::string client_ip;
         std::string client_name;
@@ -84,6 +86,11 @@ namespace ofxLibwebsockets {
         // threading stuff
         std::deque<TextPacket> messages_text;
         std::deque<BinaryPacket> messages_binary;
+        
+        void setIdle( bool isIdle=true );
+        
+    private:
+        bool idle;
     };
     
 

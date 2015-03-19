@@ -80,11 +80,6 @@ namespace ofxLibwebsockets {
     void Protocol::_onerror(Event& args){ onerror(args); }
     
     void Protocol::onerror(Event&args){}
-
-    //--------------------------------------------------------------
-    bool Protocol::isIdle(){
-        return idle;
-    }
     
     void Protocol::_onidle(Event& args){
         idle = true;
