@@ -10,7 +10,7 @@
 namespace ofxLibwebsockets {
         
     //--------------------------------------------------------------
-    Event::Event(Connection& _conn, std::string& _message, bool isBinary)
+    Event::Event(Connection& _conn, std::string _message, bool isBinary)
     : conn(_conn)
     , message(_message)
     , isBinary(isBinary)

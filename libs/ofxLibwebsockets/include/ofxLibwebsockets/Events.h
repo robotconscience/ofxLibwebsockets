@@ -16,10 +16,10 @@ namespace ofxLibwebsockets {
 
     class Event {
     public:
-        Event(Connection& _conn, std::string& _message, bool isBinary=false);
+        Event(Connection& _conn, std::string _message, bool isBinary=false);
         
         Connection& conn;
-        std::string& message; // message from ws OR error message if error
+        std::string message; // message from ws OR error message if error
         Json::Value json;
         
         // binary data

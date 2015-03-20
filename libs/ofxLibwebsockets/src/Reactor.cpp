@@ -105,7 +105,7 @@ namespace ofxLibwebsockets {
         
         // this happens with events that don't use the connection
         // so not always a problem
-        if (conn == NULL || conn->protocol == NULL){
+        if (conn == NULL || conn->protocol == NULL || conn->ws == NULL ){
             if (conn == NULL){
                 ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] connection is null ");
             } else {

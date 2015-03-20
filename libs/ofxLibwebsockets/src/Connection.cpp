@@ -31,6 +31,10 @@ namespace ofxLibwebsockets {
     Connection::~Connection(){
         free(buf);
         free(binaryBuf);
+        
+        // delete all pending frames
+        messages_binary.clear();
+        messages_text.clear();
     }
     //--------------------------------------------------------------
     void Connection::close() {
@@ -194,8 +198,10 @@ namespace ofxLibwebsockets {
     void Connection::setIdle( bool isIdle ){
         idle = isIdle;
         static string dum ="";
-        Event args(*this, dum);
-        ofNotifyEvent(protocol->onidleEvent, args);
+        if ( protocol != NULL ){
+            Event args(*this, dum);
+            ofNotifyEvent(protocol->onidleEvent, args);
+        }
     }
     
     //--------------------------------------------------------------
