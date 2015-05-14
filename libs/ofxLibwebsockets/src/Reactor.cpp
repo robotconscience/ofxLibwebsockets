@@ -294,7 +294,7 @@ namespace ofxLibwebsockets {
         if (ext == "css")
             mimetype = "text/css";
         
-        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str(), "") < 0){
+        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str(), "", 0) < 0){
             ofLog( OF_LOG_WARNING, "[ofxLibwebsockets] Failed to send HTTP file "+ file + " for "+ url);
         }
         
