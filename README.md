@@ -68,7 +68,7 @@
 			* Click the drop down next to "Preprocessor Definitions" and select <Edit>
 			* In the text box that pops up, paste
 			```
-			_WIN32_WINNT=0x500
+			_WIN32_WINNT=0x501
 			```
 	* Adding to new/existing project: 
 		1. Add the ofxLibwebsockets source files to the C++ Linker
@@ -112,7 +112,7 @@
 			* Click the drop down next to "Preprocessor Definitions" and select *Edit*
 			* In the text box that pops up, paste
 			```
-			_WIN32_WINNT=0x500
+			_WIN32_WINNT=0x501
 			```
 			
 * Linux

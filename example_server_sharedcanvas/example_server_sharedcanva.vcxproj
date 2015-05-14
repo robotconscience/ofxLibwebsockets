@@ -54,7 +54,7 @@
 			<Optimization>Disabled</Optimization>
 			<MinimalRebuild>true</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-			<PreprocessorDefinitions>_WIN32_WINNT=0x500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_WIN32_WINNT=0x501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
 			<WarningLevel>Level3</WarningLevel>
 			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -65,14 +65,14 @@
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Console</SubSystem>
 			<RandomizedBaseAddress>false</RandomizedBaseAddress>
-			<AdditionalDependencies>%(AdditionalDependencies);websockets_static.lib;ZLIB.lib</AdditionalDependencies>
+			<AdditionalDependencies>%(AdditionalDependencies);websockets.lib;zlib_internal.lib</AdditionalDependencies>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 		<ClCompile>
 			<WholeProgramOptimization>false</WholeProgramOptimization>
-			<PreprocessorDefinitions>_WIN32_WINNT=0x500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_WIN32_WINNT=0x501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
 			<WarningLevel>Level3</WarningLevel>
 			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\win32port\win32helpers</AdditionalIncludeDirectories>
@@ -85,7 +85,7 @@
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<RandomizedBaseAddress>false</RandomizedBaseAddress>
-			<AdditionalDependencies>%(AdditionalDependencies);websockets_static.lib;ZLIB.lib</AdditionalDependencies>
+			<AdditionalDependencies>%(AdditionalDependencies);websockets.lib;zlib_internal.lib</AdditionalDependencies>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\win32\Release</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>

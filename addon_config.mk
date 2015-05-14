@@ -91,8 +91,8 @@ vs:
 	# when parsing the file system looking for include paths exclude this for all or
 	# a specific platform
 	ADDON_INCLUDES_EXCLUDE
-	ADDON_LIBS = libs/libwebsockets/lib/win32/Release/websockets_static.lib
-	ADDON_LIBS += libs/libwebsockets/lib/win32/Release/ZLIB.lib
+	ADDON_LIBS = libs/libwebsockets/lib/win32/Release/websockets.lib
+	ADDON_LIBS += libs/libwebsockets/lib/win32/Release/zlib_internal.lib
 
 linuxarmv6l:
 	ADDON_LDFLAGS = -lssl
