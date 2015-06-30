@@ -10,23 +10,22 @@ var URL = window.URL ? window.URL : window.webkitURL;
 //----------------------------------------------------------------------------------------------------------------
 
 $(document).ready( function() {
+	setupSocket();
 
 	document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
 		+ BrowserDetect.version +" " + BrowserDetect.OS +" ";
         
-   stats = new Stats();
-   stats.setMode( 0 ); // 0: fps, 1: ms
-   
-   // Align top-left
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.right = '0px';
-  stats.domElement.style.top = '0px';
-   
-  document.body.appendChild( stats.domElement );
+	stats = new Stats();
+	stats.setMode( 0 ); // 0: fps, 1: ms
 
-  setupSocket();
-  
-  stats.begin();
+	// Align top-left
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.right = '0px';
+	stats.domElement.style.top = '0px';
+
+	document.body.appendChild( stats.domElement );
+
+	stats.begin();
     
 });
 
@@ -68,13 +67,8 @@ function onMessage( messageEvent ){
 
 function setupSocket(){
 	// setup!
-	if (BrowserDetect.browser == "Firefox") {
-		socket = new MozWebSocket( get_appropriate_ws_url());
-		socket.binaryType = "blob";
-	} else {
-        socket = new WebSocket( get_appropriate_ws_url());
-		socket.binaryType = "blob";
-	}
+	socket = new WebSocket( get_appropriate_ws_url());	
+	socket.binaryType = "arraybuffer";
 	
 	// open
 	try {

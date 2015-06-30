@@ -4,12 +4,13 @@ var messageDiv;
 var statusDiv;
 
 // drawing vars
-var canvas, ctx;
+var canvas;
+var ctx = null;
 var color 	 = {};
 var id 		 = -1;
 var sketches = {};
 
-$(document).ready( function() {
+$(window).load(function() {
 	setupSocket();
 	
 	document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
@@ -17,11 +18,16 @@ $(document).ready( function() {
 
 	messageDiv 	= document.getElementById("messages");
 	statusDiv	= document.getElementById("status");
+
 	canvas 		= document.getElementById("sketchCanvas");
-	canvas.onmousedown 	= onMouseDown;
-	canvas.onmouseup 	= onMouseUp;
-	canvas.onmousemove 	= onMouseMoved;
-	ctx			= canvas.getContext('2d');
+	if (canvas.getContext) {
+		canvas.onmousedown 	= onMouseDown;
+		canvas.onmouseup 	= onMouseUp;
+		canvas.onmousemove 	= onMouseMoved;
+		ctx			= canvas.getContext('2d');
+	} else {
+		alert("Sorry, your browser doesn't support canvas!");
+	}
 });
 
 // send value from text input
@@ -60,6 +66,8 @@ function onMouseDraw( x, y ){
 }
 
 function renderCanvas(){
+	if ( ctx == null ) return;
+	
 	canvas.width = canvas.width;
 	ctx.moveTo(0,0);
 	for ( var _id in sketches ){
@@ -86,7 +94,6 @@ function setupSocket(){
 	// get_appropriate_ws_url is a nifty function by the libwebsockets people
 	// it decides what the websocket url is based on the broswer url
 	// e.g. https://mygreathost:9099 = wss://mygreathost:9099
-	//socket = new WebSocket(get_appropriate_ws_url());
 	socket = new WebSocket(get_appropriate_ws_url());
 	
 	// open

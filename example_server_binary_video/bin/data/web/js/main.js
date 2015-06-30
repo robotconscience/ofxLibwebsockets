@@ -1,7 +1,7 @@
 // GLOBAL VARS
 var socket;
 var canvas;
-var ctx;
+var ctx = null;
 
 var canvasData;
 var data;
@@ -12,16 +12,21 @@ var type = 2;
 //----------------------------------------------------------------------------------------------------------------
 
 $(document).ready( function() {
-	canvas 		= document.getElementById('contourCanvas');
-	ctx			= canvas.getContext('2d');
+	setupSocket();
 
-    canvasData = ctx.getImageData(0,0,canvas.width, canvas.height);
-    data = canvasData.data;
+	canvas 		= document.getElementById('contourCanvas');
+	
+	if (canvas.getContext) {
+		ctx			= canvas.getContext('2d');
+		canvasData = ctx.getImageData(0,0,canvas.width, canvas.height);
+    	data = canvasData.data;
+	} else {
+		alert("Sorry, your browser doesn't support canvas!");
+	}
 
 	document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
 		+ BrowserDetect.version +" " + BrowserDetect.OS +" ";
 
-	setupSocket();
 });
 
 //----------------------------------------------------------------------------------------------------------------
@@ -44,6 +49,10 @@ function onClose(){
 // WS: ON MESSAGE
 //----------------------------------------------------------------------------------------------------------------
 function onMessage( messageEvent ){
+	if ( ctx == null ){
+		console.error("Context is null. Check for browser support!");
+		return;
+	}
 	// check for binary
 	if (messageEvent.data instanceof ArrayBuffer) {
 		var image = new Image();
@@ -124,13 +133,8 @@ function onMessage( messageEvent ){
 
 function setupSocket(){
 	// setup!
-	if (BrowserDetect.browser == "Firefox") {
-		socket = new MozWebSocket( get_appropriate_ws_url() );
-		socket.binaryType = "arraybuffer";
-	} else {
-		socket = new WebSocket( get_appropriate_ws_url());	
-		socket.binaryType = "arraybuffer";
-	}
+	socket = new WebSocket( get_appropriate_ws_url());	
+	socket.binaryType = "arraybuffer";
 	
 	// open
 	try {

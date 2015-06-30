@@ -71,13 +71,8 @@ function onMessage( messageEvent ){
 
 function setupSocket(){
 	// setup!
-	if (BrowserDetect.browser == "Firefox") {
-		socket = new MozWebSocket( get_appropriate_ws_url());
-		socket.binaryType = "blob";
-	} else {
-        socket = new WebSocket( get_appropriate_ws_url());
-		socket.binaryType = "blob";
-	}
+	socket = new WebSocket( get_appropriate_ws_url());	
+	socket.binaryType = "arraybuffer";
 	
 	// open
 	try {
