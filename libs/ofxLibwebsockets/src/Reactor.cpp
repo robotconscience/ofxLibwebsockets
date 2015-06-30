@@ -105,7 +105,7 @@ namespace ofxLibwebsockets {
         
         // this happens with events that don't use the connection
         // so not always a problem
-        if (conn == NULL || conn->protocol == NULL){
+        if (conn == NULL || conn->protocol == NULL || conn->ws == NULL ){
             if (conn == NULL){
                 ofLog(OF_LOG_WARNING, "[ofxLibwebsockets] connection is null ");
             } else {
@@ -173,7 +173,7 @@ namespace ofxLibwebsockets {
             case LWS_CALLBACK_SERVER_WRITEABLE:
             case LWS_CALLBACK_CLIENT_WRITEABLE:
                 // idle is good! means you can write again
-                ofNotifyEvent(conn->protocol->onidleEvent, args);
+                conn->setIdle();
                 break;
                 
             case LWS_CALLBACK_RECEIVE:              // server receive
@@ -294,7 +294,7 @@ namespace ofxLibwebsockets {
         if (ext == "css")
             mimetype = "text/css";
         
-        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str(), "") < 0){
+        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str(), "", 0) < 0){
             ofLog( OF_LOG_WARNING, "[ofxLibwebsockets] Failed to send HTTP file "+ file + " for "+ url);
         }
         
