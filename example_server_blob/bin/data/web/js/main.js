@@ -68,7 +68,7 @@ function onMessage( messageEvent ){
 function setupSocket(){
 	// setup!
 	socket = new WebSocket( get_appropriate_ws_url());	
-	socket.binaryType = "arraybuffer";
+	socket.binaryType = "blob";
 	
 	// open
 	try {
