@@ -79,16 +79,16 @@ void ofApp::draw(){
     if (currentImage.bAllocated()){
         // draw loaded image either at scale or 1/2 the size of window
         // (whichever is smaller)
-        float scale = currentImage.height > ofGetHeight()/2.0 ? (float) ofGetHeight()/2.0/currentImage.height : 1.0;
-        currentImage.draw(0,0, currentImage.width * scale, currentImage.height * scale);
+        float scale = currentImage.getHeight() > ofGetHeight()/2.0 ? (float) ofGetHeight()/2.0/currentImage.getHeight() : 1.0;
+        currentImage.draw(0,0, currentImage.getWidth() * scale, currentImage.getHeight() * scale);
     }
     
     // image loaded from incoming binary
     if ( incoming.bAllocated() ){
         // draw image from mobile device either at scale or 1/2 the size of window
         // (whichever is smaller)
-        float scale = incoming.height > ofGetHeight()/2.0 ? (float) ofGetHeight()/2.0/incoming.height : 1.0;
-        incoming.draw(0,ofGetHeight()/2.0, incoming.width * scale, incoming.height * scale);
+        float scale = incoming.getHeight() > ofGetHeight()/2.0 ? (float) ofGetHeight()/2.0/incoming.getHeight() : 1.0;
+        incoming.draw(0,ofGetHeight()/2.0, incoming.getWidth() * scale, incoming.getHeight() * scale);
     }
     
     string toDraw = "Drag an image onto the window to send!";

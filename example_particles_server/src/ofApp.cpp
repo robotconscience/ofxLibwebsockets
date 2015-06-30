@@ -32,6 +32,12 @@ void ofApp::draw(){
     ofSetColor(255);
     ofDrawBitmapString("Fps: " + ofToString( ofGetFrameRate()), 15,15);
     ofDrawBitmapString("Connect a client to see same system sync!", 15, 30);
+    
+    if ( ofGetKeyPressed('d')){
+        velPingPong.dst->draw(0,0);
+        posPingPong.dst->draw(0,velPingPong.dst->getHeight());
+        mesh.draw();
+    }
 }
 
 //--------------------------------------------------------------
@@ -199,7 +205,7 @@ void ofApp::updateGPUParticles(){
     mesh.draw();
     
     ofDisableBlendMode();
-    glEnd();
+//    glEnd();
     
     updateRender.end();
     renderFBO.end();
@@ -208,7 +214,27 @@ void ofApp::updateGPUParticles(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+    if ( key == 'r' ){
+        string shadersFolder;
+        shadersFolder="shaders";
+        
+        updatePos.unload();
+        // reload the Shaders
+        updatePos.load("",shadersFolder+"/posUpdate.frag");// shader for updating the texture that store the particles position on RG channels
+        updateVel.load("",shadersFolder+"/velUpdate.frag");// shader for updating the texture that store the particles velocity on RG channels
+        
+        // Frag, Vert and Geo shaders for the rendering process of the spark image
+        
+#ifndef TARGET_WIN32
+        updateRender.unload();
+        updateRender.setGeometryInputType(GL_POINTS);
+        updateRender.setGeometryOutputType(GL_TRIANGLE_STRIP);
+        updateRender.setGeometryOutputCount(6);
+        updateRender.load("shaders/render.vert","shaders/render.frag","shaders/render.geom");
+#else
+        updateRender.load("shaders/render.vert","shaders/render.frag");
+#endif
+    }
 }
 
 //--------------------------------------------------------------

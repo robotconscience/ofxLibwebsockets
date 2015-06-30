@@ -33,7 +33,7 @@ void ofApp::setup(){
 void ofApp::update(){
     if ( bSendImage && toLoad != "" ){
         currentImage.load( toLoad );
-        server.send( ofToString(currentImage.width) +":"+ ofToString( currentImage.height ) +":"+ ofToString( currentImage.type ) );
+        server.send( ofToString(currentImage.getWidth()) +":"+ ofToString( currentImage.getHeight() ) +":"+ ofToString( currentImage.getImageType() ) );
         server.sendBinary( currentImage );
         messages.push_back( "Sending image" );
         bSendImage = false;
@@ -66,7 +66,7 @@ void ofApp::onOpen( ofxLibwebsockets::Event& args ){
     
     // send the latest image if there is one!
     if ( currentImage.bAllocated() ){
-        args.conn.send( ofToString(currentImage.width) +":"+ ofToString( currentImage.height ) +":"+ ofToString( currentImage.type ) );
+        args.conn.send( ofToString(currentImage.getWidth()) +":"+ ofToString( currentImage.getHeight() ) +":"+ ofToString( currentImage.getImageType() ) );
         args.conn.sendBinary( currentImage );
     }
 }
