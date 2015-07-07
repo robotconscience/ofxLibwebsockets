@@ -22,9 +22,11 @@ void ofApp::setup(){
     // BIG GOTCHA: on BSD systems, e.g. Mac OS X, these time params are system-wide
     // ...so ka_time just says "check if alive when you want" instead of "check if
     // alive after X seconds"
+    // Note: some have had issues with only setting one of these; may be an 
+    // all-or-nothing type option!
     options.ka_time     = 1;
-//    options.ka_probes   = 1;
-//    options.ka_interval = 1;
+    options.ka_probes   = 1;
+    options.ka_interval = 1;
     
     // 4 - connect
     client.connect(options);
