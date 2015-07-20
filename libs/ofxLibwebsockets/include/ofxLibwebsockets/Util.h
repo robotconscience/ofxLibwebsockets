@@ -23,14 +23,14 @@ namespace ofxLibwebsockets {
     
     // CLIENT CALLBACK
 
-    static int lws_client_callback(struct libwebsocket_context* context, struct libwebsocket *ws, enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len);
+    extern int lws_client_callback(struct libwebsocket_context* context, struct libwebsocket *ws, enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len);
     
     // SERVER CALLBACK
 
-    static int lws_callback(struct libwebsocket_context* context, struct libwebsocket *ws,
+    extern int lws_callback(struct libwebsocket_context* context, struct libwebsocket *ws,
                             enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len);
 
-    static void dump_handshake_info(struct lws_tokens *lwst);
+    extern void dump_handshake_info(struct lws_tokens *lwst);
     
-    static string getCallbackReason( int reason );
+    extern string getCallbackReason( int reason );
 }
