@@ -10,6 +10,21 @@
 
 namespace ofxLibwebsockets {
 
+	ClientOptions defaultClientOptions(){
+       ClientOptions opts;
+       opts.host     = "localhost";
+       opts.port     = 80;
+       opts.bUseSSL  = false;
+       opts.channel  = "/";
+       opts.protocol = "NULL";
+       opts.version  = -1;     //use latest version
+
+       opts.ka_time      = 0;
+       opts.ka_probes    = 0;
+       opts.ka_interval  = 0;
+       return opts;
+   };
+
     Client::Client(){
         context = NULL;
         connection = NULL;

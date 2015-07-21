@@ -9,6 +9,8 @@
 
 namespace ofxLibwebsockets { 
 
+	vector<Reactor *> reactors = vector<Reactor *>();
+
     //--------------------------------------------------------------
     Reactor::Reactor()
     : context(NULL), waitMillis(50){
