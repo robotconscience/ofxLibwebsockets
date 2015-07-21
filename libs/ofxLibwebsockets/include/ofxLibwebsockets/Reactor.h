@@ -78,5 +78,5 @@ namespace ofxLibwebsockets {
         
     };
     
-    static vector<Reactor *> reactors;
+    extern vector<Reactor *> reactors;
 };

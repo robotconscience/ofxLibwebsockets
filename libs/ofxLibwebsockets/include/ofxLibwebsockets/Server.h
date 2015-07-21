@@ -40,19 +40,7 @@ namespace ofxLibwebsockets {
         int     ka_interval;    // how long to wait between probes, in seconds; ignored if ka_time == 0
     };
     
-    static ServerOptions defaultServerOptions(){
-        ServerOptions opts;
-        opts.port           = 80;
-        opts.protocol       = "NULL"; // NULL == no protocol. most websockets behave this way.
-        opts.bUseSSL        = false;
-        opts.sslCertPath    = ofToDataPath("ssl/libwebsockets-test-server.pem", true);
-        opts.sslKeyPath     = ofToDataPath("ssl/libwebsockets-test-server.key.pem", true);
-        opts.documentRoot   = ofToDataPath("web", true);
-        opts.ka_time        = 0;
-        opts.ka_probes      = 0;
-        opts.ka_interval    = 0;
-        return opts;
-    }
+    extern ServerOptions defaultServerOptions();
 
     class Server : public Reactor {
         friend class Protocol;
