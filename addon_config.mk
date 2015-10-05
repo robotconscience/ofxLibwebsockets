@@ -84,15 +84,24 @@ vs:
 	# include search paths, this will be usually parsed from the file system
 	# but if the addon or addon libraries need special search paths they can be
 	# specified here separated by spaces or one per line using +=
-	ADDON_INCLUDES += libs/libwebsockets/include/win32port
-	ADDON_INCLUDES += libs/libwebsockets/include/win32port/win32helpers
-
 
 	# when parsing the file system looking for include paths exclude this for all or
 	# a specific platform
 	ADDON_INCLUDES_EXCLUDE
-	ADDON_LIBS = libs/libwebsockets/lib/win32/Release/websockets.lib
-	ADDON_LIBS += libs/libwebsockets/lib/win32/Release/zlib_internal.lib
+	
+	# Win32/Debug
+	# ADDON_LIBS  = libs/libwebsockets/lib/vs/Win32/Debug/websockets.lib
+	# ADDON_LIBS += libs/libwebsockets/lib/vs/Win32/Debug/zlib_internal.lib
+	# Win32/Release
+	# ADDON_LIBS  = libs/libwebsockets/lib/vs/Win32/Release/websockets.lib
+	# ADDON_LIBS += libs/libwebsockets/lib/vs/Win32/Release/zlib_internal.lib
+	# x64/Debug 
+	# ADDON_LIBS  = libs/libwebsockets/lib/vs/x64/Debug/websockets_static.lib
+	# ADDON_LIBS += libs/libwebsockets/lib/vs/x64/Debug/ZLIB.lib
+	# x64/Release 
+	# ADDON_LIBS  = libs/libwebsockets/lib/vs/x64/Release/websockets_static.lib
+	# ADDON_LIBS += libs/libwebsockets/lib/vs/x64/Release/ZLIB.lib
+
 
 linuxarmv6l:
 	ADDON_LDFLAGS = -lssl

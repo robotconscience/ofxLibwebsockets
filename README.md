@@ -191,7 +191,7 @@ cp lib/Relase/libwebsockets.a /PATH/TO/OF/addons/ofxLibwebsockets/libs/libwebsoc
   * Use the default location so CMake can find it easily: `C:\OpenSSL-Win64`
 
 * Build libwebsockets
-  * libwesockets' [Build Instructions](https://github.com/warmcat/libwebsockets/blob/master/README.build.md), for reference 
+  * libwebsockets' [Build Instructions](https://github.com/warmcat/libwebsockets/blob/master/README.build.md), for reference 
   * Download [libwebsockets v1.3](https://github.com/warmcat/libwebsockets/releases/tag/v1.3-chrome37-firefox30)
   * Open the CMake GUI, `cmake-gui.exe`
   * Create a `build` folder inside the libwebsockets source folder
