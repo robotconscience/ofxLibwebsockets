@@ -98,6 +98,9 @@
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h">
 			<Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\lws_config.h">
+			<Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
+		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Client.h">
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
 		</ClInclude>
