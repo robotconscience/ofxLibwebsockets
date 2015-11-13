@@ -7,12 +7,6 @@
 		<ClCompile Include="src\main.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="src\main.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
-		<ClCompile Include="src\ofApp.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp">
 			<Filter>addons\ofxLibwebsockets\libs\jsoncpp</Filter>
 		</ClCompile>
@@ -35,7 +29,7 @@
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.cpp">
-			<Filter>other</Filter>
+			<Filter>addons\ofxTurboJpeg\src</Filter>
 		</ClCompile>
 	</ItemGroup>
 	<ItemGroup>
@@ -78,14 +72,14 @@
 		<Filter Include="addons\ofxLibwebsockets\libs\ofxLibwebsockets\src">
 			<UniqueIdentifier>{D616296F-164E-00EF-4F39-D224}</UniqueIdentifier>
 		</Filter>
-		<Filter Include="other">
-			<UniqueIdentifier>{A2230F47-9F6B-908F-FF0E-E006}</UniqueIdentifier>
+		<Filter Include="addons\ofxTurboJpeg">
+			<UniqueIdentifier>{AA36D385-996F-03B4-E46D-16F0}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxTurboJpeg\src">
+			<UniqueIdentifier>{6A930F99-3F8D-C554-4246-10B5}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
-		<ClInclude Include="src\ofApp.h">
-			<Filter>src</Filter>
-		</ClInclude>
 		<ClInclude Include="src\ofApp.h">
 			<Filter>src</Filter>
 		</ClInclude>
@@ -99,6 +93,9 @@
 			<Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h">
+			<Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\lws_config.h">
 			<Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Client.h">
@@ -123,7 +120,7 @@
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.h">
-			<Filter>other</Filter>
+			<Filter>addons\ofxTurboJpeg\src</Filter>
 		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>
