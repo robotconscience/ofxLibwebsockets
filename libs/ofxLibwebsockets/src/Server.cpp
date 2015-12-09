@@ -16,7 +16,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     Server::Server(){
         context = NULL;
-        waitMillis = 50;
+        waitMillis = 0;
         reactors.push_back(this);
         
         defaultOptions = defaultServerOptions();
