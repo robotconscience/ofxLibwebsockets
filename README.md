@@ -61,15 +61,7 @@
 	* Via OF Project Generator
 		1. Add ofxLibwebsockets to your addons
 		2. Open your new project
-		3. Set a Preprocessor definition for libwebsockets
-			* right click on your project in the solution explorer, click "Properties"
-			* go to C/C++ > Preprocessor in the list on the right
-			* Make sure you're editing "All Configurations", not just Debug or Release (drop down at the top left)
-			* Click the drop down next to "Preprocessor Definitions" and select <Edit>
-			* In the text box that pops up, paste
-			```
-			_WIN32_WINNT=0x501
-			```
+	
 	* Adding to new/existing project: 
 		1. Add the ofxLibwebsockets source files to the C++ Linker
 			* right click on project in the solution explorer, click "Properties", Go down to C++ > General
@@ -106,21 +98,13 @@
 
 		3. Now go down to Linker > Input; open the editor "Additional dependencies" the same way
 			* Add websockets_static.lib and ZLIB.lib
-			* If you need to use OpenSSL, add libeay32.lib and ssleay32.lib
-		4. Finally, go to C/C++ > Preprocessor
-			* Make sure you're editing "All Configurations", not just Debug or Release (drop down at the top left)
-			* Click the drop down next to "Preprocessor Definitions" and select *Edit*
-			* In the text box that pops up, paste
-			```
-			_WIN32_WINNT=0x501
-			```
 			
 * Linux
 	* Use openFramework's projectgenerator and voilà!
 
 ## Building libwebockets
 
-ofxLibwebsockets uses [libwebsockets 1.3](http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/tag/?id=v1.3-chrome37-firefox30)
+ofxLibwebsockets uses [libwebsockets 1.5](https://github.com/warmcat/libwebsockets/releases/tag/v1.5-chrome47-firefox41)
 
 ### OS X
 
