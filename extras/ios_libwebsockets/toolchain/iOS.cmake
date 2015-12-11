@@ -27,8 +27,8 @@ set (IOS True)
 
 # Force the compilers to gcc for iOS
 include (CMakeForceCompiler)
-CMAKE_FORCE_C_COMPILER (gcc gcc)
-CMAKE_FORCE_CXX_COMPILER (g++ g++)
+CMAKE_FORCE_C_COMPILER(/usr/bin/gcc GNU)
+CMAKE_FORCE_CXX_COMPILER(/usr/bin/g++ GNU)
 
 # Skip the platform compiler checks for cross compiling
 set (CMAKE_CXX_COMPILER_WORKS TRUE)
@@ -92,7 +92,7 @@ set( CMAKE_IOS_SDK_ROOT, "/Applications/Xcode.app/Contents/Developer/Platforms/i
 if (NOT DEFINED CMAKE_IOS_DEVELOPER_ROOT)
 	set (CMAKE_IOS_DEVELOPER_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/${IOS_PLATFORM_LOCATION}/Developer")
 else (DEFINED CMAKE_IOS_DEVELOPER_ROOT)
-	message(STATUS "FART")
+	message(STATUS "IOS DEV ROOT DEF")
 endif (NOT DEFINED CMAKE_IOS_DEVELOPER_ROOT)
 set (CMAKE_IOS_DEVELOPER_ROOT ${CMAKE_IOS_DEVELOPER_ROOT} CACHE PATH "Location of iOS Platform")
 
@@ -100,18 +100,15 @@ set (CMAKE_IOS_DEVELOPER_ROOT ${CMAKE_IOS_DEVELOPER_ROOT} CACHE PATH "Location o
 if (NOT DEFINED CMAKE_IOS_SDK_ROOT)
 	file (GLOB _CMAKE_IOS_SDKS "${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/*")
 	if (_CMAKE_IOS_SDKS) 
-		message(STATUS "FART 2")
 		list (SORT _CMAKE_IOS_SDKS)
-		message(STATUS "FART 3")
 		list (REVERSE _CMAKE_IOS_SDKS)
-		message(STATUS "FART 4")
 		list (GET _CMAKE_IOS_SDKS 0 CMAKE_IOS_SDK_ROOT)
 	else (_CMAKE_IOS_SDKS)
 		message( FATAL_ERROR "Crap")
 	endif (_CMAKE_IOS_SDKS)
 	message (STATUS "Toolchain using default iOS SDK: ${CMAKE_IOS_SDK_ROOT}")
 else (DEFINED CMAKE_IOS_SDK_ROOT)
-	message(STATUS "FART 2")
+	message(STATUS "CMAKE IOS SDK ROOTS DEFINED")
 endif (NOT DEFINED CMAKE_IOS_SDK_ROOT)
 set (CMAKE_IOS_SDK_ROOT ${CMAKE_IOS_SDK_ROOT} CACHE PATH "Location of the selected iOS SDK")
 
@@ -139,4 +136,3 @@ set (CMAKE_SYSTEM_FRAMEWORK_PATH
 set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-

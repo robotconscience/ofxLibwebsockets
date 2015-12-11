@@ -60,7 +60,7 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     // need to load this next frame!
     if ( args.isBinary ){
         buff.clear();
-        buff.set(args.data.getBinaryBuffer(), args.data.size());
+        buff.set(args.data.getData(), args.data.size());
         locked = true;
         needToLoad = true;
     } else {

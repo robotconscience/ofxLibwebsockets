@@ -23,7 +23,7 @@ void ofApp::setup(){
     server.addListener(this);
     
     // setup message queue
-    font.loadFont("myriad.ttf", 20);
+    font.load("myriad.ttf", 20);
     messages.push_back("WebSocket server setup at "+ofToString( server.getPort() ) + ( server.usingSSL() ? " with SSL" : " without SSL") );
     
     ofBackground(0);
@@ -63,7 +63,7 @@ void ofApp::onOpen( ofxLibwebsockets::Event& args ){
     messages.push_back("New connection from " + args.conn.getClientIP() );
     
     // send video data
-    args.conn.send( ofToString(video.width) +":"+ ofToString( video.height ) +":"+ ofToString( 1 ) );
+    args.conn.send( ofToString(video.getWidth()) +":"+ ofToString( video.getHeight() ) +":"+ ofToString( 1 ) );
 }
 
 //--------------------------------------------------------------

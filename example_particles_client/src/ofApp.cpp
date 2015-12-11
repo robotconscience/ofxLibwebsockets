@@ -23,9 +23,9 @@ void ofApp::update(){
 		int size = buff.size();
 
         float * incoming = new float[size ];
-        memcpy(incoming, buff.getBinaryBuffer(), buff.size());
+        memcpy(incoming, buff.getData(), buff.size());
         
-        posFBO.getTextureReference().loadData(incoming, textureRes, textureRes, GL_RGB);
+        posFBO.getTexture().loadData(incoming, textureRes, textureRes, GL_RGB);
         mutex.unlock();
         updateGPUParticles();
     }
@@ -67,7 +67,7 @@ void ofApp::onIdle( ofxLibwebsockets::Event& args ){
 void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     // need to load this next frame!    buff.clear();
     mutex.lock();
-    buff.set(args.data.getBinaryBuffer(), args.data.size());
+    buff.set(args.data.getData(), args.data.size());
     mutex.unlock();
 }
 
@@ -99,10 +99,10 @@ void ofApp::setupGPUParticles(){
     textureRes = (int)sqrt((float)numParticles);
     numParticles = textureRes * textureRes;
     posFBO.allocate(textureRes, textureRes,GL_RGB32F);
-    posFBO.getTextureReference().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+    posFBO.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
     
     // Loading and setings of the variables of the textures of the particles
-    sparkImg.loadImage("spark.png");
+    sparkImg.load("spark.png");
     imgWidth = sparkImg.getWidth();
     imgHeight = sparkImg.getHeight();
     
@@ -127,8 +127,8 @@ void ofApp::updateGPUParticles(){
     renderFBO.begin();
     ofClear(0,0,0,0);
     updateRender.begin();
-    updateRender.setUniformTexture("posTex", posFBO.getTextureReference(), 0);
-    updateRender.setUniformTexture("sparkTex", sparkImg.getTextureReference() , 1);
+    updateRender.setUniformTexture("posTex", posFBO.getTexture(), 0);
+    updateRender.setUniformTexture("sparkTex", sparkImg.getTexture() , 1);
     updateRender.setUniform1i("resolution", (float)textureRes);
     updateRender.setUniform2f("screen", (float)width, (float)height);
     updateRender.setUniform1f("size", (float)particleSize);

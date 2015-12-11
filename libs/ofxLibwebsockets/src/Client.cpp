@@ -28,7 +28,7 @@ namespace ofxLibwebsockets {
     Client::Client(){
         context = NULL;
         connection = NULL;
-        waitMillis = 50;
+        waitMillis = 0;
         //count_pollfds = 0;
         reactors.push_back(this);
         

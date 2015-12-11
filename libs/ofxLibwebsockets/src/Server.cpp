@@ -30,7 +30,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     Server::Server(){
         context = NULL;
-        waitMillis = 50;
+        waitMillis = 0;
         reactors.push_back(this);
         
         defaultOptions = defaultServerOptions();
@@ -164,7 +164,7 @@ namespace ofxLibwebsockets {
     
     //--------------------------------------------------------------
     void Server::sendBinary( ofBuffer buffer ){
-        sendBinary(buffer.getBinaryBuffer(), buffer.size());
+        sendBinary(buffer.getData(), buffer.size());
     }
     
     //--------------------------------------------------------------

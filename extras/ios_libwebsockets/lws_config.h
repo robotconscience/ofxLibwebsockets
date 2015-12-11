@@ -1,7 +1,9 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-#ifndef WIN32
-#define _DEBUG
+#ifndef NDEBUG
+	#ifndef _DEBUG
+		#define _DEBUG
+	#endif
 #endif
 
 /* Define to 1 to use CyaSSL as a replacement for OpenSSL. 
@@ -9,7 +11,7 @@
 /* #undef USE_CYASSL */
 
 /* The Libwebsocket version */
-#define LWS_LIBRARY_VERSION "1.3"
+#define LWS_LIBRARY_VERSION "1.4"
 
 /* The current git commit hash that we're building from */
 /* #undef LWS_BUILD_HASH */
@@ -146,29 +148,23 @@
    */
 #undef LT_OBJDIR // We're not using libtool
 
-/* Define to 1 if you have the ANSI C header files. */
-/* #undef STDC_HEADERS */
-
 /* Version number of package */
 #define VERSION
 
 /* Define to rpl_malloc if the replacement function should be used. */
-//#define malloc
+// #define malloc
 
 /* Define to `int' if <sys/types.h> does not define. */
-//#define pid_t
+// #define pid_t
 
 /* Define to rpl_realloc if the replacement function should be used. */
-//#define realloc
+// #define realloc
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
-//#ifndef _SIZE_T
-//#define _SIZE_T
-//typedef __darwin_size_t size_t
-//#endif
+// #define size_t
 
 /* Define to 1 if we have getifaddrs */
-/* #undef HAVE_GETIFADDRS */
+#define HAVE_GETIFADDRS
 
 /* Define as `fork' if `vfork' does not work. */
 /* #undef vfork */

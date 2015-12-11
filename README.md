@@ -123,6 +123,7 @@
 ofxLibwebsockets uses [libwebsockets 1.3](http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/tag/?id=v1.3-chrome37-firefox30)
 
 ### OS X
+
 * Clone libwebsockets
 ``` 
 cd /path/to/libwebsockets
@@ -132,7 +133,9 @@ cmake "-DCMAKE_OSX_ARCHITECTURES=x86_64;i386" ..
 make
 cmake -DCMAKE_INSTALL_PREFIX:PATH=./install . && make install
 ``` 
+
 ### Raspberry Pi
+
 * Clone libwebsockets
 ``` 
 cd /path/to/libwebsockets
@@ -141,7 +144,9 @@ cd build
 cmake .. -DLWS_IPV6=OFF
 make
 ``` 
+
 ### Linux
+
 * Clone libwebsockets
 ``` 
 cd /path/to/libwebsockets
@@ -151,7 +156,9 @@ cmake ..
 make
 cp lib/libwebsockets.a /path/to/ofxLibwebsocket/libs/libwebsockets/lib/linux64/
 ```  
+
 ### iOS
+
 * Clone libwebsockets
 * Clone this repo; it contains compiling resources in ofxLibwebsockets/extras/ios_libwebsockets
 	* The toolchain in this folder will allow you to create an iOS XCode project
@@ -174,3 +181,25 @@ cmake -DCMAKE_TOOLCHAIN_FILE=/path/to/ofxLibwebsockets/extras/ios_libwebsockets/
 cd /path/to/your/build/folder
 cp lib/Relase/libwebsockets.a /PATH/TO/OF/addons/ofxLibwebsockets/libs/libwebsockets/lib/iosarmv7/libwebsockets.a
 ```
+
+### Windows (Visual Studio, x64)
+
+* Install OpenSSL
+  *  Binaries are available from [Shining Light Productions] (https://slproweb.com/products/Win32OpenSSL.html)
+  * If that site is no longer around, try the [OpenSSL Community page](https://www.openssl.org/community/binaries.html)
+  * Install [Win64 OpenSSL v1.0.2d](https://slproweb.com/download/Win64OpenSSL-1_0_2d.exe) (Full version, not Light)
+  * Use the default location so CMake can find it easily: `C:\OpenSSL-Win64`
+
+* Build libwebsockets
+  * libwebsockets' [Build Instructions](https://github.com/warmcat/libwebsockets/blob/master/README.build.md), for reference 
+  * Download [libwebsockets v1.3](https://github.com/warmcat/libwebsockets/releases/tag/v1.3-chrome37-firefox30)
+  * Open the CMake GUI, `cmake-gui.exe`
+  * Create a `build` folder inside the libwebsockets source folder
+  * Set paths in CMake GUI to your source & build folders
+  * Click Configure
+  * Select `Visual Studio 14 2015 Win64` from dropdown, and leave default setting of `Use default native compilers`
+  * Click Finish
+  * Click Generate
+  * Open `build\libwebsockets.sln` from your source folder
+  * Compile the `ALL_BUILD` project in Debug and Release modes
+  * Copy `websockets_static.lib` and `ZLIB.lib` from `build\lib\[Debug|Release\]` into the proper locations in ofxLibwebsockets. You don't need `websockets.lib` or `websockets.exp`
