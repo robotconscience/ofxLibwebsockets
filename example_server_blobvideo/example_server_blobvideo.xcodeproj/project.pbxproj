@@ -73,6 +73,28 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>CCD326ED8E01272042317DD2</key>
+			<dict>
+				<key>fileRef</key>
+				<string>8A781C912CD5B01022F6BB2C</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>8A781C912CD5B01022F6BB2C</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>Util.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Util.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>F3AD9E2A2E56B6AF32A0BDAF</key>
 			<dict>
 				<key>fileRef</key>
@@ -193,6 +215,7 @@
 					<string>57EEFEC8B85F7C3B15DD45A4</string>
 					<string>2232A9453E355593EF36ADA7</string>
 					<string>5D95092D59E7A34C9DB7823E</string>
+					<string>8A781C912CD5B01022F6BB2C</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -892,6 +915,7 @@
 					<string>86135253DC7909CA8590E157</string>
 					<string>6D73A566CFEC0B462FE6E43C</string>
 					<string>F3AD9E2A2E56B6AF32A0BDAF</string>
+					<string>CCD326ED8E01272042317DD2</string>
 					<string>34A1CD0B670B0A4266464779</string>
 				</array>
 				<key>isa</key>

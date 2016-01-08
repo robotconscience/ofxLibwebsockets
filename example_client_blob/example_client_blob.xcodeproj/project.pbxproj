@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		01BE940E1BF63C74007B0568 /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BE940D1BF63C74007B0568 /* libturbojpeg.dylib */; };
 		01BE940F1BF63C77007B0568 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 01BE940D1BF63C74007B0568 /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		01D70C8E1C406B5800A8FB45 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D70C8D1C406B5800A8FB45 /* Util.cpp */; };
 		34A1CD0B670B0A4266464779 /* ofxTurboJpeg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7594CA5E21F32F237CA87E /* ofxTurboJpeg.cpp */; };
 		6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232A9453E355593EF36ADA7 /* Reactor.cpp */; };
 		86135253DC7909CA8590E157 /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EEFEC8B85F7C3B15DD45A4 /* Protocol.cpp */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		01BE940D1BF63C74007B0568 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libturbojpeg.dylib; path = "../../ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib"; sourceTree = "<group>"; };
+		01D70C8D1C406B5800A8FB45 /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Util.cpp; path = ../libs/ofxLibwebsockets/src/Util.cpp; sourceTree = "<group>"; };
 		123354539C152F1EE3FFC190 /* json-forwards.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = "json-forwards.h"; path = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json/json-forwards.h"; sourceTree = SOURCE_ROOT; };
 		1816162DC196322C5D709C96 /* Server.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Server.h; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Server.h; sourceTree = SOURCE_ROOT; };
 		2232A9453E355593EF36ADA7 /* Reactor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Reactor.cpp; path = ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Reactor.cpp; sourceTree = SOURCE_ROOT; };
@@ -133,6 +135,7 @@
 				57EEFEC8B85F7C3B15DD45A4 /* Protocol.cpp */,
 				2232A9453E355593EF36ADA7 /* Reactor.cpp */,
 				5D95092D59E7A34C9DB7823E /* Server.cpp */,
+				01D70C8D1C406B5800A8FB45 /* Util.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				C6C3882A0B0872D1485F3874 /* Client.cpp in Sources */,
 				A78C77753D562AE8F0E928ED /* Connection.cpp in Sources */,
 				F1AC6AEFB9B93C6AC45C9CA8 /* Events.cpp in Sources */,
+				01D70C8E1C406B5800A8FB45 /* Util.cpp in Sources */,
 				86135253DC7909CA8590E157 /* Protocol.cpp in Sources */,
 				6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */,
 				F3AD9E2A2E56B6AF32A0BDAF /* Server.cpp in Sources */,
