@@ -59,7 +59,12 @@ namespace ofxLibwebsockets {
     void Reactor::exit(){
         if (context != NULL)
         {
-            waitForThread(true);
+            if (isThreadRunning()){
+                // this is the strategy from ofxKinect
+                stopThread();
+                ofSleepMillis(10);
+                waitForThread(false);
+            }
 			// on windows the app does crash if the context is destroyed
 			// while the thread or the library still might hold pointers
 			// better to live with non deleted memory, or?

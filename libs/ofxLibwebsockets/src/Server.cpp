@@ -141,7 +141,12 @@ namespace ofxLibwebsockets {
     
     //--------------------------------------------------------------
 	void Server::close() {
-		waitForThread(true);
+        if (isThreadRunning()){
+            // this is the strategy from ofxKinect
+            stopThread();
+            ofSleepMillis(10);
+            waitForThread(false);
+        }
 		libwebsocket_context_destroy(context);
 	}
 
