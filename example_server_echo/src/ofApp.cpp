@@ -79,8 +79,8 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
     
     // trace out string messages or JSON messages!
-    if ( !args.json.isNull() ){
-        messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
+    if ( !args.json.is_null() ){
+        messages.push_back("New JSON message: " + args.json.dump() + " from " + args.conn.getClientName() );
     } else {
         messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
     }
