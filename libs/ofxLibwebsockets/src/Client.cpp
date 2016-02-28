@@ -209,14 +209,6 @@ namespace ofxLibwebsockets {
             connection->send( message );
         }
     }
-
-    //--------------------------------------------------------------
-    template <class T>
-    void Client::sendBinary( T& image ){
-        if ( connection != NULL ){
-            connection->sendBinary(image);
-        }
-    }
     
     //--------------------------------------------------------------
     void Client::sendBinary( ofBuffer buffer ){

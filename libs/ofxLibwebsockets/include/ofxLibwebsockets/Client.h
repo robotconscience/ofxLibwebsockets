@@ -55,7 +55,12 @@ namespace ofxLibwebsockets {
         
         // send anything that has pixels
         template <class T>
-        void sendBinary( T& image );
+        void sendBinary( T& image ){
+            if ( connection != NULL ){
+                int size = image.getWidth() * image.getHeight() * image.getPixels().getNumChannels();
+                connection->sendBinary( (char *) image.getPixels().getData(), size );
+            }
+        }
         
         // send any binary data
         void sendBinary( ofBuffer buffer );
