@@ -19,6 +19,8 @@ namespace ofxLibwebsockets {
         string  channel;
         string  protocol;
         int     version;
+        bool    reconnect;
+        int     reconnectInterval;
         
         // advanced: timeout options
         // names are from libwebsockets (ka == keep alive)
@@ -36,7 +38,7 @@ namespace ofxLibwebsockets {
         
         Client();
         ~Client();
-        
+
         // Note: the boolean returned here == libwebsockets setup success
         // You will receive an "onOpen" event on successful connect
         // and "onClose" on unsuccessful
@@ -81,7 +83,11 @@ namespace ofxLibwebsockets {
         Connection * getConnection(){
             return connection;
         }
-        
+
+        // Note: you do not need to call this function! It is called
+        // automatically and only used for reconnecting
+        void update(ofEventArgs& args);
+
     protected:
         ClientOptions defaultOptions;
         void onClose( Event& args );
@@ -95,6 +101,8 @@ namespace ofxLibwebsockets {
         
         //wrap protocol
         Protocol clientProtocol;
-        
+
+        bool bShouldReconnect;
+        uint64_t lastReconnectTime;
     };
 };
