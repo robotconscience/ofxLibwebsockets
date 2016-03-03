@@ -234,9 +234,12 @@ namespace ofxLibwebsockets {
                     //unlock();
                 }
             }
-            lock();
-            libwebsocket_service(context, waitMillis);
-            unlock();
+            
+            if (lock())
+            {
+                libwebsocket_service(context, waitMillis);
+                unlock();
+            }
         }
     }
 }
