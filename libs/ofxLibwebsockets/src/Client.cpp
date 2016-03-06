@@ -10,7 +10,7 @@
 
 namespace ofxLibwebsockets {
 
-	ClientOptions defaultClientOptions(){
+   ClientOptions defaultClientOptions(){
        ClientOptions opts;
        opts.host      = "localhost";
        opts.port      = 80;
@@ -18,7 +18,12 @@ namespace ofxLibwebsockets {
        opts.channel   = "/";
        opts.protocol  = "NULL";
        opts.version   = -1;     //use latest version
-       opts.reconnect = true;
+
+       // Note, turning this on has been seen to cause an EXC_BAD_ACCESS error
+       // when calling libwebsocket_service() in threadedFunction(). If you're
+       // having issues, try raising the reconnect interval, or not using this
+       // reconnect option. Use at your own risk!
+       opts.reconnect = false;
        opts.reconnectInterval = 1000;
 
        opts.ka_time      = 0;
