@@ -108,6 +108,11 @@ ofxLibwebsockets uses [libwebsockets 1.5](https://github.com/warmcat/libwebsocke
 
 ### OS X
 
+* If you're using El Capitan, make sure you have OpenSSL x86_64 & i386 installed and linked properly. If not, install using [homebrew](http://brew.sh):
+```
+brew install openssl --universal
+brew link openssl --force
+```
 * Clone libwebsockets
 ``` 
 cd /path/to/libwebsockets
