@@ -12,12 +12,14 @@ namespace ofxLibwebsockets {
 
 	ClientOptions defaultClientOptions(){
        ClientOptions opts;
-       opts.host     = "localhost";
-       opts.port     = 80;
-       opts.bUseSSL  = false;
-       opts.channel  = "/";
-       opts.protocol = "NULL";
-       opts.version  = -1;     //use latest version
+       opts.host      = "localhost";
+       opts.port      = 80;
+       opts.bUseSSL   = false;
+       opts.channel   = "/";
+       opts.protocol  = "NULL";
+       opts.version   = -1;     //use latest version
+       opts.reconnect = true;
+       opts.reconnectInterval = 1000;
 
        opts.ka_time      = 0;
        opts.ka_probes    = 0;
@@ -33,7 +35,8 @@ namespace ofxLibwebsockets {
         reactors.push_back(this);
         
         defaultOptions = defaultClientOptions();
-        
+
+        ofAddListener( ofEvents().update, this, &Client::update);
         ofAddListener( clientProtocol.oncloseEvent, this, &Client::onClose);
     }
 
@@ -41,6 +44,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     Client::~Client(){
         exit();
+        ofRemoveListener( ofEvents().update, this, &Client::update);
     }
     
     //--------------------------------------------------------------
@@ -67,7 +71,9 @@ namespace ofxLibwebsockets {
         address = options.host;
         port    = options.port;  
         channel = options.channel;
-        
+        defaultOptions = options;
+        bShouldReconnect = defaultOptions.reconnect;
+
 		/*
 			enum lws_log_levels {
 			LLL_ERR = 1 << 0,
@@ -172,6 +178,9 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     void Client::close(){
+        // Self-initiated call to close() means we shouldn't try to reconnect
+        bShouldReconnect = false;
+
         if (isThreadRunning()){
             waitForThread(true);
         } else {
@@ -200,7 +209,9 @@ namespace ofxLibwebsockets {
 		if ( context != NULL ){
 			closeAndFree = true;
 			lwsconnection = NULL;
-		}     
+		}
+
+		lastReconnectTime = ofGetElapsedTimeMillis();
     }
 
     //--------------------------------------------------------------
@@ -230,7 +241,18 @@ namespace ofxLibwebsockets {
             connection->sendBinary(data,size);
         }
     }
-    
+
+    //--------------------------------------------------------------
+    void Client::update(ofEventArgs& args) {
+        if (!isConnected() && bShouldReconnect) {
+            uint64_t now = ofGetElapsedTimeMillis();
+            if (now - lastReconnectTime > defaultOptions.reconnectInterval) {
+                lastReconnectTime = now;
+                connect( defaultOptions );
+            }
+        }
+    }
+
     //--------------------------------------------------------------
     void Client::threadedFunction(){
         while ( isThreadRunning() ){
@@ -244,9 +266,12 @@ namespace ofxLibwebsockets {
             if (context != NULL && lwsconnection != NULL){
                 //libwebsocket_callback_on_writable(context,lwsconnection);
                 connection->update();
-                lock();
-                int n = libwebsocket_service(context, waitMillis);
-                unlock();
+                
+                if (lock())
+                {
+                    int n = libwebsocket_service(context, waitMillis);
+                    unlock();
+                }
             } else {
 				stopThread();
 				if ( context != NULL ){
