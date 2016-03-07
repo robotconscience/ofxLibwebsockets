@@ -58,12 +58,12 @@ namespace ofxLibwebsockets {
     
     //--------------------------------------------------------------
     void Connection::setupAddress(){
-        int fd = libwebsocket_get_socket_fd( ws );
+        int fd = lws_get_socket_fd( ws );
         
         client_ip.resize(128);
         client_name.resize(128);
         
-        libwebsockets_get_peer_addresses(context, ws, fd, &client_name[0], client_name.size(),
+        lws_get_peer_addresses(ws, fd, &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
     }
     
@@ -138,13 +138,13 @@ namespace ofxLibwebsockets {
             memcpy(&buf[LWS_SEND_BUFFER_PRE_PADDING], packet.message.c_str() + packet.index, dataSize );
             idle = false;
             
-            int n = libwebsocket_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
+            int n = lws_write(ws, &buf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (lws_write_protocol) writeMode );
             
             if ( n < -1 ){
                 ofLogError()<<"[ofxLibwebsockets] ERROR writing to socket";
             }
             
-            libwebsocket_callback_on_writable(context, ws);
+            lws_callback_on_writable(ws);
             packet.index += dataSize;
             
             // packet sent completed, erase front of dequeue
@@ -153,7 +153,7 @@ namespace ofxLibwebsockets {
             }
             
         } else if ( messages_text.size() > 0 && messages_text[0].index ){
-            libwebsocket_callback_on_writable(context, ws);
+            lws_callback_on_writable(ws);
         }
         
         // process binary messages
@@ -177,8 +177,8 @@ namespace ofxLibwebsockets {
                 // this sets the protocol to wait until "idle"
                 idle = false; // todo: this should be automatic on write!
                 
-                int n = libwebsocket_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (libwebsocket_write_protocol) writeMode );
-                libwebsocket_callback_on_writable(context, ws);
+                int n = lws_write(ws, &binaryBuf[LWS_SEND_BUFFER_PRE_PADDING], dataSize, (lws_write_protocol) writeMode );
+                lws_callback_on_writable(ws);
                 packet.index += dataSize;
                 
                 if ( n < -1 ){
@@ -191,7 +191,7 @@ namespace ofxLibwebsockets {
                 }
             }
         } else if ( messages_binary.size() > 0 && messages_binary[0].index ){
-            libwebsocket_callback_on_writable(context, ws);
+            lws_callback_on_writable(ws);
         }
     }
     //--------------------------------------------------------------

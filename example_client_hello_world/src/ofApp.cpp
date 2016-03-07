@@ -29,7 +29,7 @@ void ofApp::setup(){
     // 4 - connect
 //    client.connect(options);
     
-    ofSetLogLevel(OF_LOG_ERROR);
+//    ofSetLogLevel(OF_LOG_ERROR);
     
     client.addListener(this);
     ofSetFrameRate(60);

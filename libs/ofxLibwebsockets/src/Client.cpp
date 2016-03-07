@@ -18,7 +18,7 @@ namespace ofxLibwebsockets {
        opts.channel   = "/";
        opts.protocol  = "NULL";
        opts.version   = -1;     //use latest version
-       opts.reconnect = true;
+       opts.reconnect = false;
        opts.reconnectInterval = 1000;
 
        opts.ka_time      = 0;
@@ -92,29 +92,47 @@ namespace ofxLibwebsockets {
 		lws_set_log_level(LLL_ERR, NULL);
 
         // set up default protocols
-        struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
+        struct lws_protocols null_protocol = { NULL, NULL, 0 };
         
         // setup the default protocol (the one that works when you do addListener())
         registerProtocol( options.protocol, clientProtocol );  
         
-        lws_protocols.clear();
-        for (int i=0; i<protocols.size(); ++i)
-        {
-            struct libwebsocket_protocols lws_protocol = {
-                ( protocols[i].first == "NULL" ? NULL : protocols[i].first.c_str() ),
+        internal_protocols.clear();
+        
+        for ( auto & it : protocols ){
+            auto * p = it.second;
+            auto s = it.first;
+            
+            struct lws_protocols lws_protocol = {
+                ( s == "NULL" ? NULL : s.c_str() ),
                 lws_client_callback,
-                protocols[i].second->rx_buffer_size,
-                protocols[i].second->rx_buffer_size
+                p->rx_buffer_size,
+                p->rx_buffer_size
             };
-            lws_protocols.push_back(lws_protocol);
+            internal_protocols.push_back(lws_protocol);
         }
-        lws_protocols.push_back(null_protocol);
-
+        internal_protocols.push_back(null_protocol);
+        
+        //todo: make this dynamic
+        static const struct lws_extension exts[] = {
+            {
+                "permessage-deflate",
+                lws_extension_callback_pm_deflate,
+                "permessage-deflate; client_max_window_bits"
+            },
+            {
+                "deflate-frame",
+                lws_extension_callback_pm_deflate,
+                "deflate_frame"
+            },
+            { NULL, NULL, NULL /* terminator */ }
+        };
+        
         struct lws_context_creation_info info;
         memset(&info, 0, sizeof info);
         info.port = CONTEXT_PORT_NO_LISTEN;
-        info.protocols = &lws_protocols[0];
-        info.extensions = libwebsocket_get_internal_extensions();
+        info.protocols = &internal_protocols[0];
+        info.extensions = exts;
         info.gid = -1;
         info.uid = -1;
         
@@ -125,11 +143,11 @@ namespace ofxLibwebsockets {
             info.ka_interval = options.ka_interval;
         }
 
-        context = libwebsocket_create_context(&info);
+        context = lws_create_context(&info);
 
         
-        //context = libwebsocket_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
-        //                                      &lws_protocols[0], libwebsocket_internal_extensions,
+        //context = lws_create_context(CONTEXT_PORT_NO_LISTEN, NULL,
+        //                                      &internal_protocols[0], lws_internal_extensions,
         //                                      NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
         if (context == NULL){
             ofLogError() << "[ofxLibwebsockets] libwebsocket init failed";
@@ -141,11 +159,12 @@ namespace ofxLibwebsockets {
             
             // register with or without a protocol
             if ( options.protocol == "NULL"){
-                lwsconnection = libwebsocket_client_connect( context, 
+                // todo: use new lws_client_connect_via_info
+                lwsconnection = lws_client_connect( context,
                                                             options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ),
                                                             options.channel.c_str(), host.c_str(), host.c_str(), NULL, options.version);
             } else {
-                lwsconnection = libwebsocket_client_connect( context, 
+                lwsconnection = lws_client_connect( context,
                                                             options.host.c_str(), options.port, (options.bUseSSL ? 2 : 0 ), 
                                                             options.channel.c_str(), host.c_str(), host.c_str(), options.protocol.c_str(), options.version);
             }
@@ -187,9 +206,9 @@ namespace ofxLibwebsockets {
 			return;
 		}
         if ( context != NULL ){
-            //libwebsocket_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
+            //lws_close_and_free_session( context, lwsconnection, LWS_CLOSE_STATUS_NORMAL);
             closeAndFree = true;
-            libwebsocket_context_destroy( context );
+            lws_context_destroy( context );
             context = NULL;        
             lwsconnection = NULL;
         }
@@ -256,27 +275,30 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     void Client::threadedFunction(){
         while ( isThreadRunning() ){
-            for (int i=0; i<protocols.size(); ++i){
-                if (protocols[i].second != NULL){
+            for ( auto & it : protocols ){
+                auto * p = it.second;
+                auto s = it.first;
+                
+                if (p != NULL){
                     //lock();
-                    protocols[i].second->execute();
+                    p->execute();
                     //unlock();
                 }
             }
             if (context != NULL && lwsconnection != NULL){
-                //libwebsocket_callback_on_writable(context,lwsconnection);
+                //lws_callback_on_writable(context,lwsconnection);
                 connection->update();
                 
                 if (lock())
                 {
-                    int n = libwebsocket_service(context, waitMillis);
+                    int n = lws_service(context, waitMillis);
                     unlock();
                 }
             } else {
 				stopThread();
 				if ( context != NULL ){
 					closeAndFree = true;
-					libwebsocket_context_destroy( context );
+					lws_context_destroy( context );
 					context = NULL;        
 					lwsconnection = NULL;
 				}

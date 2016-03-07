@@ -2,10 +2,16 @@
 
 namespace ofxLibwebsockets {
 
-	int lws_client_callback(struct libwebsocket_context* context, struct libwebsocket *ws, enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len){
-		const struct libwebsocket_protocols* lws_protocol = (ws == NULL ? NULL : libwebsockets_get_protocol(ws));
-		int idx = lws_protocol? lws_protocol->protocol_index : 0;
-
+	int lws_client_callback(struct lws *ws, enum lws_callback_reasons reason, void *user, void *data, size_t len){
+		const struct lws_protocols* lws_protocol = (ws == NULL ? NULL : lws_get_protocol(ws));
+		
+        string name = "NULL";
+        if ( lws_protocol && lws_protocol->name != NULL){
+            name = lws_protocol->name;
+        }
+        
+        lws_context * context = lws_get_context(ws);
+        
 		Connection* conn;
 
 		Reactor* reactor = NULL;
@@ -14,7 +20,7 @@ namespace ofxLibwebsockets {
 		for (int i=0; i<(int)reactors.size(); i++){
 			if (reactors[i]->getContext() == context){
 				reactor =  reactors[i];
-				protocol = reactor->protocol(idx);
+				protocol = reactor->protocol(name);
 				conn = ((Client*) reactor)->getConnection();
 				if (conn){
 					conn->context = context;
@@ -27,15 +33,25 @@ namespace ofxLibwebsockets {
 		ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] " + getCallbackReason(reason) );
 
 		if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
-			libwebsocket_callback_on_writable(context, ws);
+			lws_callback_on_writable(ws);
 		} else if (reason == LWS_CALLBACK_CLOSED){
 		}
 
 		switch (reason)
 		{
 			// cases we may use in the future
+                
+            case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
+                if ((strcmp((const char*)data, "deflate-stream") == 0)) {
+                    return 1;
+                }
+                if ((strcmp((const char*)data, "x-webkit-deflate-frame") == 0))
+                    return 1;
+                if ((strcmp((const char*)data, "deflate-frame") == 0))
+                    return 1;
+                break;
+                
 			case LWS_CALLBACK_CONFIRM_EXTENSION_OKAY:
-			case LWS_CALLBACK_CLIENT_CONFIRM_EXTENSION_SUPPORTED:
 			case LWS_CALLBACK_PROTOCOL_INIT: // this may be useful, says we're OK to allocate protocol data
 			case LWS_CALLBACK_WSI_CREATE:
 
@@ -98,12 +114,16 @@ namespace ofxLibwebsockets {
 		return 1; // FAIL (e.g. unhandled case/break in switch)
 	}
 
-	int lws_callback(struct libwebsocket_context* context, struct libwebsocket *ws,
-								enum libwebsocket_callback_reasons reason, void *user, void *data, size_t len)
+	int lws_callback(struct lws *ws,
+								enum lws_callback_reasons reason, void *user, void *data, size_t len)
 	{
-		const struct libwebsocket_protocols* lws_protocol = (ws == NULL ? NULL : libwebsockets_get_protocol(ws));
-		int idx = lws_protocol? lws_protocol->protocol_index : 0;
-
+		const struct lws_protocols* lws_protocol = (ws == NULL ? NULL : lws_get_protocol(ws));
+		
+        string name = "NULL";
+        if ( lws_protocol && lws_protocol->name != NULL){
+            name = lws_protocol->name;
+        }
+        
 		// valid connection w/o a protocol
 		if ( ws != NULL && lws_protocol == NULL ){
 			// OK for now, returning 0 above
@@ -114,12 +134,13 @@ namespace ofxLibwebsockets {
 		Connection* conn;
 		Connection** conn_ptr = (Connection**)user;
 		Server* reactor = NULL;
-		Protocol* protocol = NULL;
+        Protocol* protocol = NULL;
+        lws_context * context = lws_get_context(ws);
 
 		for (int i=0; i<(int)reactors.size(); i++){
 			if (reactors[i]->getContext() == context){
 				reactor = (Server*) reactors[i];
-				protocol = reactor->protocol( (idx > 0 ? idx : 0) );
+				protocol = reactor->protocol( (name != "" ? name : "NULL") );
 				break;
 			} else {
 			}
@@ -129,7 +150,7 @@ namespace ofxLibwebsockets {
 
 		if (reason == LWS_CALLBACK_ESTABLISHED){
 			// server completed handshake, need to ask for next "writable" callback
-			libwebsocket_callback_on_writable(context, ws);
+			lws_callback_on_writable(ws);
 
 			// now is when you can set the "user" data,
 			// which we use to instantiate / refer to the ofxLibwebsockets::Connection

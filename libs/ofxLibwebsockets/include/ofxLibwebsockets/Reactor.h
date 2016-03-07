@@ -32,20 +32,20 @@ namespace ofxLibwebsockets {
         bool bParseJSON;
         
         // getters
-        struct libwebsocket_context *   getContext();
+        struct lws_context *   getContext();
         vector<Connection *>            getConnections();
         Connection *                    getConnection( int index );
         
-        Protocol* const protocol(const unsigned int idx);
-        std::vector<std::pair<std::string, Protocol*> > protocols;
+        Protocol* const protocol(string name);
+        std::map<std::string, Protocol* > protocols;
         
         //private:
-        unsigned int _allow(struct libwebsocket *ws, Protocol* const protocol, const long fd);
+        unsigned int _allow(struct lws *ws, Protocol* const protocol, const long fd);
         
-        unsigned int _notify(Connection* conn, enum libwebsocket_callback_reasons const reason,
+        unsigned int _notify(Connection* conn, enum lws_callback_reasons const reason,
                              const char* const _message, const unsigned int len);
         
-        unsigned int _http(struct libwebsocket *ws, const char* const url);
+        unsigned int _http(struct lws *ws, const char* const url);
         
     protected:
         std::string     document_root;
@@ -66,9 +66,9 @@ namespace ofxLibwebsockets {
         string channel;
         int port;
         
-        struct libwebsocket_context *context;
+        struct lws_context *context;
         
-        std::vector<struct libwebsocket_protocols> lws_protocols;
+        std::vector<struct lws_protocols> internal_protocols;
         
         // maybe this should be a map?
         vector<Connection *> connections;

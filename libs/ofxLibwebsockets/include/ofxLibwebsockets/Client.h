@@ -96,7 +96,7 @@ namespace ofxLibwebsockets {
 
         Connection * connection;
         
-        struct libwebsocket *  lwsconnection;
+        struct lws *  lwsconnection;
         void threadedFunction();
         
         //wrap protocol

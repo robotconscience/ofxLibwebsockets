@@ -33,12 +33,20 @@ namespace ofxLibwebsockets {
         protocol.idx = protocols.size();
         protocol.rx_buffer_size = OFX_LWS_MAX_BUFFER;
         protocol.reactor = this;
-        protocols.push_back(make_pair(name, &protocol));
+        
+        if (protocols.count(name) != 0 ){
+            ofLogError("[ofxLibwebsockets] Overwriting existing protocol!");
+        }
+        protocols[name] = &protocol;
     }
 
     //--------------------------------------------------------------
-    Protocol* const Reactor::protocol(const unsigned int idx){
-        return (idx < protocols.size())? protocols[idx].second : NULL;
+    Protocol* const Reactor::protocol(string name){
+        if ( protocols.count(name) == 0){
+            ofLogError("[ofxLibwebsockets] Error: no protocol with this name!");
+            return nullptr;
+        }
+        return protocols[name];
     }
 
     //--------------------------------------------------------------
@@ -75,7 +83,7 @@ namespace ofxLibwebsockets {
 
 
     //--------------------------------------------------------------
-    struct libwebsocket_context * Reactor::getContext(){
+    struct lws_context * Reactor::getContext(){
         return context;
     }
     
@@ -94,11 +102,11 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     unsigned int
-    Reactor::_allow(struct libwebsocket *ws, Protocol* const protocol, const long fd){
+    Reactor::_allow(struct lws *ws, Protocol* const protocol, const long fd){
         std::string client_ip(128, 0);
         std::string client_name(128, 0);
         
-        libwebsockets_get_peer_addresses(context, ws, libwebsocket_get_socket_fd(ws),
+        lws_get_peer_addresses(ws, lws_get_socket_fd(ws),
                                          &client_name[0], client_name.size(),
                                          &client_ip[0], client_ip.size());
         return protocol->_allowClient(client_name, client_ip);
@@ -106,7 +114,7 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     unsigned int Reactor::_notify(Connection* conn,
-                                enum libwebsocket_callback_reasons const reason,
+                                enum lws_callback_reasons const reason,
                                 const char* const _message,
                                 const unsigned int len){
         
@@ -191,9 +199,9 @@ namespace ofxLibwebsockets {
                     bool bFinishedReceiving = false;
                     
                     // decide if this is part of a larger message or not
-                    size_t bytesLeft = libwebsockets_remaining_packet_payload( conn->ws );
+                    size_t bytesLeft = lws_remaining_packet_payload( conn->ws );
                     
-                    if ( !bReceivingLargeMessage && (bytesLeft > 0 || !libwebsocket_is_final_fragment( conn->ws )) ){
+                    if ( !bReceivingLargeMessage && (bytesLeft > 0 || !lws_is_final_fragment( conn->ws )) ){
                         bReceivingLargeMessage = true;
                     }
                     
@@ -214,7 +222,7 @@ namespace ofxLibwebsockets {
                                 largeBinaryMessage.append(_message, len);
                             }
                             
-                            if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
+                            if ( bytesLeft == 0 && lws_is_final_fragment( conn->ws )){
                                 // copy into event
                                 args.data.set(largeBinaryMessage.getData(), largeBinaryMessage.size());
                                 
@@ -238,7 +246,7 @@ namespace ofxLibwebsockets {
                         
                         if ( bReceivingLargeMessage){
                             largeMessage += args.message;
-                            if ( bytesLeft == 0 && libwebsocket_is_final_fragment( conn->ws )){
+                            if ( bytesLeft == 0 && lws_is_final_fragment( conn->ws )){
                                 args.message = largeMessage;
                                 bFinishedReceiving      = true;
                                 bReceivingLargeMessage  = false;
@@ -290,7 +298,7 @@ namespace ofxLibwebsockets {
     }
 
     //--------------------------------------------------------------
-    unsigned int Reactor::_http(struct libwebsocket *ws,
+    unsigned int Reactor::_http(struct lws *ws,
                               const char* const _url){
         std::string url(_url);
         if (url == "/")
@@ -317,7 +325,7 @@ namespace ofxLibwebsockets {
         if (ext == "css")
             mimetype = "text/css";
         
-        if (libwebsockets_serve_http_file(context, ws, file.c_str(), mimetype.c_str(), "", 0) < 0){
+        if (lws_serve_http_file(ws, file.c_str(), mimetype.c_str(), "", 0) < 0){
             ofLog( OF_LOG_WARNING, "[ofxLibwebsockets] Failed to send HTTP file "+ file + " for "+ url);
         }
         

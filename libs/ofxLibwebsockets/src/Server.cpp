@@ -80,25 +80,28 @@ namespace ofxLibwebsockets {
         document_root = defaultOptions.documentRoot = options.documentRoot;
         
         // NULL protocol is required by LWS
-        struct libwebsocket_protocols null_protocol = { NULL, NULL, 0 };
+        struct lws_protocols null_protocol = { NULL, NULL, 0 };
         
         //setup protocols
-        lws_protocols.clear();
+        internal_protocols.clear();
         
         //register main protocol
         registerProtocol( options.protocol, serverProtocol );
         
         //register any added protocols
-        for (int i=0; i<protocols.size(); ++i){
-            struct libwebsocket_protocols lws_protocol = {
-                ( protocols[i].first == "NULL" ? NULL : protocols[i].first.c_str() ),
+        for ( auto & it : protocols ){
+            auto * p = it.second;
+            auto s = it.first;
+            
+            struct lws_protocols lws_protocol = {
+                ( s == "NULL" ? NULL : s.c_str() ),
                 lws_callback,
-                protocols[i].second->rx_buffer_size,
-                protocols[i].second->rx_buffer_size
+                p->rx_buffer_size,
+                p->rx_buffer_size
             };
-            lws_protocols.push_back(lws_protocol);
+            internal_protocols.push_back(lws_protocol);
         }
-        lws_protocols.push_back(null_protocol);
+        internal_protocols.push_back(null_protocol);
         
         // make cert paths  null if not using ssl
         const char * sslCert = NULL;
@@ -113,8 +116,8 @@ namespace ofxLibwebsockets {
         struct lws_context_creation_info info;
         memset(&info, 0, sizeof info);
         info.port = port;
-        info.protocols = &lws_protocols[0];
-        info.extensions = libwebsocket_get_internal_extensions();
+        info.protocols = &internal_protocols[0];
+        info.extensions = lws_get_internal_extensions();
         info.ssl_cert_filepath = sslCert;
         info.ssl_private_key_filepath = sslKey;
         info.gid = -1;
@@ -128,7 +131,7 @@ namespace ofxLibwebsockets {
         
         info.options = opts;
 
-        context = libwebsocket_create_context(&info);
+        context = lws_create_context(&info);
         
         if (context == NULL){
             ofLogError() << "[ofxLibwebsockets] libwebsockets init failed";
@@ -147,14 +150,14 @@ namespace ofxLibwebsockets {
             ofSleepMillis(10);
             waitForThread(false);
         }
-		libwebsocket_context_destroy(context);
+		lws_context_destroy(context);
 	}
 
     //--------------------------------------------------------------
     void Server::broadcast( string message ){
         // loop through all protocols and broadcast!
-        for (int i=0; i<protocols.size(); i++){
-            protocols[i].second->broadcast( message );
+        for ( auto & it : protocols ){
+            it.second->broadcast( message );
         }
     }
     
@@ -227,17 +230,17 @@ namespace ofxLibwebsockets {
                     connections[i]->update();
                 }
             }
-            for (int i=0; i<protocols.size(); ++i){
-                if (protocols[i].second != NULL){
+            for ( auto & it : protocols ){
+                if (it.second != NULL){
                     //lock();
-                    protocols[i].second->execute();
+                    it.second->execute();
                     //unlock();
                 }
             }
             
             if (lock())
             {
-                libwebsocket_service(context, waitMillis);
+                lws_service(context, waitMillis);
                 unlock();
             }
         }

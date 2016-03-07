@@ -58,8 +58,8 @@ namespace ofxLibwebsockets {
         
         void setupAddress();
         
-        libwebsocket_context* context;
-        libwebsocket* ws;
+        lws_context* context;
+        lws* ws;
         Reactor*  reactor;
         Protocol* protocol;
         
