@@ -104,5 +104,6 @@ namespace ofxLibwebsockets {
 
         bool bShouldReconnect;
         uint64_t lastReconnectTime;
+        
     };
 };

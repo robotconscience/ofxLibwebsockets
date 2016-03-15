@@ -42,6 +42,10 @@ namespace ofxLibwebsockets {
     }
 
     //--------------------------------------------------------------
+    void Reactor::setWaitMillis(int millis){
+        waitMillis = millis;
+    }
+    //--------------------------------------------------------------
     void Reactor::close(Connection* const conn){
         if (conn != NULL && conn->ws != NULL){
           // In the current git for the library, libwebsocket_close_and_free_session() has been removed from the public api.
