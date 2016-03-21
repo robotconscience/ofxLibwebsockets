@@ -222,7 +222,7 @@ namespace ofxLibwebsockets {
     }
     
     //--------------------------------------------------------------
-    void Client::sendBinary( ofBuffer buffer ){
+    void Client::sendBinary( ofBuffer & buffer ){
         if ( connection != NULL){
             connection->sendBinary(buffer);
         }

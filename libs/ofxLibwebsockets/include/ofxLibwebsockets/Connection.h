@@ -45,7 +45,7 @@ namespace ofxLibwebsockets {
             sendBinary( (char *) image.getPixels().getData(), size );
         }
         
-        void sendBinary( ofBuffer buffer );
+        void sendBinary( ofBuffer & buffer );
         void sendBinary( unsigned char * data, unsigned int size );
         void sendBinary( char * data, unsigned int size );
         

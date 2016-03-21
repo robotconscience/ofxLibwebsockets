@@ -65,7 +65,7 @@ namespace ofxLibwebsockets {
         }
         
         // send any binary data
-        void sendBinary( ofBuffer buffer );
+        void sendBinary( ofBuffer & buffer );
         void sendBinary( unsigned char * data, int size );
         void sendBinary( char * data, int size );
         
