@@ -33,8 +33,6 @@ namespace ofxLibwebsockets {
         virtual bool allowClient(const std::string name,
                                  const std::string ip) const;
         
-        void broadcast(const std::string& message);
-        
         unsigned int idx;
         unsigned int rx_buffer_size;
         
@@ -49,7 +47,6 @@ namespace ofxLibwebsockets {
         virtual void onerror    (Event& args);
         virtual void onidle     (Event& args);
         virtual void onmessage  (Event& args);
-        virtual void onbroadcast(Event& args);
         
         // internal events: called by Reactor
         ofEvent<Event> onconnectEvent;
@@ -58,7 +55,6 @@ namespace ofxLibwebsockets {
         ofEvent<Event> onerrorEvent;
         ofEvent<Event> onidleEvent;
         ofEvent<Event> onmessageEvent;
-        ofEvent<Event> onbroadcastEvent;
         
         bool defaultAllowPolicy;
         std::map<std::string, bool> allowRules;
@@ -74,7 +70,6 @@ namespace ofxLibwebsockets {
         void _onerror     (Event& args);
         void _onidle      (Event& args);
         void _onmessage   (Event& args);
-        void _onbroadcast (Event& args);
         
         bool _allowClient(const std::string name,
                           const std::string ip) const;

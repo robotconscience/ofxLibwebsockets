@@ -20,7 +20,6 @@ namespace ofxLibwebsockets {
         ofAddListener(oncloseEvent,        this, &Protocol::_onclose);
         ofAddListener(onidleEvent,         this, &Protocol::_onidle);
         ofAddListener(onmessageEvent,      this, &Protocol::_onmessage);
-        ofAddListener(onbroadcastEvent,    this, &Protocol::_onbroadcast);
         ofAddListener(onerrorEvent,         this, &Protocol::_onerror);
         rx_buffer_size = OFX_LWS_MAX_BUFFER;
         idle = false;
@@ -33,7 +32,6 @@ namespace ofxLibwebsockets {
         ofRemoveListener(oncloseEvent,     this, &Protocol::_onclose);
         ofRemoveListener(onidleEvent,      this, &Protocol::_onidle);
         ofRemoveListener(onmessageEvent,   this, &Protocol::_onmessage);
-        ofRemoveListener(onbroadcastEvent, this, &Protocol::_onbroadcast);
         ofRemoveListener(onerrorEvent,         this, &Protocol::_onerror);
         rx_buffer_size = OFX_LWS_MAX_BUFFER;
         idle = false;
@@ -94,24 +92,4 @@ namespace ofxLibwebsockets {
     }
 
     void Protocol::onmessage(Event&args){}
-
-    //--------------------------------------------------------------
-    void Protocol::_onbroadcast(Event& args){ onbroadcast(args); }
-
-    void Protocol::onbroadcast(Event&args){ args.conn.send(args.message); }
-
-    //--------------------------------------------------------------
-    void Protocol::broadcast(const std::string& message){
-        std::string buf(LWS_SEND_BUFFER_PRE_PADDING+message.size()+LWS_SEND_BUFFER_POST_PADDING, 0);
-        unsigned char *p = (unsigned char*)&buf[LWS_SEND_BUFFER_PRE_PADDING];
-        
-        if (reactor != NULL)
-        {
-            memcpy(p, message.c_str(), message.size());
-            //int n = libwebsockets_broadcast(&reactor->lws_protocols[idx], p, message.size());
-            int n = libwebsocket_callback_on_writable_all_protocol(&reactor->lws_protocols[idx]);
-            if (n < 0)
-                fprintf(stderr, "ERROR writing to socket");
-        }
-    }
 }

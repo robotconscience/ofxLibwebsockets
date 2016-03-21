@@ -149,14 +149,6 @@ namespace ofxLibwebsockets {
         }
 		libwebsocket_context_destroy(context);
 	}
-
-    //--------------------------------------------------------------
-    void Server::broadcast( string message ){
-        // loop through all protocols and broadcast!
-        for (int i=0; i<protocols.size(); i++){
-            protocols[i].second->broadcast( message );
-        }
-    }
     
     //--------------------------------------------------------------
     void Server::send( string message ){
