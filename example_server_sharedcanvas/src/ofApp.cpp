@@ -120,16 +120,16 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     
   try{
     // trace out string messages or JSON messages!
-    if ( !args.json.isNull() ){
-        ofPoint point = ofPoint( args.json["point"]["x"].asFloat(), args.json["point"]["y"].asFloat() );
+    if ( !args.json.is_null() ){
+        ofPoint point = ofPoint( args.json["point"]["x"], args.json["point"]["y"] );
         
         // for some reason these come across as strings via JSON.stringify!
-        int r = ofToInt(args.json["color"]["r"].asString());
-        int g = ofToInt(args.json["color"]["g"].asString());
-        int b = ofToInt(args.json["color"]["b"].asString());
+        int r = ofToInt(args.json["color"]["r"]);
+        int g = ofToInt(args.json["color"]["g"]);
+        int b = ofToInt(args.json["color"]["b"]);
         ofColor color = ofColor( r, g, b );
         
-        int _id = ofToInt(args.json["id"].asString());
+        int _id = (args.json["id"]);
         
         map<int, Drawing*>::const_iterator it = drawings.find(_id);
         Drawing * d = it->second;

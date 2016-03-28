@@ -6,11 +6,6 @@ void ofApp::setup(){
     // - pass in true after port to set up with SSL
     //bool connected = server.setup( 9092 );
     
-    // Uncomment this to set up a server with a protocol
-    // Right now, clients created via libwebsockets that are connecting to servers
-    // made via libwebsockets seem to want a protocol. Hopefully this gets fixed, 
-    // but until now you have to do something like this:
-    
     //setup video grabber
     video.listDevices();
     bVideoSetup = video.initGrabber( 320, 240 );
@@ -35,7 +30,6 @@ void ofApp::update(){
     video.update();
     if ( bVideoSetup && video.isFrameNew() ){
         server.sendBinary( video );
-        //messages.push_back( "Sending image" );
     }
 }
 
@@ -82,8 +76,8 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
     
     // trace out string messages or JSON messages!
-    if ( !args.json.isNull() ){
-        messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
+    if ( !args.json.is_null() ){
+        messages.push_back("New message: " + args.json.dump() + " from " + args.conn.getClientName() );
     } else {
         messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
     }

@@ -7,9 +7,6 @@
 		<ClCompile Include="src\main.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp">
-			<Filter>addons\ofxLibwebsockets\libs\jsoncpp</Filter>
-		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Client.cpp">
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
 		</ClCompile>
@@ -26,6 +23,9 @@
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Server.cpp">
+			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Util.cpp">
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.cpp">
@@ -47,12 +47,6 @@
 		</Filter>
 		<Filter Include="addons\ofxLibwebsockets\libs">
 			<UniqueIdentifier>{93A2255B-E819-7999-658F-5C8B}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLibwebsockets\libs\jsoncpp">
-			<UniqueIdentifier>{EDF3DFA8-3A48-F2BE-828A-56B4}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLibwebsockets\libs\jsoncpp\json">
-			<UniqueIdentifier>{E61DA5C1-FC26-09C7-51F3-45B4}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxLibwebsockets\libs\libwebsockets">
 			<UniqueIdentifier>{F5CB4033-7B46-FD26-E6BF-225D}</UniqueIdentifier>
@@ -85,12 +79,6 @@
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\src\ofxLibwebsockets.h">
 			<Filter>addons\ofxLibwebsockets\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json-forwards.h">
-			<Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json.h">
-			<Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h">
 			<Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
