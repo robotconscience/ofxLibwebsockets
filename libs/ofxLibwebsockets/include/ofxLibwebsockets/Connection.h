@@ -36,6 +36,8 @@ namespace ofxLibwebsockets {
         Connection(Reactor* const _reactor=NULL, Protocol* const _protocol=NULL);
         
         ~Connection();
+        
+        
         void close();
         void send(const std::string& message);
         
