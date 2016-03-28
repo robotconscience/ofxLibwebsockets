@@ -65,7 +65,7 @@ namespace ofxLibwebsockets {
         }
         
         // send any binary data
-        void sendBinary( ofBuffer buffer );
+        void sendBinary( ofBuffer & buffer );
         void sendBinary( unsigned char * data, int size );
         void sendBinary( char * data, int size );
         
@@ -76,7 +76,6 @@ namespace ofxLibwebsockets {
             ofAddListener( clientProtocol.oncloseEvent, app, &T::onClose);
             ofAddListener( clientProtocol.onidleEvent, app, &T::onIdle);
             ofAddListener( clientProtocol.onmessageEvent, app, &T::onMessage);
-            ofAddListener( clientProtocol.onbroadcastEvent, app, &T::onBroadcast);
         }
         
         // get pointer to libwebsockets connection wrapper

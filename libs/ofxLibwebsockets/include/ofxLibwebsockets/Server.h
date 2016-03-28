@@ -59,11 +59,7 @@ namespace ofxLibwebsockets {
         // close the server
         void close();
         
-        // broadcast a message to all connections
-        void broadcast( string message );
-        
-        // send to all connections 
-        // (sends normal message instead of broadcast)
+        // send to all connections
         void send( string message );
         
         // send anything that has pixels to all connections
@@ -81,7 +77,7 @@ namespace ofxLibwebsockets {
         }
         
         // send any binary data to all connections
-        void sendBinary( ofBuffer buffer );
+        void sendBinary( ofBuffer & buffer );
         void sendBinary( unsigned char * data, int size );
         void sendBinary( char * data, int size );
         
@@ -95,7 +91,6 @@ namespace ofxLibwebsockets {
             ofAddListener( serverProtocol.oncloseEvent, app, &T::onClose);
             ofAddListener( serverProtocol.onidleEvent, app, &T::onIdle);
             ofAddListener( serverProtocol.onmessageEvent, app, &T::onMessage);
-            ofAddListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
         }
         
         template<class T>
@@ -105,7 +100,6 @@ namespace ofxLibwebsockets {
             ofRemoveListener( serverProtocol.oncloseEvent, app, &T::onClose);
             ofRemoveListener( serverProtocol.onidleEvent, app, &T::onIdle);
             ofRemoveListener( serverProtocol.onmessageEvent, app, &T::onMessage);
-            ofRemoveListener( serverProtocol.onbroadcastEvent, app, &T::onBroadcast);
         }
         
         //getters
