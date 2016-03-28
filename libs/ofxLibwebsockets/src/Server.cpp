@@ -30,7 +30,7 @@ namespace ofxLibwebsockets {
     //--------------------------------------------------------------
     Server::Server(){
         context = NULL;
-        waitMillis = 0;
+        waitMillis = 1;
         reactors.push_back(this);
         
         defaultOptions = defaultServerOptions();
@@ -240,6 +240,7 @@ namespace ofxLibwebsockets {
                 libwebsocket_service(context, waitMillis);
                 unlock();
             }
+            yield();
         }
     }
 }

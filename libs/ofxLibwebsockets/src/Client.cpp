@@ -35,8 +35,7 @@ namespace ofxLibwebsockets {
     Client::Client(){
         context = NULL;
         connection = NULL;
-        waitMillis = 0;
-        //count_pollfds = 0;
+        waitMillis = 1;
         reactors.push_back(this);
         
         defaultOptions = defaultClientOptions();
@@ -277,6 +276,7 @@ namespace ofxLibwebsockets {
                     int n = libwebsocket_service(context, waitMillis);
                     unlock();
                 }
+                yield();
             } else {
 				stopThread();
 				if ( context != NULL ){

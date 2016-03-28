@@ -9,14 +9,14 @@ void ofApp::setup(){
     // OR optionally use SSL
 //     client.connect("echo.websocket.org", true);
     
-    // advanced: set keep-alive timeouts for events like
-    // loss of internet
-    
     // 1 - get default options
 //    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
     
     // 2 - set basic params
 //    options.host = "echo.websocket.org";
+    
+    // advanced: set keep-alive timeouts for events like
+    // loss of internet
     
     // 3 - set keep alive params
     // BIG GOTCHA: on BSD systems, e.g. Mac OS X, these time params are system-wide
