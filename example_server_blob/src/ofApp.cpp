@@ -186,8 +186,8 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
         
         // trace out string messages or JSON messages!
         // args.json is null if badly formed or just not JOSN
-        if ( !args.json.is_null() ){
-            messages.push_back("New message: " + args.json.dump() + " from " + args.conn.getClientName() );
+        if ( !args.json.isNull() ){
+            messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
         } else {
             messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
         }

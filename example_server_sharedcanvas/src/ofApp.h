@@ -30,6 +30,8 @@ class ofApp : public ofBaseApp{
         map<int, Drawing *> drawings;
         int             canvasID;
     
+        vector<Drawing *> toDelete;
+    
         // websocket methods
         void onConnect( ofxLibwebsockets::Event& args );
         void onOpen( ofxLibwebsockets::Event& args );

@@ -173,6 +173,7 @@
 	<ItemGroup>
 		<ClCompile Include="src\main.cpp" />
 		<ClCompile Include="src\ofApp.cpp" />
+		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp" />
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Client.cpp" />
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Connection.cpp" />
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Events.cpp" />
@@ -184,6 +185,8 @@
 	<ItemGroup>
 		<ClInclude Include="src\ofApp.h" />
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\src\ofxLibwebsockets.h" />
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json-forwards.h" />
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json.h" />
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h" />
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\lws_config.h" />
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Client.h" />

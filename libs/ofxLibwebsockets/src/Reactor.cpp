@@ -251,29 +251,13 @@ namespace ofxLibwebsockets {
                         }
                         
                         if (_message != NULL && len > 0 && (!bReceivingLargeMessage || bFinishedReceiving) ){
+                            args.json = Json::Value( Json::nullValue );
                             
-                            args.json.clear();
-                            
-                            bool parsingSuccessful = false;
-                            
-                            if ( bParseJSON ){
-                                try {
-                                    args.json = ofJson::parse( args.message );
-                                    parsingSuccessful = !args.json.is_null();
-                                }
-                                catch( ... ){
-                                    // We're not logging any error here
-                                    // because most of the time we don't
-                                    // really expect Json anyways
-                                    args.json.clear();
-                                    parsingSuccessful = false;
-                                }
-                            }
+                            bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
                             if ( !parsingSuccessful ){
                                 // report to the user the failure and their locations in the document.
-                                // todo: is there an error message from nlohmann::json?
-                                ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] Failed to parse JSON" );
-                                args.json.clear();
+                                ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
+                                args.json = Json::Value( Json::nullValue );
                             }
                         }
                     }

@@ -8,6 +8,7 @@
 #pragma once 
 
 #include "ofMain.h"
+#include "json.h"
 
 namespace ofxLibwebsockets {
     
@@ -19,7 +20,7 @@ namespace ofxLibwebsockets {
         
         Connection& conn;
         std::string message; // message from ws OR error message if error
-        ofJson json;
+        Json::Value json;
         
         // binary data
         bool isBinary;

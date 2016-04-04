@@ -29,6 +29,14 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    if ( toDelete.size() > 0 ){
+        for ( auto & i : toDelete ){
+            drawings.erase(i->_id);
+            
+            server.send("{\"erase\":\"" + ofToString( i->_id ) + "\"}" );
+        }
+        toDelete.clear();
+    }
 }
 
 //--------------------------------------------------------------
@@ -96,15 +104,11 @@ void ofApp::onOpen( ofxLibwebsockets::Event& args ){
 void ofApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
     // remove from color map
-    
-    map<int, Drawing*>::iterator it = drawings.begin();
-    
-    for (it; it != drawings.end(); ++it){
-        Drawing * d = it->second;
+    for ( auto & it : drawings){
+        Drawing * d = it.second;
         if ( *d->conn == args.conn ){
+            toDelete.push_back(it.second);
             d->conn == NULL;
-            server.send("{\"erase\":\"" + ofToString( it->second->_id ) + "\"}" );
-            drawings.erase( it );
         }
     }
 }
@@ -120,16 +124,16 @@ void ofApp::onMessage( ofxLibwebsockets::Event& args ){
     
   try{
     // trace out string messages or JSON messages!
-    if ( !args.json.is_null() ){
-        ofPoint point = ofPoint( args.json["point"]["x"], args.json["point"]["y"] );
+    if ( !args.json.isNull() ){
+        ofPoint point = ofPoint( args.json["point"]["x"].asFloat(), args.json["point"]["y"].asFloat() );
         
         // for some reason these come across as strings via JSON.stringify!
-        int r = ofToInt(args.json["color"]["r"]);
-        int g = ofToInt(args.json["color"]["g"]);
-        int b = ofToInt(args.json["color"]["b"]);
+        int r = ofToInt(args.json["color"]["r"].asString());
+        int g = ofToInt(args.json["color"]["g"].asString());
+        int b = ofToInt(args.json["color"]["b"].asString());
         ofColor color = ofColor( r, g, b );
         
-        int _id = (args.json["id"]);
+        int _id = ofToInt(args.json["id"].asString());
         
         map<int, Drawing*>::const_iterator it = drawings.find(_id);
         Drawing * d = it->second;

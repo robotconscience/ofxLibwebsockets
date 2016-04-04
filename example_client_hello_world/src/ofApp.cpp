@@ -5,7 +5,6 @@ void ofApp::setup(){
     ofBackground(0);
     ofSetLogLevel(OF_LOG_VERBOSE);
     // basic connection:
-    client.setWaitMillis(100);
      client.connect("echo.websocket.org");
     // OR optionally use SSL
 //     client.connect("echo.websocket.org", true);

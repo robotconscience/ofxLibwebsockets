@@ -75,6 +75,9 @@ namespace ofxLibwebsockets {
         // maybe this should be a map?
         vector<Connection *> connections;
         
+    private:
+        Json::Reader reader;
+        
     };
     
     extern vector<Reactor *> reactors;
