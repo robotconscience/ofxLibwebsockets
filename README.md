@@ -104,7 +104,7 @@
 
 ## Building libwebockets
 
-ofxLibwebsockets uses [libwebsockets 1.5](https://github.com/warmcat/libwebsockets/releases/tag/v1.5-chrome47-firefox41)
+ofxLibwebsockets uses [libwebsockets 1.4](https://github.com/warmcat/libwebsockets/releases/tag/v1.4-chrome43-firefox-36)
 
 ### OS X
 
