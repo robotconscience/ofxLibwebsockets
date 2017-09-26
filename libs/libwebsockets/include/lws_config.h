@@ -17,10 +17,10 @@
 #define LWS_BUILD_HASH "3ae1bad"
 
 /* Build with OpenSSL support */
-#define LWS_OPENSSL_SUPPORT
+#define LWS_OPENSSL_SUPPORT 0
 
 /* The client should load and trust CA root certs it finds in the OS */
-#define LWS_SSL_CLIENT_USE_OS_CA_CERTS
+#define LWS_SSL_CLIENT_USE_OS_CA_CERTS 0
 
 /* Sets the path where the client certs should be installed. */
 #define LWS_OPENSSL_CLIENT_CERTS "../share"
@@ -56,93 +56,93 @@
 /* #undef LWS_BUILTIN_GETIFADDRS */
 
 /* Define to 1 if you have the `bzero' function. */
-#define HAVE_BZERO
+#define HAVE_BZERO 0
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H
+#define HAVE_DLFCN_H 0
 
 /* Define to 1 if you have the <fcntl.h> header file. */
-#define HAVE_FCNTL_H
+#define HAVE_FCNTL_H 0
 
 /* Define to 1 if you have the `fork' function. */
-#define HAVE_FORK
+#define HAVE_FORK 0
 
 /* Define to 1 if you have the `getenv’ function. */
-#define HAVE_GETENV
+#define HAVE_GETENV 0
 
 /* Define to 1 if you have the <in6addr.h> header file. */
 /* #undef HAVE_IN6ADDR_H */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H
+#define HAVE_INTTYPES_H 0
 
 /* Define to 1 if you have the `ssl' library (-lssl). */
 /* #undef HAVE_LIBSSL */
 
 /* Define to 1 if your system has a GNU libc compatible `malloc' function, and
    to 0 otherwise. */
-#define HAVE_MALLOC
+#define HAVE_MALLOC 0
 
 /* Define to 1 if you have the <memory.h> header file. */
-#define HAVE_MEMORY_H
+#define HAVE_MEMORY_H 0
 
 /* Define to 1 if you have the `memset' function. */
-#define HAVE_MEMSET
+#define HAVE_MEMSET 0
 
 /* Define to 1 if you have the <netinet/in.h> header file. */
-#define HAVE_NETINET_IN_H
+#define HAVE_NETINET_IN_H 0
 
 /* Define to 1 if your system has a GNU libc compatible `realloc' function,
    and to 0 otherwise. */
-#define HAVE_REALLOC
+#define HAVE_REALLOC 0
 
 /* Define to 1 if you have the `socket' function. */
-#define HAVE_SOCKET
+#define HAVE_SOCKET 0
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#define HAVE_STDINT_H
+#define HAVE_STDINT_H 0
 
 /* Define to 1 if you have the <stdlib.h> header file. */
-#define HAVE_STDLIB_H
+#define HAVE_STDLIB_H 0
 
 /* Define to 1 if you have the `strerror' function. */
-#define HAVE_STRERROR
+#define HAVE_STRERROR 0
 
 /* Define to 1 if you have the <strings.h> header file. */
-#define HAVE_STRINGS_H
+#define HAVE_STRINGS_H 0
 
 /* Define to 1 if you have the <string.h> header file. */
-#define HAVE_STRING_H
+#define HAVE_STRING_H 0
 
 /* Define to 1 if you have the <sys/prctl.h> header file. */
-#define HAVE_SYS_PRCTL_H
+#define HAVE_SYS_PRCTL_H 0
 
 /* Define to 1 if you have the <sys/socket.h> header file. */
-#define HAVE_SYS_SOCKET_H
+#define HAVE_SYS_SOCKET_H 0
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
-#define HAVE_SYS_STAT_H
+#define HAVE_SYS_STAT_H 0
 
 /* Define to 1 if you have the <sys/types.h> header file. */
-#define HAVE_SYS_TYPES_H
+#define HAVE_SYS_TYPES_H 0
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#define HAVE_UNISTD_H
+#define HAVE_UNISTD_H 0
 
 /* Define to 1 if you have the `vfork' function. */
-#define HAVE_VFORK
+#define HAVE_VFORK 0
 
 /* Define to 1 if you have the <vfork.h> header file. */
 /* #undef HAVE_VFORK_H */
 
 /* Define to 1 if `fork' works. */
-#define HAVE_WORKING_FORK
+#define HAVE_WORKING_FORK 0
 
 /* Define to 1 if `vfork' works. */
-#define HAVE_WORKING_VFORK
+#define HAVE_WORKING_VFORK 0
 
 /* Define to 1 if you have the <zlib.h> header file. */
-#define HAVE_ZLIB_H
+#define HAVE_ZLIB_H 0
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
@@ -164,7 +164,7 @@
 /* #undef size_t */
 
 /* Define to 1 if we have getifaddrs */
-#define HAVE_GETIFADDRS
+#define HAVE_GETIFADDRS 0
 
 /* Define as `fork' if `vfork' does not work. */
 /* #undef vfork */
