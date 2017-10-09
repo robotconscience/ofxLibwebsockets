@@ -123,6 +123,10 @@ android/armeabi-v7a:
 osx:
 	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port
 	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers
+	# OpenSSL support for OSX 10.11+
+	ADDON_INCLUDES += ../../../libs/openssl/include
+	ADDON_LIBS += ../../../libs/openssl/lib/osx/libcrypto.a
+    ADDON_LIBS += ../../../libs/openssl/lib/osx/libssl.a
 
 	# OpenSSL support for OSX 10.11+
 	ADDON_INCLUDES += ../../../libs/openssl/include
