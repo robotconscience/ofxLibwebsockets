@@ -124,6 +124,11 @@ osx:
 	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port
 	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers
 
+	# OpenSSL support for OSX 10.11+
+	ADDON_INCLUDES += ../../../libs/openssl/include
+	ADDON_LIBS += ../../../libs/openssl/lib/osx/crypto.a
+    ADDON_LIBS += ../../../libs/openssl/lib/osx/ssl.a
+
 ios:
 	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port/.*
 	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers/.*
