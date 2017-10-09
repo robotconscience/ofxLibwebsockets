@@ -127,7 +127,11 @@
 #define HAVE_SYS_TYPES_H
 
 /* Define to 1 if you have the <unistd.h> header file. */
+#if defined(__APPLE__) && !defined(__IOS__)
+#define HAVE_UNISTD_H 1
+#else
 #define HAVE_UNISTD_H
+#endif
 
 /* Define to 1 if you have the `vfork' function. */
 #define HAVE_VFORK
