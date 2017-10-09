@@ -1,11 +1,11 @@
-#ofxLibwebsockets
+# ofxLibwebsockets
 * Add the power of [WebSockets](http://www.websocket.org/) to your openFrameworks project!
 * openframeworks wrapper for libwebsockets (http://git.warmcat.com/cgi-bin/cgit/libwebsockets/) 
 * implements both client and server functionality of libwebsockets
 * includes support for sending text (strings) and binary data
 * based on Paul Reimer's work on ofxWebUI (https://github.com/paulreimer/ofxWebUI) and jason vancleave's ofxLibWebSockets (https://github.com/jvcleave/ofxLibWebSockets)
 
-##Examples: Basic
+## Examples: Basic
 * example_client_hello_world
 	* The simplest example: open up a Websocket to echo.websocket.org and say "hello"!
 * example_server_echo
@@ -16,7 +16,7 @@
 	* example_server_sharedcanvas + example_client_sharedcanvas
 	* Clients in openFrameworks and javascript can collaboratively draw on a canvas
 
-##Examples: Advanced
+## Examples: Advanced
 * basic binary
 	* example_server_binary and example_server_binaryvideo
 	* demonstrates a custom binary setup, sending the raw pixels from OF to javascript
@@ -32,11 +32,11 @@
 	* example_particles_server and example_particles_client
 		* demonstrates how to sync GPU particles (from the OF GPU particle example) via binary websockets
 
-##A note on license
+## A note on license
 * libwebsockets is released under a LGPL v2.1, with a special rider that programs that link against a statically built version of the library do not count as derivative, and are not bound to the LGPL v2.1 license conditions. Thus this addon comes with statically built libraries to provide the flexibility of the MIT license.
 * https://github.com/warmcat/libwebsockets/blob/master/LICENSE
 
-##Adding to Projects
+## Adding to Projects
 * OS X
 	* Via OF Project Generator:
 		1. Delete ofxLibwebsockets/libs/libwebsockets/include/win32port
