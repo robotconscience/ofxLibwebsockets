@@ -19,8 +19,6 @@ namespace ofxLibwebsockets {
     
     class Reactor;
 
-    #include "json.h"
-
     class Protocol
     {
         friend class Reactor;
