@@ -7,8 +7,11 @@
 		<ClCompile Include="src\main.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp">
-			<Filter>addons\ofxLibwebsockets\libs\jsoncpp</Filter>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Client.cpp">
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
@@ -51,12 +54,6 @@
 		<Filter Include="addons\ofxLibwebsockets\libs">
 			<UniqueIdentifier>{93A2255B-E819-7999-658F-5C8B}</UniqueIdentifier>
 		</Filter>
-		<Filter Include="addons\ofxLibwebsockets\libs\jsoncpp">
-			<UniqueIdentifier>{EDF3DFA8-3A48-F2BE-828A-56B4}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLibwebsockets\libs\jsoncpp\json">
-			<UniqueIdentifier>{E61DA5C1-FC26-09C7-51F3-45B4}</UniqueIdentifier>
-		</Filter>
 		<Filter Include="addons\ofxLibwebsockets\libs\libwebsockets">
 			<UniqueIdentifier>{F5CB4033-7B46-FD26-E6BF-225D}</UniqueIdentifier>
 		</Filter>
@@ -75,25 +72,40 @@
 		<Filter Include="addons\ofxLibwebsockets\libs\ofxLibwebsockets\src">
 			<UniqueIdentifier>{D616296F-164E-00EF-4F39-D224}</UniqueIdentifier>
 		</Filter>
+		<Filter Include="addons\ofxLibwebsockets\libs\openssl">
+			<UniqueIdentifier>{A301641F-B041-8B9F-B9AC-C815}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLibwebsockets\libs\openssl\include">
+			<UniqueIdentifier>{037AAB95-9DEF-B7CC-3AC6-55F1}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLibwebsockets\libs\openssl\include\openssl">
+			<UniqueIdentifier>{C3694B6E-D2BB-EDB4-C834-BD6F}</UniqueIdentifier>
+		</Filter>
 		<Filter Include="addons\ofxTurboJpeg">
 			<UniqueIdentifier>{AA36D385-996F-03B4-E46D-16F0}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxTurboJpeg\src">
 			<UniqueIdentifier>{6A930F99-3F8D-C554-4246-10B5}</UniqueIdentifier>
 		</Filter>
+		<Filter Include="addons\ofxTurboJpeg\libs">
+			<UniqueIdentifier>{E89988E0-517E-5979-0FEA-A16B}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxTurboJpeg\libs\turbo-jpeg">
+			<UniqueIdentifier>{449E5AF3-A55F-9AE1-AB9B-4FD6}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxTurboJpeg\libs\turbo-jpeg\include">
+			<UniqueIdentifier>{D05939CB-0715-FCEE-A8E6-C0CF}</UniqueIdentifier>
+		</Filter>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="src\ofApp.h">
 			<Filter>src</Filter>
 		</ClInclude>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\src\ofxLibwebsockets.h">
 			<Filter>addons\ofxLibwebsockets\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json-forwards.h">
-			<Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json.h">
-			<Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h">
 			<Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
@@ -122,8 +134,236 @@
 		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Util.h">
 			<Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\aes.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\asn1.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\asn1t.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\asn1_mac.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\bio.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\blowfish.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\bn.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\buffer.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\camellia.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\cast.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\cmac.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\cms.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\comp.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\conf.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\conf_api.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\crypto.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\des.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\des_old.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\dh.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\dsa.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\dso.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\dtls1.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ebcdic.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ec.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ecdh.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ecdsa.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\engine.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\err.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\evp.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\e_os2.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\hmac.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\idea.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\krb5_asn.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\kssl.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\lhash.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\md4.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\md5.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\mdc2.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\modes.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\objects.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\obj_mac.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ocsp.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\opensslconf.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\opensslv.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ossl_typ.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\pem.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\pem2.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\pkcs12.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\pkcs7.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\pqueue.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\rand.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\rc2.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\rc4.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ripemd.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\rsa.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\safestack.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\seed.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\sha.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\srp.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\srtp.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ssl.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ssl2.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ssl23.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ssl3.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\stack.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\symhacks.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\tls1.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ts.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\txt_db.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ui.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\ui_compat.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\whrlpool.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509v3.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509_vfy.h">
+			<Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
+		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.h">
 			<Filter>addons\ofxTurboJpeg\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxTurboJpeg\libs\turbo-jpeg\include\turbojpeg.h">
+			<Filter>addons\ofxTurboJpeg\libs\turbo-jpeg\include</Filter>
 		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>

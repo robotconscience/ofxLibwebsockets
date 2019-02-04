@@ -251,14 +251,18 @@ namespace ofxLibwebsockets {
                         }
                         
                         if (_message != NULL && len > 0 && (!bReceivingLargeMessage || bFinishedReceiving) ){
-                            args.json = Json::Value( Json::nullValue );
                             
-                            bool parsingSuccessful = ( bParseJSON ? reader.parse( args.message, args.json ) : false);
-                            if ( !parsingSuccessful ){
-                                // report to the user the failure and their locations in the document.
-                                ofLog( OF_LOG_VERBOSE, "[ofxLibwebsockets] Failed to parse JSON\n"+ reader.getFormatedErrorMessages() );
-                                args.json = Json::Value( Json::nullValue );
+                            if ( bParseJSON ){
+                                try {
+                                    args.json = ofJson::parse( args.message );
+                                }
+                                catch( std::exception& e ){
+                                    // report to the user the failure
+                                    args.json.clear();
+                                    ofLogVerbose() << "[ofxLibwebsockets] Failed to parse JSON: " <<  e.what();
+                                }
                             }
+                            
                         }
                     }
                     

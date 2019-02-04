@@ -13,9 +13,9 @@ common:
 	# include search paths, this will be usually parsed from the file system
 	# but if the addon or addon libraries need special search paths they can be
 	# specified here separated by spaces or one per line using +=
-	ADDON_INCLUDES = libs/jsoncpp
-	ADDON_INCLUDES += libs/jsoncpp/json
-	ADDON_INCLUDES += libs/libwebsockets/include/
+	# ADDON_INCLUDES = libs/jsoncpp
+	# ADDON_INCLUDES += libs/jsoncpp/json
+	ADDON_INCLUDES  = libs/libwebsockets/include/
 	ADDON_INCLUDES += libs/ofxLibwebsockets/include
 	ADDON_INCLUDES += libs/ofxLibwebsockets/include/ofxLibwebsockets
 	ADDON_INCLUDES += libs/ofxLibwebsockets/src
@@ -107,11 +107,11 @@ vs:
 
 linuxarmv6l:
 	ADDON_LDFLAGS = -lssl
-	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
+	# ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
 	ADDON_LIBS = libs/libwebsockets/lib/linuxarmv6l/libwebsockets.a
 linuxarmv7l:
 	ADDON_LDFLAGS = -lssl
-	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
+	# ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/%
 	ADDON_LIBS = libs/libwebsockets/lib/linuxarmv7l/libwebsockets.a
 	
 android/armeabi:	
@@ -121,20 +121,20 @@ android/armeabi-v7a:
 	#nothing yet
 
 osx:
-	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port
-	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers
+	# ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port
+	# ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers
 	# OpenSSL support for OSX 10.11+
-	ADDON_INCLUDES += ../../../libs/openssl/include
-	ADDON_LIBS += ../../../libs/openssl/lib/osx/libcrypto.a
-    ADDON_LIBS += ../../../libs/openssl/lib/osx/libssl.a
+	ADDON_INCLUDES 	+= libs/openssl/include
+	ADDON_LIBS 		+= libs/openssl/lib/osx/libcrypto.a
+	ADDON_LIBS 		+= libs/openssl/lib/osx/libssl.a
 
 	# OpenSSL support for OSX 10.11+
-	ADDON_INCLUDES += ../../../libs/openssl/include
-	ADDON_LIBS += ../../../libs/openssl/lib/osx/crypto.a
-    ADDON_LIBS += ../../../libs/openssl/lib/osx/ssl.a
+	# ADDON_INCLUDES += ../../../libs/openssl/include
+	# ADDON_LIBS += ../../../libs/openssl/lib/osx/crypto.a
+	# ADDON_LIBS += ../../../libs/openssl/lib/osx/ssl.a
 
 ios:
-	ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port/.*
-	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers/.*
-	ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/.*
+	# ADDON_INCLUDES_EXCLUDE = libs/libwebsockets/include/win32port/.*
+	# ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port/win32helpers/.*
+	# ADDON_SOURCES_EXCLUDE = libs/libwebsockets/include/win32port/.*
 	ADDON_LIBS = libs/libwebsockets/lib/iosarmv7/libwebsockets.a
