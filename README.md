@@ -58,6 +58,7 @@
 			```
 
 * Windows
+	* Note: On Windows projects must be compiled for 64-bit to run
 	* Via OF Project Generator
 		1. Add ofxLibwebsockets to your addons
 		2. Open your new project
