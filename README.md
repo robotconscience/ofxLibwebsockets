@@ -1,4 +1,8 @@
-# ofxLibwebsockets
+# Note on updating
+* There is a newer repo featuring the latest-and-greatest libwebsockets library here: [ofxLws](https://github.com/pierrep/ofxLws)
+* This repo is no longer supported, but will remain online for folks still using it
+
+# [Deprecated] ofxLibwebsockets
 * Add the power of [WebSockets](http://www.websocket.org/) to your openFrameworks project!
 * openframeworks wrapper for libwebsockets (http://git.warmcat.com/cgi-bin/cgit/libwebsockets/) 
 * implements both client and server functionality of libwebsockets
